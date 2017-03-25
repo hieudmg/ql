@@ -1,0 +1,60 @@
+{% load widget_tweaks %}
+
+<div class="form-group  row">
+    <div class="col-xs-12">
+        <label for="{{ formtr.tongSoTrung.id_for_label }}">Tổng số trứng</label>
+        {% render_field formtr.tongSoTrung class="form-control input-sm" %}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-4">
+        <label for="{{ formtr.GV.id_for_label }}">GV</label>
+        {% render_field formtr.GV class="form-control input-sm" %}
+    </div>
+    <div class="col-xs-4">
+        <label for="{{ formtr.MI.id_for_label }}">MI</label>
+        {% render_field formtr.MI class="form-control input-sm" %}
+    </div>
+    <div class="col-xs-4">
+        <label for="{{ formtr.truongThanh.id_for_label }}">Trưởng thành</label>
+        {% render_field formtr.truongThanh class="form-control input-sm" %}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-4">
+        <label for="{{ formtr.vo.id_for_label }}">Vỡ</label>
+        {% render_field formtr.vo class="form-control input-sm" %}
+    </div>
+    <div class="col-xs-4">
+        <label for="{{ formtr.batThuong.id_for_label }}">Bất thường</label>
+        {% render_field formtr.batThuong class="form-control input-sm" %}
+    </div>
+    <div class="col-xs-4">
+        <label for="{{ formtr.thoaiHoa.id_for_label }}">Thoái hóa</label>
+        {% render_field formtr.thoaiHoa class="form-control input-sm" %}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-6">
+        <label for="{{ formtr.nangNoan.id_for_label }}">Nang noãn</label>
+        {% render_field formtr.nangNoan class="form-control input-sm" %}
+    </div>
+    <div class="col-xs-6">
+        <label for="{{ formtr.thoaiHoaSauICSI.id_for_label }}">Thoái hóa sau ICSI</label>
+        {% render_field formtr.thoaiHoaSauICSI class="form-control input-sm" %}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-6">
+        <label for="{{ formtr.tongSoTrungICSI.id_for_label }}">Tổng số trứng ICSI</label>
+        {% render_field formtr.tongSoTrungICSI class="form-control input-sm" %}
+    </div>
+    <div class="col-xs-6">
+        <label for="{{ formtr.tongSoTrungTT.id_for_label }}">Tổng số trứng thụ tinh</label>
+        {% render_field formtr.tongSoTrungTT class="form-control input-sm" %}
+    </div>
+</div>

@@ -1,0 +1,64 @@
+{% load widget_tweaks %}
+{% load static %}
+
+
+<form method="post" action="{% url 'thongtin_edit' form.instance.pk %}" class="js-thongtin-edit-form">
+  {% csrf_token %}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+      <h3 class="modal-title">Chỉnh sửa</h3>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="col-md-12 row">
+                <h6>
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                    Thông tin
+                </h6>
+                {% include 'benhnhan/includes/thongtin_form_for_edit.html' %}
+            </div>
+            <div class="col-md-12 row">
+                <h6>
+                    <span class="fa fa-eercast"></span>
+                    Phôi
+                </h6>
+                {% include 'benhnhan/includes/phoi_form.html' %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12 row">
+                <h6>
+                    <span class="glyphicon glyphicon-record"></span>
+                    Trứng
+                </h6>
+                {% include 'benhnhan/includes/trung_form.html' %}
+            </div>
+            <div class="col-md-12 row">
+                <h6>
+                    <span class="fa fa-area-chart"></span>
+                    Tinh dịch đồ ngày chọc hút
+                </h6>
+                {% include 'benhnhan/includes/tinhdich_form.html' %}
+            </div>
+            <div class="col-md-12 row">
+                <h6>
+                    <span class="fa fa-thermometer-0"></span>
+                    Trữ phôi
+                </h6>
+                {% include 'benhnhan/includes/truphoi_form.html' %}
+            </div>
+        </div>
+	</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">
+        <span class="fa fa-times"></span>
+        Đóng</button>
+    <button type="submit" class="btn btn-primary">
+        <span class="fa fa-pencil-square-o"></span>
+        Sửa</button>
+  </div>
+</form>

@@ -1,0 +1,16 @@
+{% load widget_tweaks %}
+
+<div class="form-group row">
+    <div class="col-xs-4">
+        <label for="{{ formtd.matDo.id_for_label }}">Mật độ</label>
+        {% render_field formtd.matDo class="form-control input-sm" %}
+    </div>
+    <div class="col-xs-4">
+        <label for="{{ formtd.doDiDong.id_for_label }}">Độ di động</label>
+        {% render_field formtd.doDiDong class="form-control input-sm" %}
+    </div>
+    <div class="col-xs-4">
+        <label for="{{ formtd.hinhDang.id_for_label }}">Hình dạng</label>
+        {% render_field formtd.hinhDang class="form-control input-sm" %}
+    </div>
+</div>

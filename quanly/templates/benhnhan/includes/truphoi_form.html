@@ -1,0 +1,117 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<div class="form-group row">
+    <div class="col-xs-12">
+        <label for="{{ formtp.maDongPhoi.id_for_label }}">Mã đông phôi</label>
+        {% render_field formtp.maDongPhoi class="form-control input-sm" %}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-5">
+        <table id="label-table" style="font-size: 200%; background-image: url('{% static 'bckgrn.gif' %}')">
+            <tbody><tr><td><div>
+                {{ formtp.label00 }}
+            </div></td><td><div>
+                {{ formtp.label01 }}
+            </div></td><td><div>
+                {{ formtp.label02 }}
+            </div></td><td><div>
+                {{ formtp.label03 }}
+            </div></td></tr><tr><td><div>
+                {{ formtp.label10 }}
+            </div></td><td><div>
+                {{ formtp.label11 }}
+            </div></td><td><div>
+                {{ formtp.label12 }}
+            </div></td><td><div>
+                {{ formtp.label13 }}
+            </div></td></tr><tr><td><div>
+                {{ formtp.label20 }}
+            </div></td><td><div>
+                {{ formtp.label21 }}
+            </div></td><td><div>
+                {{ formtp.label22 }}
+            </div></td><td><div>
+                {{ formtp.label23 }}
+            </div></td></tr></tbody>
+        </table>
+    </div>
+    <div class="checkbox col-xs-7">
+        <div class="row">
+                <label for="{{ formtp.truPhoiToanBo.id_for_label }}">
+                    {% render_field formtp.truPhoiToanBo %}
+                    <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                    <b>Trữ phôi toàn bộ</b>
+                </label>
+        </div>
+        <div class="row">
+            <label for="{{ formtp.xinTrung.id_for_label }}">
+                {% render_field formtp.xinTrung %}
+                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                <b>Xin trứng</b>
+            </label>
+        </div>
+        <div class="row">
+            <label for="{{ formtp.PICSI.id_for_label }}">
+                {% render_field formtp.PICSI %}
+                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                <b>PICSI</b>
+            </label>
+        </div>
+        <div class="row">
+            <label for="{{ formtp.truLanh.id_for_label }}">
+                {% render_field formtp.truLanh %}
+                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                <b>Trữ lạnh</b>
+            </label>
+        </div>
+        <div class="row">
+            <label for="{{ formtp.TESE.id_for_label }}">
+                {% render_field formtp.TESE %}
+                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                <b>TESE</b>
+            </label>
+        </div>
+        <div class="row">
+            <label for="{{ formtp.PESAMESA.id_for_label }}">
+                {% render_field formtp.PESAMESA %}
+                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                <b>PESA/MESA</b>
+            </label>
+        </div>
+    </div>
+    <div class="checkbox">
+        <div class="col-xs-12">
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.simplecolorpicker.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/jquery.simplecolorpicker.css' %}">
+
+
+<script>
+    $('select[id="id_label00"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    $('select[id="id_label01"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    $('select[id="id_label02"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    $('select[id="id_label03"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    $('select[id="id_label10"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    $('select[id="id_label11"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    $('select[id="id_label12"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    $('select[id="id_label13"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    $('select[id="id_label20"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    $('select[id="id_label21"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    $('select[id="id_label22"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    $('select[id="id_label23"]').simplecolorpicker({picker: true, pickerDelay: 0});
+</script>
+
+<style>
+    #label-table td {
+        border: 5px solid white;
+    }
+    #label-table td div{
+        border: 1px solid black;
+    }
+</style>

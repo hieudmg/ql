@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block javascript %}
+    <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
+    <script src="{% static 'quanly/js/benhnhan.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h2 class="page-header">Thông tin bệnh nhân
+    <span style="float: right">
+        <button type="button"
+                class="btn btn-primary js-thongtin-add"
+                data-url="{% url 'thongtin_add' %}">
+          <span class="glyphicon glyphicon-plus"></span>
+          Thêm
+        </button>
+    </span>
+  </h2>
+
+  <table class="table preventcopy" id="thongtin-table">
+    <thead>
+      <tr>
+        <th>Mã số</th>
+        <th>Tên vợ</th>
+          <th>N/s vợ</th>
+          <th>Tên chồng</th>
+          <th>N/s chồng</th>
+        <th>Bác sĩ</th>
+        <th>Liên hệ</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% include 'benhnhan/includes/thongtin_preview.html' %}
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-thongtin">
+    <div id="modal-thongtin-setup" class="modal-dialog modal-lg">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+    <div class="modal fade" id="modal-trung">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+{% endblock %}

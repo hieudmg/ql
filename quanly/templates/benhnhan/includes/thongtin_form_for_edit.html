@@ -1,0 +1,32 @@
+{% load widget_tweaks %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+<div class="form-group row">
+    <div class="col-sm-12">
+        <label for="{{ form.maSo.id_for_label }}">Mã số</label>
+        {% render_field form.maSo class="form-control input-sm" readonly="" %}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-6">
+        <label for="{{ form.tenVo.id_for_label }}">Tên vợ</label>
+        {% render_field form.tenVo class="form-control input-sm" readonly="" %}
+    </div>
+    <div class="col-xs-6">
+        <label for="{{ form.tenChong.id_for_label }}">Tên chồng</label>
+        {% render_field form.tenChong class="form-control input-sm" readonly="" %}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-8">
+        <label for="{{ form.lienHe.id_for_label }}">Liên hệ</label>
+        {% render_field form.lienHe class="form-control input-sm" readonly="" %}
+    </div>
+    <div class="col-xs-4">
+        <label for="{{ form.bs.id_for_label }}">Bác sĩ</label>
+        {% render_field form.bs class="form-control input-sm" disabled="" %}
+    </div>
+</div>

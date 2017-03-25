@@ -1,0 +1,61 @@
+{% load widget_tweaks %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+<div class="form-group row">
+    <div class="col-sm-12">
+        <label for="{{ form.maSo.id_for_label }}">Mã số</label>
+        {% render_field form.maSo class="form-control input-sm" %}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-8">
+        <label for="{{ form.tenVo.id_for_label }}">Tên vợ</label>
+        {% render_field form.tenVo class="form-control input-sm" %}
+    </div>
+    <div class="col-xs-4">
+        <label for="{{ form.nsVo.id_for_label }}">Năm sinh</label>
+        {% render_field form.nsVo class="form-control input-sm" %}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-8">
+        <label for="{{ form.tenChong.id_for_label }}">Tên chồng</label>
+        {% render_field form.tenChong class="form-control input-sm" %}
+    </div>
+    <div class="col-xs-4">
+        <label for="{{ form.nsChong.id_for_label }}">Năm sinh</label>
+        {% render_field form.nsChong class="form-control input-sm" %}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-8">
+        <label for="{{ form.lienHe.id_for_label }}">Liên hệ</label>
+        {% render_field form.lienHe class="form-control input-sm" %}
+    </div>
+    <div class="col-xs-4">
+        <label for="{{ form.bs.id_for_label }}">Bác sĩ</label>
+        {% render_field form.bs class="form-control input-sm" %}
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="checkbox col-xs-4">
+        <label for="{{ form.hienTinhTrung.id_for_label }}">
+            {% render_field form.hienTinhTrung %}
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            <b>Hiến tinh trùng</b>
+        </label>
+    </div>
+    <div style="top: 4px" class="form-group form-horizontal col-xs-8">
+        <div class="row">
+            <label class="control-label col-xs-3" for="{{ form.hienNoan.id_for_label }}">Hiến noãn</label>
+            <div class="col-xs-9">
+                {% render_field form.hienNoan class="form-control input-sm" %}
+            </div>
+        </div>
+    </div>
+</div>
