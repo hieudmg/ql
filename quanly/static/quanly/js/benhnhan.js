@@ -181,3 +181,64 @@ $(function() {
         }
     });
 });
+
+
+var menu = [{
+        name: 'create',
+        img: 'images/create.png',
+        title: 'create button',
+        fun: function () {
+            alert('i am add button')
+        }
+    }, {
+        name: 'update',
+        img: 'images/update.png',
+        title: 'update button',
+        subMenu: [{
+            name: 'merge',
+            title: 'It will merge row',
+            img:'images/merge.png',
+            fun: function () {
+                alert('It will merge row')
+            }
+        }, {
+            name: 'replace',
+            title: 'It will replace row',
+            img:'images/replace.png',
+            subMenu: [{
+                name: 'replace top 100',
+                img:'images/top.png',
+                fun:function(){
+                alert('It will replace top 100 rows');
+                }
+
+            }, {
+                name: 'replace all',
+                img:'images/all.png',
+                fun:function(){
+                alert('It will replace all rows');
+                }
+            }]
+        }]
+    }, {
+        name: 'delete',
+        img: 'images/delete.png',
+        title: 'delete button',
+        subMenu: [{
+            'name': 'soft delete',
+            img:'images/soft_delete.png',
+            fun:function(){
+            alert('You can recover back');
+            }
+        }, {
+            'name': 'hard delete',
+            img:'images/hard_delete.png',
+            fun:function(){
+            alert('It will delete permanently');
+            }
+        }]
+
+    }];
+
+//Calling context menu
+ $('.context-button-simple').contextMenu(menu);

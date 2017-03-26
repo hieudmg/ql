@@ -2,10 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6b8c3fe-19e3-465a-8a23-6fdda660aefd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/quanly/templates/benhnhan/test.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/contextMenu.js-master/MIT-LICENSE.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/contextMenu.js-master/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/contextMenu.js-master/bower.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/contextMenu.js-master/contextMenu.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/contextMenu.js-master/contextMenu.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/contextMenu.js-master/contextMenu.js.jquery.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/contextMenu.js-master/contextMenu.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/contextMenu.js-master/contextMenu.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/contextMenu.js-master/contextMenu.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quanly/urls.py" afterPath="$PROJECT_DIR$/quanly/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quanly/views.py" afterPath="$PROJECT_DIR$/quanly/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ql/settings.py" afterPath="$PROJECT_DIR$/ql/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quanly/static/quanly/js/benhnhan.js" afterPath="$PROJECT_DIR$/quanly/static/quanly/js/benhnhan.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/quanly/templates/benhnhan/test.html" afterPath="$PROJECT_DIR$/quanly/templates/benhnhan/test.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,8 +32,8 @@
       <file leaf-file-name="benhnhan.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quanly/static/quanly/js/benhnhan.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="183" column="0" lean-forward="true" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
+            <state relative-caret-position="392">
+              <caret line="241" column="0" lean-forward="true" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -32,6 +41,26 @@
       </file>
       <file leaf-file-name="thongtin_form_for_edit.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/includes/thongtin_form_for_edit.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="thongtin_edit.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/includes/thongtin_edit.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quanly/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -50,16 +79,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="truphoi_form.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/includes/truphoi_form.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="trung_form.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/includes/trung_form.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -70,33 +89,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tinhdich_form.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/includes/tinhdich_form.html">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ql/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="252">
+              <caret line="27" column="18" lean-forward="false" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/quanly/urls.py">
+      <file leaf-file-name="test.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="172">
+              <caret line="150" column="18" lean-forward="false" selection-start-line="150" selection-start-column="18" selection-end-line="150" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/test.html">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/contextMenu.js-master/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="103" column="18" lean-forward="true" selection-start-line="103" selection-start-column="18" selection-end-line="103" selection-end-column="24" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -105,22 +122,10 @@
       <file leaf-file-name="thongtin_list.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/thongtin_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="35" column="37" lean-forward="false" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="37" />
-              <folding>
-                <element signature="n#style#0;n#span#0;n#h2#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="thongtin_preview.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/includes/thongtin_preview.html">
-          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <element signature="n#style#0;n#button#0;n#td#7;n#tr#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#h2#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -163,6 +168,7 @@
       <find>context</find>
       <find>Deletedeletr</find>
       <find>delete</find>
+      <find>context-button-simple</find>
     </findStrings>
     <replaceStrings>
       <replace>7</replace>
@@ -172,10 +178,10 @@
       <replace>20</replace>
       <replace>sm</replace>
       <replace />
-      <replace>formp</replace>
       <replace>xs</replace>
       <replace>form-control input-sm</replace>
       <replace>formtd</replace>
+      <replace>context-button</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -210,8 +216,9 @@
         <option value="$PROJECT_DIR$/ql/urls.py" />
         <option value="$PROJECT_DIR$/quanly/urls.py" />
         <option value="$PROJECT_DIR$/quanly/views.py" />
-        <option value="$PROJECT_DIR$/quanly/static/quanly/js/benhnhan.js" />
         <option value="$PROJECT_DIR$/quanly/templates/benhnhan/test.html" />
+        <option value="$PROJECT_DIR$/quanly/static/quanly/js/benhnhan.js" />
+        <option value="$PROJECT_DIR$/ql/settings.py" />
       </list>
     </option>
   </component>
@@ -447,6 +454,20 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="static">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="ql">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
             <PATH_ELEMENT USER_OBJECT="quanly">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
@@ -470,32 +491,6 @@
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
             <PATH_ELEMENT USER_OBJECT="benhnhan">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="ql">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="quanly">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="templates">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="benhnhan">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="includes">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -553,12 +548,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../simple-ajax-crud-master" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\Code\PyCharm\ql\static\css" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Code\PyCharm\ql\static" />
       <recent name="E:\Code\PyCharm\ql\static\js" />
+      <recent name="E:\Code\PyCharm\ql\static\css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Code\PyCharm\ql\static\css" />
     </key>
   </component>
@@ -867,13 +862,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21052632" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33182332" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33182332" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3250283" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -892,6 +888,9 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="processedProjectFiles" value="true" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.md" />
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -905,7 +904,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/js/jquery.fastColorPicker.js" />
     <entry file="file://$PROJECT_DIR$/static/js/palette-color-picker.js" />
     <entry file="file://$PROJECT_DIR$/static/js/palette-color-picker.min.js" />
     <entry file="file://$PROJECT_DIR$/quanly/static/quanly/js/palette.js" />
@@ -1092,14 +1090,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/includes/thongtin_edit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="79" lean-forward="false" selection-start-line="4" selection-start-column="79" selection-end-line="4" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/quanly/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -1123,22 +1113,6 @@
           <folding>
             <element signature="n#style#0;n#div#1;n#div#4;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ql/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2226">
-          <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quanly/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1191,7 +1165,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#style#0;n#button#0;n#td#7;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#td#7;n#tr#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1212,20 +1186,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/thongtin_list.html">
+    <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/includes/thongtin_info.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="35" column="37" lean-forward="false" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="37" />
-          <folding>
-            <element signature="n#style#0;n#span#0;n#h2#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quanly/static/quanly/js/benhnhan.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="183" column="0" lean-forward="true" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1238,7 +1202,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/includes/thongtin_info.html">
+    <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/includes/thongtin_edit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/thongtin_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#h2#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/contextMenu.js-master/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quanly/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1248,8 +1238,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/quanly/templates/benhnhan/test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="103" column="18" lean-forward="true" selection-start-line="103" selection-start-column="18" selection-end-line="103" selection-end-column="24" />
+        <state relative-caret-position="172">
+          <caret line="150" column="18" lean-forward="false" selection-start-line="150" selection-start-column="18" selection-end-line="150" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quanly/static/quanly/js/benhnhan.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="241" column="0" lean-forward="true" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ql/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="27" column="18" lean-forward="false" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
           <folding />
         </state>
       </provider>
