@@ -16,6 +16,10 @@ def bacsi_list(request):
     return render(request, 'benhnhan/bacsi_list.html', {'bacsi': bacsi})
 
 
+def test(request):
+    return render(request, 'benhnhan/test.html')
+
+
 def thongtin_add(request):
     data = dict()
 

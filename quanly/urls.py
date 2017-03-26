@@ -10,4 +10,5 @@ urlpatterns = (
     url(r'^benhnhan/(?P<pk>\d+)/del/$', views.thongtin_del, name='thongtin_del'),
     url(r'^benhnhan/add/trung/$', views.trung_add, name='trung_add'),
     url(r'^bacsi/$', views.bacsi_list, name='bacsi_list'),
+    url(r'^test/$', views.test, name='tese'),
 )

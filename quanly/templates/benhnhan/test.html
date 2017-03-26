@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block javascript %}
+    <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
+    <script src="{% static 'quanly/js/benhnhan.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h2 class="page-header">Test</h2>
+
+    <div><b>Bảng 1:</b></div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+            </tr>
+            <tr class="context-button">
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div><b>Bảng 2:</b></div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+            </tr>
+            <tr class="context-button">
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <div><b>Bảng 3:</b></div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+                <td class="context-button">1</td>
+            </tr>
+            <tr class="context-button">
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+                <td><div class="context-button">3</div></td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
