@@ -1,4 +1,4 @@
-<form method="post" action="{% url 'thongtin_del' tt_del.id %}" class="js-thongtin-del-form">
+<form method="post" action="{% url 'kythuatvien_del' kythuatvien.id %}" class="js-kythuatvien-del-form">
   {% csrf_token %}
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -8,8 +8,7 @@
   </div>
   <div class="modal-body">
     <p class="lead">Thông tin xóa sẽ không thể khôi phục</p>
-    <p class="lead">Tên vợ: {{ tt_del.tenVo }}<br>
-        Tên chồng: {{ tt_del.tenChong }}</p>
+    <p class="lead">Ký thuật viên: {{ kythuatvien.ten }}</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">

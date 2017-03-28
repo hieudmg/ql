@@ -1,0 +1,25 @@
+{% for bs in bacsi %}
+    <tr>
+        <td class="stt"></td>
+        <td>{{ bs.ten }}</td>
+        <td>{{ bs.nghiHuu }}<button class="btn btn-default context-button"
+                    style="float: right;"
+                    data-url="{% url 'bacsi_list' %}{{ bs.id }}/">
+                    <span class="glyphicon glyphicon-wrench"></span></button>
+        </td>
+    </tr>
+  {% empty %}
+    <tr>
+      <td colspan="7" class="text-center bg-warning">Chưa có thông tin</td>
+    </tr>
+{% endfor %}
+
+<style>
+    table {
+    counter-reset: tableCount;
+    }
+    .stt:before {
+        content: counter(tableCount);
+        counter-increment: tableCount;
+    }
+</style>

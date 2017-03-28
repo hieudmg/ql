@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block javascript %}
+    <script src="{% static 'quanly/js/bacsi.js' %}"></script>
+    <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h3 class="page-header">
+  <button class="btn btn-default" title="Làm mới" onclick="history.go(0)"><span class="fa fa-refresh"></span></button>
+      Thông tin bác sĩ
+      <span style="float: right">
+        <button type="button"
+                class="btn btn-primary js-bacsi-add"
+                data-url="{% url 'bacsi_add' %}">
+          <span class="glyphicon glyphicon-plus"></span>
+          Thêm
+        </button>
+    </span>
+  </h3>
+
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <table class="table prevencopy" style="font-size: large" id="bacsi-table">
+                <thead>
+                    <tr>
+                        <th>Số thứ tự</th>
+                        <th>Tên</th>
+                        <th>Đã nghỉ hưu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% include 'bacsi/includes/bacsi_preview.html' %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+
+
+  <div class="modal fade" id="modal-bacsi">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

@@ -13,22 +13,10 @@
 		</div>
 	</div>
     <br><br>
-	<div class="row">
-        <div class="col-md-3"></div>
-        <a href="{% url 'benhnhan_list' %}">
-            <div class="col-md-3 jumbotron well">
-                <h3 class="text-center">
-                    Bệnh nhân
-                </h3>
-		    </div>
-        </a>
-        <a href="{% url 'bacsi_list' %}">
-            <div class="col-md-3 jumbotron well">
-                <h3 class="text-center">
-                    Bác sĩ
-                </h3>
-		    </div>
-        </a>
-	</div>
+    <div class="btn-group btn-group-justified">
+      <a href="{% url 'benhnhan_list' %}" class="btn btn-default btn-lg"><h2>Bệnh nhân</h2></a>
+        <a href="{% url 'bacsi_list' %}" class="btn btn-default btn-lg"><h2>Bác sĩ</h2></a>
+        <a href="{% url 'kythuatvien_list' %}" class="btn btn-default btn-lg"><h2>Kỹ thuật viên</h2></a>
+    </div>
 </div>
 {% endblock %}

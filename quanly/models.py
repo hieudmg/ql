@@ -100,3 +100,8 @@ class TruPhoi(models.Model):
     truLanh = models.BooleanField(default=False)
     TESE = models.BooleanField(default=False)
     PESAMESA = models.BooleanField(default=False)
+
+
+class KyThuatVien(models.Model):
+    ten = models.CharField(max_length=20)
+    nghiHuu = models.BooleanField(default=False)

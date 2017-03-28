@@ -2,18 +2,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from .models import ThongTin, Trung, BacSi, TruPhoi, Phoi, TinhDichDoNgayCH
-from .forms import FormTT, FormTR, FormP, FormTP, FormTD
+from .models import ThongTin, Trung, BacSi, TruPhoi, Phoi, TinhDichDoNgayCH, KyThuatVien
+from .forms import FormTT, FormTR, FormP, FormTP, FormTD, FormBS, FormKTV
 
 
 def thongtin_list(request):
     thongtin = ThongTin.objects.all()
     return render(request, 'benhnhan/thongtin_list.html', {'thongtin': thongtin})
-
-
-def bacsi_list(request):
-    bacsi = BacSi.objects.all()
-    return render(request, 'benhnhan/bacsi_list.html', {'bacsi': bacsi})
 
 
 def test(request):
@@ -88,7 +83,7 @@ def thongtin_edit(request, pk):
         formtp = FormTP(request.POST, instance=thongtin.truphoi)
         formtd = FormTD(request.POST, instance=thongtin.tinhdichdongaych)
         if formtd.is_valid() and formtr.is_valid() and formp.is_valid() and formtp.is_valid():
-           # form.save()
+            # form.save()
             formtr.save()
             formp.save()
             formtp.save()
@@ -153,4 +148,146 @@ def thongtin_del(request, pk):
     else:
         context = {'tt_del': tt_del}
         data['html_form'] = render_to_string('benhnhan/includes/thongtin_del.html', context, request=request)
+    return JsonResponse(data)
+
+
+def bacsi_list(request):
+    bacsi = BacSi.objects.all()
+    return render(request, 'bacsi/bacsi_list.html', {'bacsi': bacsi})
+
+
+def bacsi_add(request):
+    data = dict()
+
+    if request.method == 'POST':
+        formbs = FormBS(request.POST)
+        if formbs.is_valid():
+            formbs.save()
+            bacsi = BacSi.objects.all()
+            data['form_is_valid'] = True
+            data['html_bacsi_preview'] = render_to_string('bacsi/includes/bacsi_preview.html', {
+                'bacsi': bacsi
+            })
+        else:
+            data['form_is_valid'] = False
+    else:
+        formbs = FormBS()
+
+    context = {'formbs': formbs}
+    data['html_form'] = render_to_string('bacsi/includes/bacsi_add.html',
+                                         context,
+                                         request=request
+                                         )
+    return JsonResponse(data)
+
+
+def bacsi_edit(request, pk):
+    data = dict()
+    bacsi = get_object_or_404(BacSi, pk=pk)
+    if request.method == 'POST':
+        formbs = FormBS(request.POST, instance=bacsi)
+        if formbs.is_valid():
+            formbs.save()
+            data['form_is_valid'] = True
+            bacsi = BacSi.objects.all()
+            data['html_bacsi_preview'] = render_to_string('bacsi/includes/bacsi_preview.html', {
+                'bacsi': bacsi
+            })
+        else:
+            data['form_is_valid'] = False
+    else:
+        formbs = FormBS(instance=bacsi)
+
+    context = {'formbs': formbs, }
+    data['html_form'] = render_to_string('bacsi/includes/bacsi_edit.html',
+                                         context,
+                                         request=request
+                                         )
+    return JsonResponse(data)
+
+
+def bacsi_del(request, pk):
+    data = dict()
+    bacsi = get_object_or_404(BacSi, pk=pk)
+    if request.method == 'POST':
+        bacsi.delete()
+        data['form_is_valid'] = True
+        bacsi = BacSi.objects.all()
+        data['html_bacsi_preview'] = render_to_string('bacsi/includes/bacsi_preview.html', {
+            'bacsi': bacsi
+        })
+    else:
+        context = {'bacsi': bacsi}
+        data['html_form'] = render_to_string('bacsi/includes/bacsi_del.html', context, request=request)
+    return JsonResponse(data)
+
+
+def kythuatvien_list(request):
+    kythuatvien = KyThuatVien.objects.all()
+    return render(request, 'kythuatvien/kythuatvien_list.html', {'kythuatvien': kythuatvien})
+
+
+def kythuatvien_add(request):
+    data = dict()
+
+    if request.method == 'POST':
+        formktv = FormKTV(request.POST)
+        if formktv.is_valid():
+            formktv.save()
+            kythuatvien = KyThuatVien.objects.all()
+            data['form_is_valid'] = True
+            data['html_kythuatvien_preview'] = render_to_string('kythuatvien/includes/kythuatvien_preview.html', {
+                'kythuatvien': kythuatvien
+            })
+        else:
+            data['form_is_valid'] = False
+    else:
+        formktv = FormKTV()
+
+    context = {'formktv': formktv}
+    data['html_form'] = render_to_string('kythuatvien/includes/kythuatvien_add.html',
+                                         context,
+                                         request=request
+                                         )
+    return JsonResponse(data)
+
+
+def kythuatvien_edit(request, pk):
+    data = dict()
+    kythuatvien = get_object_or_404(KyThuatVien, pk=pk)
+    if request.method == 'POST':
+        formktv = FormKTV(request.POST, instance=kythuatvien)
+        if formktv.is_valid():
+            formktv.save()
+            data['form_is_valid'] = True
+            kythuatvien = KyThuatVien.objects.all()
+            data['html_kythuatvien_preview'] = render_to_string('kythuatvien/includes/kythuatvien_preview.html', {
+                'kythuatvien': kythuatvien
+            })
+        else:
+            data['form_is_valid'] = False
+    else:
+        formktv = FormKTV(instance=kythuatvien)
+
+    context = {'formktv': formktv, }
+    data['html_form'] = render_to_string('kythuatvien/includes/kythuatvien_edit.html',
+                                         context,
+                                         request=request
+                                         )
+    return JsonResponse(data)
+
+
+def kythuatvien_del(request, pk):
+    data = dict()
+    kythuatvien = get_object_or_404(KyThuatVien, pk=pk)
+    if request.method == 'POST':
+        kythuatvien.delete()
+        data['form_is_valid'] = True
+        kythuatvien = KyThuatVien.objects.all()
+        data['html_kythuatvien_preview'] = render_to_string('kythuatvien/includes/kythuatvien_preview.html', {
+            'kythuatvien': kythuatvien
+        })
+    else:
+        context = {'kythuatvien': kythuatvien}
+        data['html_form'] = render_to_string('kythuatvien/includes/kythuatvien_del.html', context, request=request)
     return JsonResponse(data)

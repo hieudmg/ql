@@ -1,17 +1,16 @@
 {% for tt in thongtin %}
     <tr class="thongtin-row" data-url="{% url 'benhnhan_list' %}{{ tt.id }}/">
+        <td style="display: none">{{ tt.id }}</td>
       <td>{{ tt.maSo }}</td>
         <td>{{ tt.tenVo }}</td>
         <td>{{ tt.nsVo }}</td>
         <td>{{ tt.tenChong }}</td>
         <td>{{ tt.nsChong }}</td>
         <td>{{ tt.bs }}</td>
-        <td>{{ tt.lienHe }}</td>
-        <td><button class="btn btn-xs btn-default context-button" style="border: solid white"
+        <td>{{ tt.lienHe }}<button class="btn btn-sm btn-default context-button" style="float: right;"
                     data-url="{% url 'benhnhan_list' %}{{ tt.id }}/">
-                &ensp;&ensp;<span class="glyphicon glyphicon-wrench"></span>&ensp;&ensp;
-            </button>
-        </td>
+                <span class="glyphicon glyphicon-wrench"></span>
+            </button></td>
     </tr>
 
   {% empty %}

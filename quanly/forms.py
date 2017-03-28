@@ -1,6 +1,6 @@
 # coding=utf-8
 from django import forms
-from .models import ThongTin, Trung, Phoi, TruPhoi, TinhDichDoNgayCH
+from .models import ThongTin, Trung, Phoi, TruPhoi, TinhDichDoNgayCH, BacSi, KyThuatVien
 
 
 class FormTT(forms.ModelForm):
@@ -87,4 +87,20 @@ class FormTD(forms.ModelForm):
         fields = ('doDiDong',
                   'hinhDang',
                   'matDo',
+                  )
+
+
+class FormBS(forms.ModelForm):
+    class Meta:
+        model = BacSi
+        fields = ('ten',
+                  'nghiHuu',
+                  )
+
+
+class FormKTV(forms.ModelForm):
+    class Meta:
+        model = KyThuatVien
+        fields = ('ten',
+                  'nghiHuu',
                   )

@@ -1,0 +1,18 @@
+{% load widget_tweaks %}
+
+<div class="form-group">
+    <div>
+        <label for="{{ formktv.ten.id_for_label }}">Tên</label>
+        {% render_field formktv.ten class="form-control input-sm" %}
+    </div>
+</div>
+
+<div class="checkbox">
+    <div class="row">
+            <label for="{{ formktv.nghiHuu.id_for_label }}">
+                {% render_field formktv.nghiHuu %}
+                <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                <b>Đã nghỉ hưu</b>
+            </label>
+    </div>
+</div>

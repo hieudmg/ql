@@ -1,5 +1,32 @@
 var $ = jQuery;
+
+function loadData(){
+    $('#thongtin-table').DataTable({
+    "oLanguage": {
+          "oPaginate": {
+            "sFirst": "Đầu",
+            "sLast": "Cuối",
+            "sNext": "Sau",
+            "sPrevious": "Trước"
+          },
+      "sInfo": "Hiển thị từ _START_ đến _END_ (Tổng số: _TOTAL_)",
+      "sInfoEmpty": "Không tìm thấy dữ liệu phù hợp",
+      "sInfoFiltered": "",
+      "sSearch": "Tìm kiếm",
+      "sZeroRecords": "Không tìm thấy dữ liệu phù hợp",
+      "sLengthMenu": 'Số lượng hiển thị: <select name="thongtin-table_length" aria-controls="thongtin-table" class="form-control input-sm"">'+
+        '<option value="10">10</option>'+
+        '<option value="30">30</option>'+
+        '<option value="50">50</option>'+
+        '<option value="-1">Tất cả</option>'+
+        '</select>'
+    }
+   });
+
+}
+
 $(document).ready(function() {
+  loadData();
 });
 
 $(function () {
@@ -18,10 +45,9 @@ $(function () {
       }
     });
   });
-
 });
 
-  $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
+$("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
     var form = $(this);
     $.ajax({
       url: form.attr("action"),
@@ -30,19 +56,21 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-			$("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
+            $('#thongtin-table').DataTable().destroy();
+            $("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
             $("#modal-thongtin").modal("hide");
-				/*$.ajax({
-					url: "add/trung",
-					type: 'get',
-					dataType: 'json',
-					beforeSend: function () {
-						$("#modal-trung").modal("show");
-					},
-					success: function (data) {
-						$("#modal-trung .modal-content").html(data.html_formtr);
-					}
-				});*/
+            loadData();
+                /*$.ajax({
+                    url: "add/trung",
+                    type: 'get',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $("#modal-trung").modal("show");
+                    },
+                    success: function (data) {
+                        $("#modal-trung .modal-content").html(data.html_formtr);
+                    }
+                });*/
         }
         else {
           $("#modal-thongtin .modal-content").html(data.html_form);
@@ -50,7 +78,7 @@ $(function () {
       }
     });
     return false;
-  });
+});
 
   $("#modal-trung").on("submit", ".js-trung-add-form", function(){
     var formtr = $(this);
@@ -80,8 +108,10 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-          $("#thongtin-table tbody").html(data.html_thongtin_preview);
+            $('#thongtin-table').DataTable().destroy();
+            $("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
           $("#modal-thongtin").modal("hide");
+            loadData();
         }
         else {
           $("#modal-thongtin .modal-content").html(data.html_form);
@@ -101,8 +131,10 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-          $("#thongtin-table tbody").html(data.html_thongtin_preview);
+            $('#thongtin-table').DataTable().destroy();
+            $("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
           $("#modal-thongtin").modal("hide");
+          loadData();
         }
         else {
           $("#modal-thongtin .modal-content").html(data.html_form);
@@ -121,8 +153,10 @@ $(function () {
         dataType: 'json',
         success: function (data) {
           if (data.form_is_valid) {
-            $("#thongtin-table tbody").html(data.html_thongtin_preview);
+            $('#thongtin-table').DataTable().destroy();
+            $("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
             $("#modal-thongtin").modal("hide");
+            loadData();
           }
           else {
             $("#modal-thongtin .modal-content").html(data.html_form);
@@ -182,63 +216,3 @@ $(function() {
     });
 });
 
-
-var menu = [{
-        name: 'create',
-        img: 'images/create.png',
-        title: 'create button',
-        fun: function () {
-            alert('i am add button')
-        }
-    }, {
-        name: 'update',
-        img: 'images/update.png',
-        title: 'update button',
-        subMenu: [{
-            name: 'merge',
-            title: 'It will merge row',
-            img:'images/merge.png',
-            fun: function () {
-                alert('It will merge row')
-            }
-        }, {
-            name: 'replace',
-            title: 'It will replace row',
-            img:'images/replace.png',
-            subMenu: [{
-                name: 'replace top 100',
-                img:'images/top.png',
-                fun:function(){
-                alert('It will replace top 100 rows');
-                }
-
-            }, {
-                name: 'replace all',
-                img:'images/all.png',
-                fun:function(){
-                alert('It will replace all rows');
-                }
-            }]
-        }]
-    }, {
-        name: 'delete',
-        img: 'images/delete.png',
-        title: 'delete button',
-        subMenu: [{
-            'name': 'soft delete',
-            img:'images/soft_delete.png',
-            fun:function(){
-            alert('You can recover back');
-            }
-        }, {
-            'name': 'hard delete',
-            img:'images/hard_delete.png',
-            fun:function(){
-            alert('It will delete permanently');
-            }
-        }]
-
-    }];
-
-//Calling context menu
- $('.context-button-simple').contextMenu(menu);

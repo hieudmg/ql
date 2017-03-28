@@ -11,21 +11,22 @@
     </div>
     <div class="collapse navbar-collapse" id="main-menu">
       <ul class="nav navbar-nav">
-        <li {% if request.path == '/quanly/benhnhan/' %} class="active"
-            {% elif request.path == '/quanly/bacsi/'%} class=active"{% endif %}>
+        <li {% if request.path == '/quanly/benhnhan/' or request.path == '/quanly/bacsi/'%} class="active"{% endif %}>
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                 Quản lý <strong class="caret"></strong>
             </a>
             <ul class="dropdown-menu">
                 <li><a href="{% url 'benhnhan_list' %}">Bệnh nhân</a></li>
                 <li><a href="{% url 'bacsi_list' %}">Bác sĩ</a></li>
+                <li><a href="{% url 'kythuatvien_list' %}">Kỹ thuật viên</a></li>
             </ul>
         </li>
       </ul>
         <ul class="nav navbar-nav navbar-right">
         <li>
-            <a href="https://google.com">Thông tin</a></li>
+            <a id="about-page" href="#">Thông tin</a></li>
         </ul>
     </div>
   </div>
 </nav>
+
