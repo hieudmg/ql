@@ -1,3 +1,22 @@
+$(document).ready(function() {
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-bottom-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "300",
+      "timeOut": "2400",
+      "extendedTimeOut": "300",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+});
 
 $(function () {
   $(".js-bacsi-add").click(function () {
@@ -28,6 +47,7 @@ $(function () {
         if (data.form_is_valid) {
 			$("#bacsi-table tbody").html(data.html_bacsi_preview);  // <-- Replace the table body
             $("#modal-bacsi").modal("hide");
+            toastr.success('Thêm thành công');
         }
         else {
           $("#modal-bacsi .modal-content").html(data.html_form);
@@ -49,6 +69,7 @@ $(function () {
         if (data.form_is_valid) {
           $("#bacsi-table tbody").html(data.html_bacsi_preview);
           $("#modal-bacsi").modal("hide");
+            toastr.success('Sửa thành công');
         }
         else {
           $("#modal-bacsi .modal-content").html(data.html_form);
@@ -69,6 +90,7 @@ $(function () {
           if (data.form_is_valid) {
             $("#bacsi-table tbody").html(data.html_bacsi_preview);
             $("#modal-bacsi").modal("hide");
+            toastr.success('Đã xóa');
           }
           else {
             $("#modal-bacsi .modal-content").html(data.html_form);
@@ -101,7 +123,7 @@ $(function() {
         items: {
             "edit": {name: 'Sửa'},
             "sep1": "---------",
-            "del": {name: "Xóa"}
+            "del": {name: "Xóa", className:"context_del"}
         }
     });
 });

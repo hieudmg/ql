@@ -1,16 +1,19 @@
 {% load widget_tweaks %}
 
 <div class="form-group row">
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formtd.matDo.errors %} has-error{% endif %}">
         <label for="{{ formtd.matDo.id_for_label }}">Mật độ</label>
         {% render_field formtd.matDo class="form-control input-sm" %}
+        {% if formtd.matDo.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số dương</p> {% endif %}
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formtd.doDiDong.errors %} has-error{% endif %}">
         <label for="{{ formtd.doDiDong.id_for_label }}">Độ di động</label>
         {% render_field formtd.doDiDong class="form-control input-sm" %}
+        {% if formtd.doDiDong.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số dương</p> {% endif %}
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formtd.hinhDang.errors %} has-error{% endif %}">
         <label for="{{ formtd.hinhDang.id_for_label }}">Hình dạng</label>
         {% render_field formtd.hinhDang class="form-control input-sm" %}
+        {% if formtd.hinhDang.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số dương</p> {% endif %}
     </div>
 </div>

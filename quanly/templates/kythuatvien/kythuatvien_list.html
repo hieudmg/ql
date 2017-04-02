@@ -2,10 +2,22 @@
 {% load static %}
 
 {% block javascript %}
-    <script src="{% static 'quanly/js/kythuatvien.js' %}"></script>
+    <script src="{% static 'datatable/DataTables-1.10.13/js/moment-with-locales.min.js' %}"></script>
     <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
+    <script src="{% static 'context-menu/jquery.ui.position.min.js' %}"></script>
+    <script src="{% static 'quanly/js/kythuatvien.js' %}"></script>
     <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <style>
+        ul {
+            z-index: 50;
+        }
+    </style>
+
+    <script src="{% static 'datatable/DataTables-1.10.13/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'datatable/DataTables-1.10.13/js/dataTables.bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'datatable/DataTables-1.10.13/css/dataTables.bootstrap.min.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -29,8 +41,9 @@
             <table class="table prevencopy" style="font-size: large" id="kythuatvien-table">
                 <thead>
                     <tr>
-                        <th>Số thứ tự</th>
+                     <!--   <th>Số thứ tự</th> -->
                         <th>Tên</th>
+                        <th>Test time</th>
                         <th>Đã nghỉ hưu</th>
                     </tr>
                 </thead>

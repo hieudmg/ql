@@ -1,4 +1,8 @@
 {% load widget_tweaks %}
+{% load static %}
+
+<script src="{% static 'datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'datetimepicker/css/bootstrap-datetimepicker.min.css' %}">
 
 <div class="form-group">
     <div>
@@ -16,3 +20,23 @@
             </label>
     </div>
 </div>
+
+<div>
+    <div class="form-group">
+        <div class='input-group date' id='testTime'>
+            {% render_field formktv.testTime class="form-control" type="text" %}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#testTime').datetimepicker({
+            sideBySide: true,
+            showTodayButton: true,
+            format: 'DD/MM/Y HH:mm'
+        });
+    });
+</script>

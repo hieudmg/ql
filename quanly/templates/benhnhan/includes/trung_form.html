@@ -1,60 +1,71 @@
 {% load widget_tweaks %}
 
-<div class="form-group  row">
-    <div class="col-xs-12">
+<div class="form-group row">
+    <div class="col-xs-12 {% if formtr.tongSoTrung.errors %} has-error{% endif %}">
         <label for="{{ formtr.tongSoTrung.id_for_label }}">Tổng số trứng</label>
         {% render_field formtr.tongSoTrung class="form-control input-sm" %}
+        {% if formtr.tongSoTrung.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>
 
 <div class="form-group row">
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formtr.GV.errors %} has-error{% endif %}">
         <label for="{{ formtr.GV.id_for_label }}">GV</label>
         {% render_field formtr.GV class="form-control input-sm" %}
+        {% if formtr.GV.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formtr.MI.errors %} has-error{% endif %}">
         <label for="{{ formtr.MI.id_for_label }}">MI</label>
         {% render_field formtr.MI class="form-control input-sm" %}
+        {% if formtr.MI.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formtr.truongThanh.errors %} has-error{% endif %}">
         <label for="{{ formtr.truongThanh.id_for_label }}">Trưởng thành</label>
         {% render_field formtr.truongThanh class="form-control input-sm" %}
+        {% if formtr.truongThanh.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>
 
 <div class="form-group row">
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formtr.vo.errors %} has-error{% endif %}">
         <label for="{{ formtr.vo.id_for_label }}">Vỡ</label>
         {% render_field formtr.vo class="form-control input-sm" %}
+        {% if formtr.vo.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formtr.batThuong.errors %} has-error{% endif %}">
         <label for="{{ formtr.batThuong.id_for_label }}">Bất thường</label>
         {% render_field formtr.batThuong class="form-control input-sm" %}
+        {% if formtr.batThuong.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formtr.thoaiHoa.errors %} has-error{% endif %}">
         <label for="{{ formtr.thoaiHoa.id_for_label }}">Thoái hóa</label>
         {% render_field formtr.thoaiHoa class="form-control input-sm" %}
+        {% if formtr.thoaiHoa.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>
 
 <div class="form-group row">
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formtr.nangNoan.errors %} has-error{% endif %}" style="display: none">
         <label for="{{ formtr.nangNoan.id_for_label }}">Nang noãn</label>
         {% render_field formtr.nangNoan class="form-control input-sm" %}
+        {% if formtr.nangNoan.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formtr.thoaiHoaSauICSI.errors %} has-error{% endif %}">
         <label for="{{ formtr.thoaiHoaSauICSI.id_for_label }}">Thoái hóa sau ICSI</label>
         {% render_field formtr.thoaiHoaSauICSI class="form-control input-sm" %}
+        {% if formtr.thoaiHoaSauICSI.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>
 
 <div class="form-group row">
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formtr.tongSoTrungICSI.errors %} has-error{% endif %}">
         <label for="{{ formtr.tongSoTrungICSI.id_for_label }}">Tổng số trứng ICSI</label>
         {% render_field formtr.tongSoTrungICSI class="form-control input-sm" %}
+        {% if formtr.tongSoTrungICSI.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formtr.tongSoTrungTT.errors %} has-error{% endif %}">
         <label for="{{ formtr.tongSoTrungTT.id_for_label }}">Tổng số trứng thụ tinh</label>
         {% render_field formtr.tongSoTrungTT class="form-control input-sm" %}
+        {% if formtr.tongSoTrungTT.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>

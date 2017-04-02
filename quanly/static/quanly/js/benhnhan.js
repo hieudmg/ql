@@ -27,6 +27,23 @@ function loadData(){
 
 $(document).ready(function() {
   loadData();
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-bottom-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "300",
+      "timeOut": "2400",
+      "extendedTimeOut": "300",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
 });
 
 $(function () {
@@ -60,6 +77,7 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
             $("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
             $("#modal-thongtin").modal("hide");
             loadData();
+            toastr.success('Thêm thành công');
                 /*$.ajax({
                     url: "add/trung",
                     type: 'get',
@@ -112,6 +130,7 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
             $("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
           $("#modal-thongtin").modal("hide");
             loadData();
+            toastr.success('Sửa thành công');
         }
         else {
           $("#modal-thongtin .modal-content").html(data.html_form);
@@ -135,6 +154,7 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
             $("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
           $("#modal-thongtin").modal("hide");
           loadData();
+            toastr.success('Sửa thành công');
         }
         else {
           $("#modal-thongtin .modal-content").html(data.html_form);
@@ -157,6 +177,7 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
             $("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
             $("#modal-thongtin").modal("hide");
             loadData();
+            toastr.success('Đã xóa');
           }
           else {
             $("#modal-thongtin .modal-content").html(data.html_form);
@@ -178,6 +199,7 @@ $(function() {
     $.contextMenu({
         selector: '.context-button',
         trigger: 'left',
+        zIndex: 100,
         callback: function (key, opt) {
             if (opt.$trigger.attr("data-url"))
                 $.ajax({
@@ -211,7 +233,7 @@ $(function() {
                 }
             },
             "sep1": "---------",
-            "del": {name: "Xóa"}
+            "del": {name: "Xóa", className:"context_del"}
         }
     });
 });

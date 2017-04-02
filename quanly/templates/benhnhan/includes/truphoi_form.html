@@ -3,47 +3,93 @@
 
 <div class="form-group row">
     <div class="col-xs-12">
-        <label for="{{ formtp.maDongPhoi.id_for_label }}">Mã đông phôi</label>
-        {% render_field formtp.maDongPhoi class="form-control input-sm" %}
+        <label for="{{ formtp.viTriTruPhoi.id_for_label }}">Vị trí trữ phôi</label>
+        {% render_field formtp.viTriTruPhoi class="form-control input-sm" %}
     </div>
 </div>
 
 <div class="form-group row">
-    <div class="col-xs-5">
-        <table id="label-table" style="font-size: 200%; background-image: url('{% static 'bckgrn.gif' %}')">
-            <tbody><tr><td><div>
-                {{ formtp.label00 }}
-            </div></td><td><div>
-                {{ formtp.label01 }}
-            </div></td><td><div>
-                {{ formtp.label02 }}
-            </div></td><td><div>
-                {{ formtp.label03 }}
-            </div></td></tr><tr><td><div>
-                {{ formtp.label10 }}
-            </div></td><td><div>
-                {{ formtp.label11 }}
-            </div></td><td><div>
-                {{ formtp.label12 }}
-            </div></td><td><div>
-                {{ formtp.label13 }}
-            </div></td></tr><tr><td><div>
-                {{ formtp.label20 }}
-            </div></td><td><div>
-                {{ formtp.label21 }}
-            </div></td><td><div>
-                {{ formtp.label22 }}
-            </div></td><td><div>
-                {{ formtp.label23 }}
-            </div></td></tr></tbody>
+    <div class="col-xs-4">
+        <label for="loai1">Loại 1</label>
+        <input id="loai1" class="form-control input-sm" type="text" disabled>
+    </div>
+    <div class="col-xs-4">
+        <label for="loai2">Loại 2</label>
+        <input id="loai2" class="form-control input-sm" type="text" disabled>
+    </div>
+    <div class="col-xs-4">
+        <label for="loai3">Loại 3</label>
+        <input id="loai3" class="form-control input-sm" type="text" disabled>
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-xs-8">
+        <table id="label-table" style="font-size: 100%; background-image: url('{% static 'bckgrn.gif' %}')" cellpadding="10">
+            <tbody>
+                <tr>
+                    <td>
+                        <div> {% render_field formtp.label00|attr:"onChange:Picker('id_label00')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai00 onChange="count()" %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label01|attr:"onChange:Picker('id_label01')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai01 onChange="count()" %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label02|attr:"onChange:Picker('id_label02')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai02 onChange="count()" %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label03|attr:"onChange:Picker('id_label03')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai03 onChange="count()" %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div> {% render_field formtp.label10|attr:"onChange:Picker('id_label10')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai10 onChange="count()" %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label11|attr:"onChange:Picker('id_label11')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai11 onChange="count()" %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label12|attr:"onChange:Picker('id_label12')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai12 onChange="count()" %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label13|attr:"onChange:Picker('id_label13')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai13 onChange="count()" %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div> {% render_field formtp.label20|attr:"onChange:Picker('id_label20')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai20 onChange="count()" %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label21|attr:"onChange:Picker('id_label21')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai21 onChange="count()" %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label22|attr:"onChange:Picker('id_label22')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai22 onChange="count()" %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label23|attr:"onChange:Picker('id_label23')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai23 onChange="count()" %}
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
-    <div class="checkbox col-xs-7">
+    <div class="checkbox col-xs-4">
         <div class="row">
                 <label for="{{ formtp.truPhoiToanBo.id_for_label }}">
                     {% render_field formtp.truPhoiToanBo %}
                     <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
-                    <b>Trữ phôi toàn bộ</b>
+                    <b><small>Trữ phôi toàn bộ</small></b>
                 </label>
         </div>
         <div class="row">
@@ -88,23 +134,54 @@
     </div>
 </div>
 
-<script src="{% static 'js/jquery.simplecolorpicker.js' %}"></script>
-<link rel="stylesheet" href="{% static 'css/jquery.simplecolorpicker.css' %}">
-
-
 <script>
-    $('select[id="id_label00"]').simplecolorpicker({picker: true, pickerDelay: 0});
-    $('select[id="id_label01"]').simplecolorpicker({picker: true, pickerDelay: 0});
-    $('select[id="id_label02"]').simplecolorpicker({picker: true, pickerDelay: 0});
-    $('select[id="id_label03"]').simplecolorpicker({picker: true, pickerDelay: 0});
-    $('select[id="id_label10"]').simplecolorpicker({picker: true, pickerDelay: 0});
-    $('select[id="id_label11"]').simplecolorpicker({picker: true, pickerDelay: 0});
-    $('select[id="id_label12"]').simplecolorpicker({picker: true, pickerDelay: 0});
-    $('select[id="id_label13"]').simplecolorpicker({picker: true, pickerDelay: 0});
-    $('select[id="id_label20"]').simplecolorpicker({picker: true, pickerDelay: 0});
-    $('select[id="id_label21"]').simplecolorpicker({picker: true, pickerDelay: 0});
-    $('select[id="id_label22"]').simplecolorpicker({picker: true, pickerDelay: 0});
-    $('select[id="id_label23"]').simplecolorpicker({picker: true, pickerDelay: 0});
+    function count() {
+        var loai1 = $( "select" ).filter(function( index ) {
+            return $( this ).val() === '1';
+          }).length;
+        var loai2 = $( "select" ).filter(function( index ) {
+            return $( this ).val() === '2';
+          }).length;
+        var loai3 = $( "select" ).filter(function( index ) {
+            return $( this ).val() === '3';
+          }).length;
+        $('input[id="loai1"]').val(loai1);
+        $('input[id="loai2"]').val(loai2);
+        $('input[id="loai3"]').val(loai3);
+    }
+    $(document).ready(function() {
+        var x = document.getElementById("id_label00").value;
+        $("#id_label00").css("background-color", x);
+        x = document.getElementById("id_label01").value;
+        $("#id_label01").css("background-color", x);
+        x = document.getElementById("id_label02").value;
+        $("#id_label02").css("background-color", x);
+        x = document.getElementById("id_label03").value;
+        $("#id_label03").css("background-color", x);
+        x = document.getElementById("id_label10").value;
+        $("#id_label10").css("background-color", x);
+        x = document.getElementById("id_label11").value;
+        $("#id_label11").css("background-color", x);
+        x = document.getElementById("id_label12").value;
+        $("#id_label12").css("background-color", x);
+        x = document.getElementById("id_label13").value;
+        $("#id_label13").css("background-color", x);
+        x = document.getElementById("id_label20").value;
+        $("#id_label20").css("background-color", x);
+        x = document.getElementById("id_label21").value;
+        $("#id_label21").css("background-color", x);
+        x = document.getElementById("id_label22").value;
+        $("#id_label22").css("background-color", x);
+        x = document.getElementById("id_label23").value;
+        $("#id_label23").css("background-color", x);
+        $('option').css("background-color", "white");
+        count();
+    });
+    function Picker(id_label) {
+        var x = document.getElementById(id_label).value;
+        $("#"+id_label).css("background-color", x);
+        $('option').css("background-color", "white");
+    }
 </script>
 
 <style>
@@ -112,6 +189,17 @@
         border: 5px solid white;
     }
     #label-table td div{
-        border: 1px solid black;
+    }
+    #label-table td div select{
+        width: 100%;
+        height: 30px;
+        color: transparent;
+        border: 1px solid grey;
+    }
+    #label-table td div select option{
+        color: black;
+    }
+    #label-table td select{
+        min-width: 100%;
     }
 </style>

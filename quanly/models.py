@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from datetime import datetime
 
 
 # Create your models here.
@@ -79,9 +80,17 @@ COLOR = (
 )
 
 
+LOAI = (
+    ('0', '------'),
+    ('1', 'Loại 1'),
+    ('2', 'Loại 2'),
+    ('3', 'Loại 3'),
+)
+
+
 class TruPhoi(models.Model):
     tt = models.OneToOneField(ThongTin, on_delete=models.CASCADE, primary_key=True)
-    maDongPhoi = models.CharField(max_length=20, default='-------')
+    viTriTruPhoi = models.CharField(max_length=20, default='-------')
     label00 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
     label01 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
     label02 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
@@ -94,6 +103,18 @@ class TruPhoi(models.Model):
     label21 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
     label22 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
     label23 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
+    loai00 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai01 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai02 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai03 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai10 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai11 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai12 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai13 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai20 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai21 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai22 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai23 = models.CharField(max_length=1, choices=LOAI, default='0')
     truPhoiToanBo = models.BooleanField(default=False)
     xinTrung = models.BooleanField(default=False)
     PICSI = models.BooleanField(default=False)
@@ -105,3 +126,4 @@ class TruPhoi(models.Model):
 class KyThuatVien(models.Model):
     ten = models.CharField(max_length=20)
     nghiHuu = models.BooleanField(default=False)
+    testTime = models.DateTimeField(default=datetime.now, blank=True)

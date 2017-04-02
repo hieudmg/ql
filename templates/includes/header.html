@@ -11,7 +11,7 @@
     </div>
     <div class="collapse navbar-collapse" id="main-menu">
       <ul class="nav navbar-nav">
-        <li {% if request.path == '/quanly/benhnhan/' or request.path == '/quanly/bacsi/'%} class="active"{% endif %}>
+        <li {% if '/quanly/' in request.path %} class="active"{% endif %}>
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                 Quản lý <strong class="caret"></strong>
             </a>

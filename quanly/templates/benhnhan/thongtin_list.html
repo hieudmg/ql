@@ -3,9 +3,16 @@
 
 {% block javascript %}
     <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
+    <script src="{% static 'context-menu/jquery.ui.position.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
     <script src="{% static 'quanly/js/benhnhan.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <style>
+        ul {
+            z-index: 50;
+        }
+    </style>
 
     <script src="{% static 'datatable/DataTables-1.10.13/js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'datatable/DataTables-1.10.13/js/dataTables.bootstrap.min.js' %}"></script>
@@ -13,6 +20,16 @@
 {% endblock %}
 
 {% block content %}
+
+    <div class="row">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#">Bệnh nhân</a></li>
+        <li><a href="#">Chọc hút</a></li>
+        <li><a href="#">Chuyển phôi</a></li>
+        <li><a href="#">Đông phôi</a></li>
+        <li><a href="#">Thống kê</a></li>
+      </ul>
+    </div>
   <h3 class="page-header">
   <button class="btn btn-default" title="Làm mới" onclick="history.go(0)"><span class="fa fa-refresh"></span></button>
       Thông tin bệnh nhân
@@ -24,7 +41,6 @@
       Thêm
     </button>
   </h3>
-<!--  <table class="table preventcopy" id="thongtin-table"> -->
     <div>
         <table id="thongtin-table" class="table " cellspacing="0" width="100%">
         <thead>

@@ -1,82 +1,97 @@
 {% load widget_tweaks %}
 
 <div class="form-group row">
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formp.loai1.errors %} has-error{% endif %}">
         <label for="{{ formp.loai1.id_for_label }}">Loại 1</label>
         {% render_field formp.loai1 class="form-control input-sm" %}
+        {% if formp.loai1.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formp.loai2.errors %} has-error{% endif %}">
         <label for="{{ formp.loai2.id_for_label }}">Loại 2</label>
         {% render_field formp.loai2 class="form-control input-sm" %}
+        {% if formp.loai2.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-4 {% if formp.loai3.errors %} has-error{% endif %}">
         <label for="{{ formp.loai3.id_for_label }}">Loại 3</label>
         {% render_field formp.loai3 class="form-control input-sm" %}
+        {% if formp.loai3.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>
 
 <div class="form-group row">
-    <div class="col-xs-7">
+    <div class="col-xs-7 {% if formp.tongSoPhoiTiepTucTheoDoi.errors %} has-error{% endif %}">
         <label for="{{ formp.tongSoPhoiTiepTucTheoDoi.id_for_label }}">Tổng số phôi tiếp tục theo dõi</label>
         {% render_field formp.tongSoPhoiTiepTucTheoDoi class="form-control input-sm" %}
+        {% if formp.tongSoPhoiTiepTucTheoDoi.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-5">
+    <div class="col-xs-5 {% if formp.tongSoPhoiChuyen.errors %} has-error{% endif %}">
         <label for="{{ formp.tongSoPhoiChuyen.id_for_label }}">Tổng số phôi chuyển</label>
         {% render_field formp.tongSoPhoiChuyen class="form-control input-sm" %}
+        {% if formp.tongSoPhoiChuyen.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>
 
 <div class="form-group row">
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formp.tongSoPhoiLuuTruLanh.errors %} has-error{% endif %}">
         <label for="{{ formp.tongSoPhoiLuuTruLanh.id_for_label }}">Tổng số phôi lưu trữ lạnh</label>
         {% render_field formp.tongSoPhoiLuuTruLanh class="form-control input-sm" %}
+        {% if formp.tongSoPhoiLuuTruLanh.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formp.tongSoPhoiHuy.errors %} has-error{% endif %}">
         <label for="{{ formp.tongSoPhoiHuy.id_for_label }}">Tổng số phôi hủy</label>
         {% render_field formp.tongSoPhoiHuy class="form-control input-sm" %}
+        {% if formp.tongSoPhoiHuy.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>
 
 <div class="form-group row">
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formp.soPhoiN2.errors %} has-error{% endif %}">
         <label for="{{ formp.soPhoiN2.id_for_label }}">Số phôi N2</label>
         {% render_field formp.soPhoiN2 class="form-control input-sm" %}
+        {% if formp.soPhoiN2.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formp.soCryotop2.errors %} has-error{% endif %}">
         <label for="{{ formp.soCryotop2.id_for_label }}">Số cryotop</label>
         {% render_field formp.soCryotop2 class="form-control input-sm" %}
+        {% if formp.soCryotop2.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>
 
 <div class="form-group row">
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formp.soPhoiN3.errors %} has-error{% endif %}">
         <label for="{{ formp.soPhoiN3.id_for_label }}">Số phôi N3</label>
         {% render_field formp.soPhoiN3 class="form-control input-sm" %}
+        {% if formp.soPhoiN3.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formp.soCryotop3.errors %} has-error{% endif %}">
         <label for="{{ formp.soCryotop3.id_for_label }}">Số cryotop</label>
         {% render_field formp.soCryotop3 class="form-control input-sm" %}
+        {% if formp.soCryotop3.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>
 
-<div class="form-group row">
+<div class="form-group row {% if formp.soPhoiN4.errors %} has-error{% endif %}">
     <div class="col-xs-6">
         <label for="{{ formp.soPhoiN4.id_for_label }}">Số phôi N4</label>
         {% render_field formp.soPhoiN4 class="form-control input-sm" %}
+        {% if formp.soPhoiN4.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formp.soCryotop4.errors %} has-error{% endif %}">
         <label for="{{ formp.soCryotop4.id_for_label }}">Số cryotop</label>
         {% render_field formp.soCryotop4 class="form-control input-sm" %}
+        {% if formp.soCryotop4.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>
 
 <div class="form-group row">
-    <div class="col-xs-6">
-        <label for="{{ formp.soPhoiN5.id_for_label }}">Số phôi N2</label>
+    <div class="col-xs-6 {% if formp.soPhoiN5.errors %} has-error{% endif %}">
+        <label for="{{ formp.soPhoiN5.id_for_label }}">Số phôi N5</label>
         {% render_field formp.soPhoiN5 class="form-control input-sm" %}
+        {% if formp.soPhoiN5.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 {% if formp.soCryotop5.errors %} has-error{% endif %}">
         <label for="{{ formp.soCryotop5.id_for_label }}">Số cryotop</label>
         {% render_field formp.soCryotop5 class="form-control input-sm" %}
+        {% if formp.soCryotop5.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số tự nhiên </p> {% endif %}
     </div>
 </div>
