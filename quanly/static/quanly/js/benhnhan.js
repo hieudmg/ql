@@ -98,19 +98,43 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
     return false;
 });
 
-  $("#modal-trung").on("submit", ".js-trung-add-form", function(){
-    var formtr = $(this);
+  $("#modal-thongtin").on("submit", ".js-chochut-add-form", function(){
+    var formch = $(this);
     $.ajax({
-      url: formtr.attr("action"),
-      data: formtr.serialize(),
-      type: formtr.attr("method"),
+      url: formch.attr("action"),
+      data: formch.serialize(),
+      type: formch.attr("method"),
       dataType: 'json',
       success: function (data) {
-        if (data.formtr_is_valid) {
-          $("#modal-trung").modal("hide");  // <-- Close the modal
+        if (data.form_is_valid) {
+          $("#modal-thongtin").modal("hide");  // <-- Close the modal
+            toastr.success('Thêm thành công');
         }
         else {
-          $("#modal-trung .modal-content").html(data.html_formtr);
+          $("#modal-thongtin .modal-content").html(data.html_form);
+        }
+      }
+    });
+    return false;
+  });
+
+    $("#modal-chochut").on("submit", ".js-chochut-edit-form", function(){
+    var formch = $(this);
+    $.ajax({
+      url: formch.attr("action"),
+      data: formch.serialize(),
+      type: formch.attr("method"),
+      dataType: 'json',
+      success: function (data) {
+        if (data.form_is_valid) {
+            $('#thongtin-table').DataTable().destroy();
+            $("#thongtin-table tbody").html(data.html_chochut_preview);  // <-- Replace the table body
+            $("#modal-chochut").modal("hide");
+            loadData();
+            toastr.success('Sửa thành công');
+        }
+        else {
+          $("#modal-chochut .modal-content").html(data.html_form);
         }
       }
     });
@@ -187,6 +211,31 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
       return false;
     });
 
+    $("#modal-chochut").on("submit", ".js-chochut-del-form", function () {
+      var form = $(this);
+      $.ajax({
+        url: form.attr("action"),
+        data: form.serialize(),
+        type: form.attr("method"),
+        dataType: 'json',
+        success: function (data) {
+          if (data.form_is_valid) {
+            $('#thongtin-table').DataTable().destroy();
+            $("#thongtin-table tbody").html(data.html_chochut_preview);  // <-- Replace the table body
+            $("#modal-chochut").modal("hide");
+            loadData();
+            toastr.success('Đã xóa');
+          }
+          else {
+            $("#modal-chochut .modal-content").html(data.html_form);
+          }
+        }
+      });
+      return false;
+    });
+
+
+
 
 $( ".dropdown-submenu" ).click(function(event) {
     event.stopPropagation();
@@ -224,8 +273,22 @@ $(function() {
             "addto": {
               name: 'Thêm vào',
                 items: {
-                    "normalsub1": { name: "Bảng chọc hút",
-                    callback: function (key, opt){alert('Đang phát triển')}},
+                    "addch": { name: "Bảng chọc hút",
+                    callback: function (key, opt){
+                    if (opt.$trigger.attr("data-url"))
+                        $.ajax({
+                            url: opt.$trigger.attr("data-url") + key,
+                            type: 'get',
+                            dataType: 'json',
+                            beforeSend: function () {
+                                $("#modal-thongtin-setup").removeClass("modal-lg");
+                                $("#modal-thongtin").modal("show");
+                            },
+                            success: function (data) {
+                                $("#modal-thongtin .modal-content").html(data.html_form);
+                            }
+                        });
+                    }},
                     "normalsub2": { name: "Bảng chuyển phôi",
                     callback: function (key, opt){alert('Đang phát triển')}},
                     "normalsub3": { name: "Bảng đông phôi",
@@ -234,6 +297,47 @@ $(function() {
             },
             "sep1": "---------",
             "del": {name: "Xóa", className:"context_del"}
+        }
+    });
+
+    $.contextMenu({
+        selector: '.context-chochut',
+        trigger: 'left',
+        items: {
+            "editch": {name: 'Sửa',
+                    callback: function (key, opt){
+                            if (opt.$trigger.attr("data-url"))
+                                $.ajax({
+                                    url: opt.$trigger.attr("data-url") + key,
+                                    type: 'get',
+                                    dataType: 'json',
+                                    beforeSend: function () {
+                                        $("#modal-chochut-setup").removeClass("modal-lg");
+                                        $("#modal-chochut").modal("show");
+                                    },
+                                    success: function (data) {
+                                        $("#modal-chochut .modal-content").html(data.html_form);
+                                    }
+                                });
+                            }},
+            "sep1": "---------",
+            "delch": {name: "Xóa",
+                    callback: function (key, opt){
+                            if (opt.$trigger.attr("data-url"))
+                                $.ajax({
+                                    url: opt.$trigger.attr("data-url") + key,
+                                    type: 'get',
+                                    dataType: 'json',
+                                    beforeSend: function () {
+                                        $("#modal-chochut-setup").removeClass("modal-lg");
+                                        $("#modal-chochut").modal("show");
+                                    },
+                                    success: function (data) {
+                                        $("#modal-chochut .modal-content").html(data.html_form);
+                                    }
+                                });
+                            },
+            className:"context_del"}
         }
     });
 });

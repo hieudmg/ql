@@ -2,11 +2,8 @@
 
 {% for ktv in kythuatvien %}
     <tr>
-    <!--    <td class="stt"></td> -->
+        <td class="stt"></td>
         <td>{{ ktv.ten }}</td>
-        <td title="{{ ktv.testTime|date:"H:i d/m/Y" }}">
-            <span style="display: none">{{ ktv.testTime|date:"m/d/Y" }}</span> {{ ktv.testTime|date:"H:i" }}
-        </td>
         <td>{{ ktv.nghiHuu }}<button class="btn btn-default context-button"
                     style="float: right;"
                     data-url="{% url 'kythuatvien_list' %}{{ ktv.id }}/">

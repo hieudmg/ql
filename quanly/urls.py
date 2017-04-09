@@ -18,4 +18,8 @@ urlpatterns = (
     url(r'^kythuatvien/(?P<pk>\d+)/edit/$', views.kythuatvien_edit, name='kythuatvien_edit'),
     url(r'^kythuatvien/(?P<pk>\d+)/del/$', views.kythuatvien_del, name='kythuatvien_del'),
     url(r'^test/$', views.test, name='test'),
+    url(r'^chochut/$', views.chochut_list, name='chochut_list'),
+    url(r'^benhnhan/(?P<pk>\d+)/addch/$', views.chochut_add, name='chochut_add'),
+    url(r'^benhnhan/(?P<pk>\d+)/editch/$', views.chochut_edit, name='chochut_edit'),
+    url(r'^benhnhan/(?P<pk>\d+)/delch/$', views.chochut_del, name='chochut_del'),
 )

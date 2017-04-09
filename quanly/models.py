@@ -28,44 +28,44 @@ class ThongTin(models.Model):
 
 class Trung(models.Model):
     tt = models.OneToOneField(ThongTin, on_delete=models.CASCADE, primary_key=True)
-    tongSoTrung = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    GV = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    MI = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    truongThanh = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    vo = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    batThuong = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    thoaiHoa = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    nangNoan = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    thoaiHoaSauICSI = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    tongSoTrungICSI = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    tongSoTrungTT = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
+    tongSoTrung = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    GV = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    MI = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    truongThanh = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    vo = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    batThuong = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    thoaiHoa = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    nangNoan = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    thoaiHoaSauICSI = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    tongSoTrungICSI = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    tongSoTrungTT = models.IntegerField(validators=[MinValueValidator(0)], default=0)
 
 
 class Phoi(models.Model):
     tt = models.OneToOneField(ThongTin, on_delete=models.CASCADE, primary_key=True)
-    loai1 = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    loai2 = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    loai3 = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
+    loai1 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    loai2 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    loai3 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
     tongSoPhoiTiepTucTheoDoi = models.IntegerField(
-        validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    tongSoPhoiChuyen = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    tongSoPhoiLuuTruLanh = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    tongSoPhoiHuy = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    soPhoiN2 = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    soPhoiN3 = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    soPhoiN4 = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    soPhoiN5 = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    soCryotop2 = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    soCryotop3 = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    soCryotop4 = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
-    soCryotop5 = models.IntegerField(validators=[MaxValueValidator(10000), MinValueValidator(0)], default=0)
+        validators=[MinValueValidator(0)], default=0)
+    tongSoPhoiChuyen = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    tongSoPhoiLuuTruLanh = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    tongSoPhoiHuy = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    soPhoiN2 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    soPhoiN3 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    soPhoiN4 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    soPhoiN5 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    soCryotop2 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    soCryotop3 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    soCryotop4 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    soCryotop5 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
 
 
 class TinhDichDoNgayCH(models.Model):
     tt = models.OneToOneField(ThongTin, on_delete=models.CASCADE, primary_key=True)
-    matDo = models.FloatField(validators=[MaxValueValidator(1000), MinValueValidator(0)], default=0)
-    doDiDong = models.FloatField(validators=[MaxValueValidator(1000), MinValueValidator(0)], default=0)
-    hinhDang = models.FloatField(validators=[MaxValueValidator(1000), MinValueValidator(0)], default=0)
+    matDo = models.FloatField(validators=[MinValueValidator(0)], default=0)
+    doDiDong = models.FloatField(validators=[MinValueValidator(0)], default=0)
+    hinhDang = models.FloatField(validators=[MinValueValidator(0)], default=0)
 
 
 COLOR = (
@@ -81,10 +81,10 @@ COLOR = (
 
 
 LOAI = (
-    ('0', '------'),
-    ('1', 'Loại 1'),
-    ('2', 'Loại 2'),
-    ('3', 'Loại 3'),
+    ('l0', '------'),
+    ('l1', 'Loại 1'),
+    ('l2', 'Loại 2'),
+    ('l3', 'Loại 3'),
 )
 
 
@@ -103,18 +103,18 @@ class TruPhoi(models.Model):
     label21 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
     label22 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
     label23 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    loai00 = models.CharField(max_length=1, choices=LOAI, default='0')
-    loai01 = models.CharField(max_length=1, choices=LOAI, default='0')
-    loai02 = models.CharField(max_length=1, choices=LOAI, default='0')
-    loai03 = models.CharField(max_length=1, choices=LOAI, default='0')
-    loai10 = models.CharField(max_length=1, choices=LOAI, default='0')
-    loai11 = models.CharField(max_length=1, choices=LOAI, default='0')
-    loai12 = models.CharField(max_length=1, choices=LOAI, default='0')
-    loai13 = models.CharField(max_length=1, choices=LOAI, default='0')
-    loai20 = models.CharField(max_length=1, choices=LOAI, default='0')
-    loai21 = models.CharField(max_length=1, choices=LOAI, default='0')
-    loai22 = models.CharField(max_length=1, choices=LOAI, default='0')
-    loai23 = models.CharField(max_length=1, choices=LOAI, default='0')
+    loai00 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    loai01 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    loai02 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    loai03 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    loai10 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    loai11 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    loai12 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    loai13 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    loai20 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    loai21 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    loai22 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    loai23 = models.CharField(max_length=2, choices=LOAI, default='l0')
     truPhoiToanBo = models.BooleanField(default=False)
     xinTrung = models.BooleanField(default=False)
     PICSI = models.BooleanField(default=False)
@@ -126,4 +126,11 @@ class TruPhoi(models.Model):
 class KyThuatVien(models.Model):
     ten = models.CharField(max_length=20)
     nghiHuu = models.BooleanField(default=False)
-    testTime = models.DateTimeField(default=datetime.now, blank=True)
+
+
+class ChocHut(models.Model):
+    tt = models.OneToOneField(ThongTin, on_delete=models.CASCADE)
+    HCG = models.DateTimeField(default=datetime.now, blank=True)
+    gioCH = models.DateTimeField(default=datetime.now, blank=True)
+    soNang = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    added = models.BooleanField(default=False)

@@ -2,8 +2,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from .models import ThongTin, Trung, BacSi, TruPhoi, Phoi, TinhDichDoNgayCH, KyThuatVien
-from .forms import FormTT, FormTR, FormP, FormTP, FormTD, FormBS, FormKTV
+from .models import ThongTin, Trung, BacSi, TruPhoi, Phoi, TinhDichDoNgayCH, KyThuatVien, ChocHut
+from .forms import FormTT, FormTR, FormP, FormTP, FormTD, FormBS, FormKTV, FormCH
+from datetime import datetime
 
 
 def thongtin_list(request):
@@ -31,6 +32,8 @@ def thongtin_add(request):
             p.save()
             td = TinhDichDoNgayCH(tt=tt)
             td.save()
+            ch = ChocHut(tt=tt)
+            ch.save()
             data['form_is_valid'] = True
             thongtin = ThongTin.objects.all()
             data['html_thongtin_preview'] = render_to_string('benhnhan/includes/thongtin_preview.html', {
@@ -290,4 +293,86 @@ def kythuatvien_del(request, pk):
     else:
         context = {'kythuatvien': kythuatvien}
         data['html_form'] = render_to_string('kythuatvien/includes/kythuatvien_del.html', context, request=request)
+    return JsonResponse(data)
+
+
+def chochut_list(request):
+    chochut = ChocHut.objects.all()
+    return render(request, 'benhnhan/chochut_list.html', {'chochut': chochut})
+
+
+def chochut_add(request, pk):
+    data = dict()
+
+    thongtin = get_object_or_404(ThongTin, pk=pk)
+    chochut = thongtin.chochut
+    if not chochut.added:
+        chochut.HCG = datetime.now
+        chochut.gioCH = datetime.now
+
+    if request.method == 'POST':
+        formch = FormCH(request.POST, instance=chochut)
+        form = FormTT(request.POST, instance=thongtin)
+        if formch.is_valid():
+            formch.save()
+            data['form_is_valid'] = True
+        else:
+            data['form_is_valid'] = False
+    else:
+        formch = FormCH(instance=chochut)
+        form = FormTT(instance=thongtin)
+
+    context = {'formch': formch, 'form': form}
+    data['html_form'] = render_to_string('benhnhan/includes/chochut_add.html',
+                                         context,
+                                         request=request
+                                         )
+    return JsonResponse(data)
+
+
+def chochut_edit(request, pk):
+    data = dict()
+
+    thongtin = get_object_or_404(ThongTin, pk=pk)
+    chochut = thongtin.chochut
+    if request.method == 'POST':
+        formch = FormCH(request.POST, instance=chochut)
+        form = FormTT(instance=thongtin)
+        if formch.is_valid():
+            formch.save()
+            chochut = ChocHut.objects.all()
+            data['html_chochut_preview'] = render_to_string('benhnhan/includes/chochut_preview.html', {
+                'chochut': chochut
+            })
+            data['form_is_valid'] = True
+        else:
+            data['form_is_valid'] = False
+    else:
+        formch = FormCH(instance=chochut)
+        form = FormTT(instance=thongtin)
+
+    context = {'formch': formch, 'form': form}
+    data['html_form'] = render_to_string('benhnhan/includes/chochut_edit.html',
+                                         context,
+                                         request=request
+                                         )
+    return JsonResponse(data)
+
+
+def chochut_del(request, pk):
+    data = dict()
+    thongtin = get_object_or_404(ThongTin, pk=pk)
+    chochut = thongtin.chochut
+
+    if request.method == 'POST':
+        chochut.added = False
+        chochut.save()
+        data['form_is_valid'] = True
+        chochut = ChocHut.objects.all()
+        data['html_chochut_preview'] = render_to_string('benhnhan/includes/chochut_preview.html', {
+            'chochut': chochut
+        })
+    else:
+        context = {'chochut': chochut}
+        data['html_form'] = render_to_string('benhnhan/includes/chochut_del.html', context, request=request)
     return JsonResponse(data)

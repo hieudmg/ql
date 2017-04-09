@@ -1,0 +1,27 @@
+{% for ch in chochut %}
+    {% if ch.added %}
+    <tr class="thongtin-row" data-url="{% url 'benhnhan_list' %}{{ ch.tt.id }}/">
+            <td>{{ ch.tt.maSo }}</td>
+            <td>{{ ch.tt.tenVo }}</td>
+              <td>{{ ch.tt.nsVo }}</td>
+              <td>{{ ch.tt.tenChong }}</td>
+              <td>{{ ch.tt.nsChong }}</td>
+            <td>{{ ch.tt.bs }}</td>
+            <td title="{{ ch.HCG|date:"H:i d/m/Y" }}">
+                <span style="display: none">{{ ch.HCG|date:"m/d/Y" }}</span> {{ ch.HCG|date:"H:i" }}
+            </td>
+            <td title="{{ ch.gioCH|date:"H:i d/m/Y" }}">
+                <span style="display: none">{{ ch.gioCH|date:"m/d/Y" }}</span> {{ ch.gioCH|date:"H:i" }}
+            </td>
+            <td>{{ ch.soNang }}<button class="btn btn-sm btn-default context-chochut" style="float: right;"
+                    data-url="{% url 'benhnhan_list' %}{{ ch.tt.id }}/">
+                <span class="glyphicon glyphicon-wrench"></span>
+            </button></td>
+    </tr>
+    {% endif %}
+
+  {% empty %}
+    <tr>
+      <td colspan="10" class="text-center bg-warning">Chưa có thông tin</td>
+    </tr>
+{% endfor %}

@@ -1,5 +1,5 @@
 function loadData(){
-    $('#kythuatvien-table').DataTable({
+   /* $('#kythuatvien-table').DataTable({
     "oLanguage": {
           "oPaginate": {
             "sFirst": "Đầu",
@@ -22,7 +22,7 @@ function loadData(){
     "columnDefs": [ {
         "targets": [2],
         "type" : "datetime"
-/*
+
         "render": function (data) {
             if (data !== null) {
                 var time = new Date(data);
@@ -31,9 +31,9 @@ function loadData(){
             } else {
                 return "";
             }
-        }*/
+        }
     } ]
-   });
+   });*/
 }
 
 

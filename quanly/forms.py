@@ -1,7 +1,7 @@
 # coding=utf-8
 from django import forms
 from django.forms import DateTimeField
-from .models import ThongTin, Trung, Phoi, TruPhoi, TinhDichDoNgayCH, BacSi, KyThuatVien
+from .models import ThongTin, Trung, Phoi, TruPhoi, TinhDichDoNgayCH, BacSi, KyThuatVien, ChocHut
 from django.utils.translation import activate
 
 activate('vi')
@@ -20,9 +20,6 @@ class FormTT(forms.ModelForm):
                   'hienTinhTrung',
                   'hienNoan'
                   )
-        error_messages = {
-            'nsVo': {'max': u'Năm sinh nằm trong khoảng 1950-2000'}
-        }
 
 
 class FormTR(forms.ModelForm):
@@ -122,5 +119,14 @@ class FormKTV(forms.ModelForm):
         model = KyThuatVien
         fields = ('ten',
                   'nghiHuu',
-                  'testTime',
+                  )
+
+
+class FormCH(forms.ModelForm):
+    class Meta:
+        model = ChocHut
+        fields = ('HCG',
+                  'gioCH',
+                  'soNang',
+                  'added'
                   )
