@@ -23,68 +23,56 @@
     </div>
 </div>
 
-<div class="form-group row">
-    <div class="col-xs-8">
-        <table id="label-table" style="font-size: 100%; background-image: url('{% static 'bckgrn.gif' %}')" cellpadding="10">
-            <tbody>
-                <tr>
-                    <td>
-                        <div> {% render_field formtp.label00|attr:"onChange:Picker('id_label00')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai00 onChange="count()" %}
-                    </td>
-                    <td>
-                        <div> {% render_field formtp.label01|attr:"onChange:Picker('id_label01')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai01 onChange="count()" %}
-                    </td>
-                    <td>
-                        <div> {% render_field formtp.label02|attr:"onChange:Picker('id_label02')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai02 onChange="count()" %}
-                    </td>
-                    <td>
-                        <div> {% render_field formtp.label03|attr:"onChange:Picker('id_label03')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai03 onChange="count()" %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div> {% render_field formtp.label10|attr:"onChange:Picker('id_label10')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai10 onChange="count()" %}
-                    </td>
-                    <td>
-                        <div> {% render_field formtp.label11|attr:"onChange:Picker('id_label11')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai11 onChange="count()" %}
-                    </td>
-                    <td>
-                        <div> {% render_field formtp.label12|attr:"onChange:Picker('id_label12')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai12 onChange="count()" %}
-                    </td>
-                    <td>
-                        <div> {% render_field formtp.label13|attr:"onChange:Picker('id_label13')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai13 onChange="count()" %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div> {% render_field formtp.label20|attr:"onChange:Picker('id_label20')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai20 onChange="count()" %}
-                    </td>
-                    <td>
-                        <div> {% render_field formtp.label21|attr:"onChange:Picker('id_label21')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai21 onChange="count()" %}
-                    </td>
-                    <td>
-                        <div> {% render_field formtp.label22|attr:"onChange:Picker('id_label22')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai22 onChange="count()" %}
-                    </td>
-                    <td>
-                        <div> {% render_field formtp.label23|attr:"onChange:Picker('id_label23')"  style="background-color: transparent" %} </div>
-                        {% render_field formtp.loai23 onChange="count()" %}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="checkbox col-xs-4">
+   <div class="form-group row">
+        <div class="col-xs-8">
+            <table id="label-pick" style="background-image: url('{% static 'bckgrn.gif' %}')" cellpadding="50">
+                <tbody>
+                    <tr>
+                        <td>
+                            <button id="pick_id_label00" targetchange="id_label00" class="pick-btn left-pick0"></button>
+                        </td>
+                        <td>
+                            <button id="pick_id_label01" targetchange="id_label01" class="pick-btn right-pick"></button>
+                        </td>
+                        <td>
+                            <button id="pick_id_label02" targetchange="id_label02" class="pick-btn right-pick"></button>
+                        </td>
+                        <td>
+                            <button id="pick_id_label03" targetchange="id_label03" class="pick-btn right-pick"></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="pick_id_label10" targetchange="id_label10" class="pick-btn left-pick1"></button>
+                        </td>
+                        <td>
+                            <button id="pick_id_label11" targetchange="id_label11" class="pick-btn right-pick"></button>
+                        </td>
+                        <td>
+                            <button id="pick_id_label12" targetchange="id_label12" class="pick-btn right-pick"></button>
+                        </td>
+                        <td>
+                            <button id="pick_id_label13" targetchange="id_label13" class="pick-btn right-pick"></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="pick_id_label20" targetchange="id_label20" class="pick-btn left-pick2"></button>
+                        </td>
+                        <td>
+                            <button id="pick_id_label21" targetchange="id_label21" class="pick-btn right-pick"></button>
+                        </td>
+                        <td>
+                            <button id="pick_id_label22" targetchange="id_label22" class="pick-btn right-pick"></button>
+                        </td>
+                        <td>
+                            <button id="pick_id_label23" targetchange="id_label23" class="pick-btn right-pick"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+   <div class="checkbox col-xs-4">
         <div class="row">
                 <label for="{{ formtp.truPhoiToanBo.id_for_label }}">
                     {% render_field formtp.truPhoiToanBo %}
@@ -128,58 +116,119 @@
             </label>
         </div>
     </div>
+    </div>
+
+<div class="form-group row" style="display: none">
+    <div class="col-xs-8">
+        <table id="label-table" style="font-size: 100%; background-image: url('{% static 'bckgrn.gif' %}')" cellpadding="10">
+            <tbody>
+                <tr>
+                    <td>
+                        <div> {% render_field formtp.label00|attr:"onChange:Picker('id_label00')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai001 %}
+                        {% render_field formtp.loai002 %}
+                        {% render_field formtp.loai003 %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label01|attr:"onChange:Picker('id_label01')"  style="background-color: transparent" %} </div>
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label02|attr:"onChange:Picker('id_label02')"  style="background-color: transparent" %} </div>
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label03|attr:"onChange:Picker('id_label03')"  style="background-color: transparent" %} </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div> {% render_field formtp.label10|attr:"onChange:Picker('id_label10')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai101 %}
+                        {% render_field formtp.loai102 %}
+                        {% render_field formtp.loai103 %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label11|attr:"onChange:Picker('id_label11')"  style="background-color: transparent" %} </div>
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label12|attr:"onChange:Picker('id_label12')"  style="background-color: transparent" %} </div>
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label13|attr:"onChange:Picker('id_label13')"  style="background-color: transparent" %} </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div> {% render_field formtp.label20|attr:"onChange:Picker('id_label20')"  style="background-color: transparent" %} </div>
+                        {% render_field formtp.loai201 %}
+                        {% render_field formtp.loai202 %}
+                        {% render_field formtp.loai203 %}
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label21|attr:"onChange:Picker('id_label21')"  style="background-color: transparent" %} </div>
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label22|attr:"onChange:Picker('id_label22')"  style="background-color: transparent" %} </div>
+                    </td>
+                    <td>
+                        <div> {% render_field formtp.label23|attr:"onChange:Picker('id_label23')"  style="background-color: transparent" %} </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="checkbox">
         <div class="col-xs-12">
         </div>
     </div>
-</div>
+    </div>
 
 <script>
     function count() {
-        var loai1 = $( "select" ).filter(function( index ) {
-            return $( this ).val() === 'l1';
-          }).length;
-        var loai2 = $( "select" ).filter(function( index ) {
-            return $( this ).val() === 'l2';
-          }).length;
-        var loai3 = $( "select" ).filter(function( index ) {
-            return $( this ).val() === 'l3';
-          }).length;
+        var loai1 = Number(document.getElementById("id_loai001").value)
+            + Number(document.getElementById("id_loai101").value)
+            + Number(document.getElementById("id_loai201").value);
+        var loai2 = Number(document.getElementById("id_loai002").value)
+            + Number(document.getElementById("id_loai102").value)
+            + Number(document.getElementById("id_loai202").value);
+        var loai3 = Number(document.getElementById("id_loai003").value)
+            + Number(document.getElementById("id_loai103").value)
+            + Number(document.getElementById("id_loai203").value);
         $('input[id="loai1"]').val(loai1);
         $('input[id="loai2"]').val(loai2);
         $('input[id="loai3"]').val(loai3);
     }
     $(document).ready(function() {
         var x = document.getElementById("id_label00").value;
-        $("#id_label00").css("background-color", x);
+        $("#pick_id_label00").css("background-color", x);
         x = document.getElementById("id_label01").value;
-        $("#id_label01").css("background-color", x);
+        $("#pick_id_label01").css("background-color", x);
         x = document.getElementById("id_label02").value;
-        $("#id_label02").css("background-color", x);
+        $("#pick_id_label02").css("background-color", x);
         x = document.getElementById("id_label03").value;
-        $("#id_label03").css("background-color", x);
+        $("#pick_id_label03").css("background-color", x);
         x = document.getElementById("id_label10").value;
-        $("#id_label10").css("background-color", x);
+        $("#pick_id_label10").css("background-color", x);
         x = document.getElementById("id_label11").value;
-        $("#id_label11").css("background-color", x);
+        $("#pick_id_label11").css("background-color", x);
         x = document.getElementById("id_label12").value;
-        $("#id_label12").css("background-color", x);
+        $("#pick_id_label12").css("background-color", x);
         x = document.getElementById("id_label13").value;
-        $("#id_label13").css("background-color", x);
+        $("#pick_id_label13").css("background-color", x);
         x = document.getElementById("id_label20").value;
-        $("#id_label20").css("background-color", x);
+        $("#pick_id_label20").css("background-color", x);
         x = document.getElementById("id_label21").value;
-        $("#id_label21").css("background-color", x);
+        $("#pick_id_label21").css("background-color", x);
         x = document.getElementById("id_label22").value;
-        $("#id_label22").css("background-color", x);
+        $("#pick_id_label22").css("background-color", x);
         x = document.getElementById("id_label23").value;
-        $("#id_label23").css("background-color", x);
+        $("#pick_id_label23").css("background-color", x);
         $('option').css("background-color", "white");
         count();
     });
     function Picker(id_label) {
         var x = document.getElementById(id_label).value;
-        $("#"+id_label).css("background-color", x);
+        $("#pick_"+id_label).css("background-color", x);
         $('option').css("background-color", "white");
     }
 </script>
@@ -202,4 +251,16 @@
     #label-table td select{
         min-width: 100%;
     }
+
+    .pick-btn {
+        background-color: #4CAF50;
+        border: solid black 1px;
+        padding: 20px 30px;
+    }
+
+    ul li label input {
+        font-weight: normal;
+    }
+
+
 </style>

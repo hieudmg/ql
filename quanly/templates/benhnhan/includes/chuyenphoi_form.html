@@ -5,49 +5,48 @@
 <script src="{% static 'datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
 <link rel="stylesheet" href="{% static 'datetimepicker/css/bootstrap-datetimepicker.min.css' %}">
 
-<div>
-    <div class="form-group">
-        <label for="{{ formch.HCG.id_for_label }}">HCG</label>
-        <div class='input-group date picktime'>
-            {% render_field formch.HCG class="form-control input-sm" type="text" %}
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-            </span>
-        </div>
-    </div>
-</div>
-
-<div>
-    <div class="form-group">
-        <label for="{{ formch.gioCH.id_for_label }}">Giờ chọc hút</label>
-        <div class='input-group date picktime'>
-            {% render_field formch.gioCH class="form-control input-sm" type="text" %}
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-            </span>
-        </div>
-    </div>
-</div>
-
 <div class="form-group row">
-    <div class="col-sm-12 {% if formch.soNang.errors %} has-error{% endif %}">
-        <label for="{{ formch.soNang.id_for_label }}">Số nang</label>
-        {% render_field formch.soNang class="form-control input-sm" %}
-        {% if formch.soNang.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số dương</p> {% endif %}
+    <div class="col-sm-12 {% if formcp.soPhoiRa.errors %} has-error{% endif %}">
+        <label for="{{ formcp.soPhoiRa.id_for_label }}">Số phôi rã</label>
+        {% render_field formcp.soPhoiRa class="form-control input-sm" %}
+        {% if formcp.soPhoiRa.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Nhập một số dương</p> {% endif %}
+    </div>
+</div>
+
+<div>
+    <div class="form-group">
+        <label for="{{ formcp.ngayKiemTra.id_for_label }}">Ngày kiểm tra</label>
+        <div class='input-group date picktime'>
+            {% render_field formcp.ngayKiemTra class="form-control input-sm" type="text" %}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="form-group">
+        <label for="{{ formcp.ngayChuyenPhoi.id_for_label }}">Ngày chuyển phôi</label>
+        <div class='input-group date picktime'>
+            {% render_field formcp.ngayChuyenPhoi class="form-control input-sm" type="text" %}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
     </div>
 </div>
 
 <div class="form-group row" style="display: none">
-        {% render_field formch.added checked="" %}
+        {% render_field formcp.added checked="" %}
 </div>
 
 
 <script type="text/javascript">
     $(function () {
         $('.picktime').datetimepicker({
-            sideBySide: true,
             showTodayButton: true,
-            format: 'DD/MM/Y HH:mm',
+            format: 'DD/MM/Y',
             locale: 'vi'
         });
     });

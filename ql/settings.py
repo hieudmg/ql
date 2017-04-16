@@ -91,7 +91,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'vi-vn'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Ho_Chi_Minh'
 
 USE_I18N = False
 
@@ -113,3 +113,4 @@ STATICFILES_DIRS = (
 
 DATETIME_FORMATS = ['d/m/Y H:i']
 DATETIME_INPUT_FORMATS = ['%d/%m/%Y %H:%M']
+DATE_INPUT_FORMATS = ['%d/%m/%Y']

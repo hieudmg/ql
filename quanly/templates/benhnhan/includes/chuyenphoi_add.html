@@ -1,0 +1,21 @@
+<form method="post" action="{% url 'chuyenphoi_add' formcp.instance.tt.pk %}" class="js-chuyenphoi-add-form">
+  {% csrf_token %}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Thêm vào bảng chuyển phôi</h4>
+  </div>
+  <div class="modal-body">
+        {% include 'benhnhan/includes/thongtin_form_for_edit.html' %}
+        {% include 'benhnhan/includes/chuyenphoi_form.html' %}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">
+        <span class="fa fa-times"></span>
+        Đóng</button>
+    <button type="submit" class="btn btn-primary">
+            <span class="fa fa-plus"></span>
+            Thêm</button>
+  </div>
+</form>

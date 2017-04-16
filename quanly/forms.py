@@ -1,7 +1,7 @@
 # coding=utf-8
 from django import forms
 from django.forms import DateTimeField
-from .models import ThongTin, Trung, Phoi, TruPhoi, TinhDichDoNgayCH, BacSi, KyThuatVien, ChocHut
+from .models import ThongTin, Trung, Phoi, TruPhoi, TinhDichDoNgayCH, BacSi, KyThuatVien, ChocHut, ChuyenPhoi
 from django.utils.translation import activate
 
 activate('vi')
@@ -76,18 +76,15 @@ class FormTP(forms.ModelForm):
                   'label21',
                   'label22',
                   'label23',
-                  'loai00',
-                  'loai01',
-                  'loai02',
-                  'loai03',
-                  'loai10',
-                  'loai11',
-                  'loai12',
-                  'loai13',
-                  'loai20',
-                  'loai21',
-                  'loai22',
-                  'loai23',
+                  'loai001',
+                  'loai002',
+                  'loai003',
+                  'loai101',
+                  'loai102',
+                  'loai103',
+                  'loai201',
+                  'loai202',
+                  'loai203',
                   'PESAMESA',
                   'PICSI',
                   'TESE',
@@ -128,5 +125,15 @@ class FormCH(forms.ModelForm):
         fields = ('HCG',
                   'gioCH',
                   'soNang',
+                  'added'
+                  )
+
+
+class FormCP(forms.ModelForm):
+    class Meta:
+        model = ChuyenPhoi
+        fields = ('soPhoiRa',
+                  'ngayKiemTra',
+                  'ngayChuyenPhoi',
                   'added'
                   )

@@ -1,0 +1,28 @@
+{% for cp in chuyenphoi %}
+    {% if cp.added %}
+    <tr class="thongtin-row" data-url="{% url 'benhnhan_list' %}{{ cp.tt.id }}/">
+            <td>{{ cp.tt.maSo }}</td>
+            <td>{{ cp.tt.tenVo }}</td>
+              <td>{{ cp.tt.nsVo }}</td>
+              <td>{{ cp.tt.tenChong }}</td>
+              <td>{{ cp.tt.nsChong }}</td>
+            <td>{{ cp.tt.bs }}</td>
+            <td>{{ cp.soPhoiRa }}</td>
+            <td>
+                <span style="display: none">{{ cp.ngayKiemTra|date:"Y+m+d" }}</span> {{ cp.ngayKiemTra|date:"d/m/Y" }}
+            </td>
+            <td>
+                <span style="display: none">{{ cp.ngayChuyenPhoi|date:"Y+m+d" }}</span> {{ cp.ngayChuyenPhoi|date:"d/m/Y" }}
+                <button class="btn btn-sm btn-default context-chuyenphoi" style="float: right;"
+                    data-url="{% url 'benhnhan_list' %}{{ cp.tt.id }}/">
+                    <span class="glyphicon glyphicon-wrench"></span>
+                </button>
+            </td>
+    </tr>
+    {% endif %}
+
+  {% empty %}
+    <tr>
+      <td colspan="10" class="text-center bg-warning">Chưa có thông tin</td>
+    </tr>
+{% endfor %}

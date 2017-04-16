@@ -7,8 +7,9 @@
               <td>{{ ch.tt.tenChong }}</td>
               <td>{{ ch.tt.nsChong }}</td>
             <td>{{ ch.tt.bs }}</td>
+            <td style="display: none">{{ ch.gioCH|date:"H:i d/m/Y" }}{{ ch.HCG|date:"H:i d/m/Y" }}</td>
             <td title="{{ ch.HCG|date:"H:i d/m/Y" }}">
-                <span style="display: none">{{ ch.HCG|date:"m/d/Y" }}</span> {{ ch.HCG|date:"H:i" }}
+                <span style="display: none">{{ ch.HCG|date:"Y/d/m" }}</span> {{ ch.HCG|date:"H:i" }}
             </td>
             <td title="{{ ch.gioCH|date:"H:i d/m/Y" }}">
                 <span style="display: none">{{ ch.gioCH|date:"m/d/Y" }}</span> {{ ch.gioCH|date:"H:i" }}

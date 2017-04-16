@@ -68,53 +68,30 @@ class TinhDichDoNgayCH(models.Model):
     hinhDang = models.FloatField(validators=[MinValueValidator(0)], default=0)
 
 
-COLOR = (
-    ('#ff0000', 'Đỏ'),
-    ('#00ff00', 'Xanh lá'),
-    ('#0000ff', 'Xanh dương'),
-    ('#ffff00', 'Vàng'),
-    ('#fcfbe3', 'Kem'),
-    ('#ffffff', 'Trắng'),
-    ('#ffa500', 'Cam'),
-    ('rgba(0, 0, 0, 0)', 'Đã chuyển'),
-)
-
-
-LOAI = (
-    ('l0', '------'),
-    ('l1', 'Loại 1'),
-    ('l2', 'Loại 2'),
-    ('l3', 'Loại 3'),
-)
-
-
 class TruPhoi(models.Model):
     tt = models.OneToOneField(ThongTin, on_delete=models.CASCADE, primary_key=True)
     viTriTruPhoi = models.CharField(max_length=20, default='-------')
-    label00 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    label01 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    label02 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    label03 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    label10 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    label11 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    label12 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    label13 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    label20 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    label21 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    label22 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    label23 = models.CharField(max_length=20, choices=COLOR, default='rgba(0, 0, 0, 0)')
-    loai00 = models.CharField(max_length=2, choices=LOAI, default='l0')
-    loai01 = models.CharField(max_length=2, choices=LOAI, default='l0')
-    loai02 = models.CharField(max_length=2, choices=LOAI, default='l0')
-    loai03 = models.CharField(max_length=2, choices=LOAI, default='l0')
-    loai10 = models.CharField(max_length=2, choices=LOAI, default='l0')
-    loai11 = models.CharField(max_length=2, choices=LOAI, default='l0')
-    loai12 = models.CharField(max_length=2, choices=LOAI, default='l0')
-    loai13 = models.CharField(max_length=2, choices=LOAI, default='l0')
-    loai20 = models.CharField(max_length=2, choices=LOAI, default='l0')
-    loai21 = models.CharField(max_length=2, choices=LOAI, default='l0')
-    loai22 = models.CharField(max_length=2, choices=LOAI, default='l0')
-    loai23 = models.CharField(max_length=2, choices=LOAI, default='l0')
+    label00 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    label01 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    label02 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    label03 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    label10 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    label11 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    label12 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    label13 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    label20 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    label21 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    label22 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    label23 = models.CharField(max_length=20, default='rgba(0, 0, 0, 0)')
+    loai001 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    loai002 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    loai003 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    loai101 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    loai102 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    loai103 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    loai201 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    loai202 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    loai203 = models.IntegerField(validators=[MinValueValidator(0)], default=0)
     truPhoiToanBo = models.BooleanField(default=False)
     xinTrung = models.BooleanField(default=False)
     PICSI = models.BooleanField(default=False)
@@ -133,4 +110,12 @@ class ChocHut(models.Model):
     HCG = models.DateTimeField(default=datetime.now, blank=True)
     gioCH = models.DateTimeField(default=datetime.now, blank=True)
     soNang = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    added = models.BooleanField(default=False)
+
+
+class ChuyenPhoi(models.Model):
+    tt = models.OneToOneField(ThongTin, on_delete=models.CASCADE)
+    soPhoiRa = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    ngayKiemTra = models.DateField(default=datetime.now, blank=True)
+    ngayChuyenPhoi = models.DateField(default=datetime.now, blank=True)
     added = models.BooleanField(default=False)

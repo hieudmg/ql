@@ -22,4 +22,8 @@ urlpatterns = (
     url(r'^benhnhan/(?P<pk>\d+)/addch/$', views.chochut_add, name='chochut_add'),
     url(r'^benhnhan/(?P<pk>\d+)/editch/$', views.chochut_edit, name='chochut_edit'),
     url(r'^benhnhan/(?P<pk>\d+)/delch/$', views.chochut_del, name='chochut_del'),
+    url(r'^chuyenphoi/$', views.chuyenphoi_list, name='chuyenphoi_list'),
+    url(r'^benhnhan/(?P<pk>\d+)/addcp/$', views.chuyenphoi_add, name='chuyenphoi_add'),
+    url(r'^benhnhan/(?P<pk>\d+)/editcp/$', views.chuyenphoi_edit, name='chuyenphoi_edit'),
+    url(r'^benhnhan/(?P<pk>\d+)/delcp/$', views.chuyenphoi_del, name='chuyenphoi_del'),
 )

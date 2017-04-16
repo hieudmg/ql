@@ -118,23 +118,20 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
     return false;
   });
 
-    $("#modal-chochut").on("submit", ".js-chochut-edit-form", function(){
-    var formch = $(this);
+  $("#modal-thongtin").on("submit", ".js-chuyenphoi-add-form", function(){
+    var formcp = $(this);
     $.ajax({
-      url: formch.attr("action"),
-      data: formch.serialize(),
-      type: formch.attr("method"),
+      url: formcp.attr("action"),
+      data: formcp.serialize(),
+      type: formcp.attr("method"),
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-            $('#thongtin-table').DataTable().destroy();
-            $("#thongtin-table tbody").html(data.html_chochut_preview);  // <-- Replace the table body
-            $("#modal-chochut").modal("hide");
-            loadData();
-            toastr.success('Sửa thành công');
+          $("#modal-thongtin").modal("hide");  // <-- Close the modal
+            toastr.success('Thêm thành công');
         }
         else {
-          $("#modal-chochut .modal-content").html(data.html_form);
+          $("#modal-thongtin .modal-content").html(data.html_form);
         }
       }
     });
@@ -211,38 +208,6 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
       return false;
     });
 
-    $("#modal-chochut").on("submit", ".js-chochut-del-form", function () {
-      var form = $(this);
-      $.ajax({
-        url: form.attr("action"),
-        data: form.serialize(),
-        type: form.attr("method"),
-        dataType: 'json',
-        success: function (data) {
-          if (data.form_is_valid) {
-            $('#thongtin-table').DataTable().destroy();
-            $("#thongtin-table tbody").html(data.html_chochut_preview);  // <-- Replace the table body
-            $("#modal-chochut").modal("hide");
-            loadData();
-            toastr.success('Đã xóa');
-          }
-          else {
-            $("#modal-chochut .modal-content").html(data.html_form);
-          }
-        }
-      });
-      return false;
-    });
-
-
-
-
-$( ".dropdown-submenu" ).click(function(event) {
-    event.stopPropagation();
-    $( this ).find(".dropdown-submenu").removeClass('open');
-    $( this ).parents(".dropdown-submenu").addClass('open');
-    $( this ).toggleClass('open');
-});
 
 $(function() {
     $.contextMenu({
@@ -273,24 +238,8 @@ $(function() {
             "addto": {
               name: 'Thêm vào',
                 items: {
-                    "addch": { name: "Bảng chọc hút",
-                    callback: function (key, opt){
-                    if (opt.$trigger.attr("data-url"))
-                        $.ajax({
-                            url: opt.$trigger.attr("data-url") + key,
-                            type: 'get',
-                            dataType: 'json',
-                            beforeSend: function () {
-                                $("#modal-thongtin-setup").removeClass("modal-lg");
-                                $("#modal-thongtin").modal("show");
-                            },
-                            success: function (data) {
-                                $("#modal-thongtin .modal-content").html(data.html_form);
-                            }
-                        });
-                    }},
-                    "normalsub2": { name: "Bảng chuyển phôi",
-                    callback: function (key, opt){alert('Đang phát triển')}},
+                    "addch": { name: "Bảng chọc hút" },
+                    "addcp": { name: "Bảng chuyển phôi" },
                     "normalsub3": { name: "Bảng đông phôi",
                     callback: function (key, opt){alert('Đang phát triển')}}
                 }
@@ -300,44 +249,326 @@ $(function() {
         }
     });
 
+
+    function count() {
+        var loai1 = Number(document.getElementById("id_loai001").value)
+            + Number(document.getElementById("id_loai101").value)
+            + Number(document.getElementById("id_loai201").value);
+        var loai2 = Number(document.getElementById("id_loai002").value)
+            + Number(document.getElementById("id_loai102").value)
+            + Number(document.getElementById("id_loai202").value);
+        var loai3 = Number(document.getElementById("id_loai003").value)
+            + Number(document.getElementById("id_loai103").value)
+            + Number(document.getElementById("id_loai203").value);
+        $('input[id="loai1"]').val(loai1);
+        $('input[id="loai2"]').val(loai2);
+        $('input[id="loai3"]').val(loai3);
+    }
+
     $.contextMenu({
-        selector: '.context-chochut',
+        selector: '.left-pick0',
         trigger: 'left',
+        events: {
+            show : function(options){
+                $("ul li label input").addClass("form-control input-sm");
+                $(".okok").hover(function(){
+                    $(this).css("background-color", "transparent");
+                    }, function(){
+                    $(this).css("background-color", "transparent");
+                });
+                $(".okok").append("<button class='btn btn-primary btn-sm' style='float: right'>Đồng ý</button>");
+                $(".context-menu-input").hover(function(){
+                    $(this).css("background-color", "transparent");
+                    }, function(){
+                    $(this).css("background-color", "transparent");
+                });
+            }
+        },
+        build: function($triggerElement, e){
+            var loai001 = document.getElementById("id_loai001").value;
+            var loai002 = document.getElementById("id_loai002").value;
+            var loai003 = document.getElementById("id_loai003").value;
+            return {
+                zIndex: 100,
+                callback: function (key, opt){
+                            $(this).css('background-color', key);
+                            var target = opt.$trigger.attr("targetchange");
+                            target = '#' + target;
+                            $(target).val(key);
+                            return false;
+                        },
+                items: {
+                    "#ff0000": {name: 'Đỏ'},
+                    "#00ff00": {name: 'Xanh lá'},
+                    "#0000ff": {name: 'Xanh dương'},
+                    "#ffff00": {name: 'Vàng'},
+                    "#fcfbe3": {name: 'Kem'},
+                    "#ffffff": {name: 'Trắng'},
+                    "#ffa500": {name: 'Cam'},
+                    "rgba(0, 0, 0, 0)": {name: 'Đã chuyển'},
+                    "sep1": "---------",
+                    "l00": {
+                        name: "Loại 1",
+                        type: "text",
+                        value: loai001,
+                        callback: function (key, opt) {
+                        },
+                        events: {
+                            keyup: function(e) {
+                                loai001 = Number(e.currentTarget.value);
+                                //window.console.log(Number(e.currentTarget.value));
+                            }
+                        }
+                    },
+                    "l10": {
+                        name: "Loại 2",
+                        type: "text",
+                        value: loai002,
+                        callback: function (key, opt) {
+                        },
+                        events: {
+                            keyup: function(e) {
+                                loai002 = Number(e.currentTarget.value);
+                            }
+                        }
+                    },
+                    "l20": {
+                        name: "Loại 3",
+                        type: "text",
+                        value: loai003,
+                        callback: function (key, opt) {
+                        },
+                        events: {
+                            keyup: function(e) {
+                                loai003 = Number(e.currentTarget.value);
+                            }
+                        }
+                    },
+                    "ok": {
+                        name: "",
+                        callback: function (key, opt) {
+                            $("#id_loai001").val(loai001);
+                            $("#id_loai002").val(loai002);
+                            $("#id_loai003").val(loai003);
+                            count();
+                        },
+                        className: "okok"
+                    }
+                }
+            }
+        }
+    });
+
+    $.contextMenu({
+        selector: '.left-pick1',
+        trigger: 'left',
+        events: {
+            show : function(options){
+                $("ul li label input").addClass("form-control input-sm");
+                $(".okok").hover(function(){
+                    $(this).css("background-color", "transparent");
+                    }, function(){
+                    $(this).css("background-color", "transparent");
+                });
+                $(".okok").append("<button class='btn btn-primary btn-sm' style='float: right'>Đồng ý</button>");
+                $(".context-menu-input").hover(function(){
+                    $(this).css("background-color", "transparent");
+                    }, function(){
+                    $(this).css("background-color", "transparent");
+                });
+            }
+        },
+        build: function($triggerElement, e){
+            var loai101 = document.getElementById("id_loai101").value;
+            var loai102 = document.getElementById("id_loai102").value;
+            var loai103 = document.getElementById("id_loai103").value;
+            $("ul li label input").addClass("form-control input-sm");
+            return {
+                zIndex: 100,
+                callback: function (key, opt){
+                            $(this).css('background-color', key);
+                            var target = opt.$trigger.attr("targetchange");
+                            target = '#' + target;
+                            $(target).val(key);
+                            return false;
+                        },
+                items: {
+                    "#ff0000": {name: 'Đỏ'},
+                    "#00ff00": {name: 'Xanh lá'},
+                    "#0000ff": {name: 'Xanh dương'},
+                    "#ffff00": {name: 'Vàng'},
+                    "#fcfbe3": {name: 'Kem'},
+                    "#ffffff": {name: 'Trắng'},
+                    "#ffa500": {name: 'Cam'},
+                    "rgba(0, 0, 0, 0)": {name: 'Đã chuyển'},
+                    "sep1": "---------",
+                    "l00": {
+                        name: "Loại 1",
+                        type: "text",
+                        value: loai101,
+                        callback: function (key, opt) {
+                        },
+                        events: {
+                            keyup: function(e) {
+                                loai101 = Number(e.currentTarget.value);
+                                //window.console.log(Number(e.currentTarget.value));
+                            }
+                        }
+                    },
+                    "l10": {
+                        name: "Loại 2",
+                        type: "text",
+                        value: loai102,
+                        callback: function (key, opt) {
+                        },
+                        events: {
+                            keyup: function(e) {
+                                loai102 = Number(e.currentTarget.value);
+                            }
+                        }
+                    },
+                    "l20": {
+                        name: "Loại 3",
+                        type: "text",
+                        value: loai103,
+                        callback: function (key, opt) {
+                        },
+                        events: {
+                            keyup: function(e) {
+                                loai103 = Number(e.currentTarget.value);
+                            }
+                        }
+                    },
+                    "ok": {
+                        name: "",
+                        callback: function (key, opt) {
+                            $("#id_loai101").val(loai101);
+                            $("#id_loai102").val(loai102);
+                            $("#id_loai103").val(loai103);
+                            count();
+                        },
+                        className: "okok"
+                    }
+                }
+            }
+        }
+    });
+
+    $.contextMenu({
+        selector: '.left-pick2',
+        trigger: 'left',
+        events: {
+            show : function(options){
+                $("ul li label input").addClass("form-control input-sm");
+                $(".okok").hover(function(){
+                    $(this).css("background-color", "transparent");
+                    }, function(){
+                    $(this).css("background-color", "transparent");
+                });
+                $(".okok").append("<button class='btn btn-primary btn-sm' style='float: right'>Đồng ý</button>");
+                $(".context-menu-input").hover(function(){
+                    $(this).css("background-color", "transparent");
+                    }, function(){
+                    $(this).css("background-color", "transparent");
+                });
+            }
+        },
+        build: function($triggerElement, e){
+            var loai201 = document.getElementById("id_loai201").value;
+            var loai202 = document.getElementById("id_loai202").value;
+            var loai203 = document.getElementById("id_loai203").value;
+            return {
+                zIndex: 100,
+                callback: function (key, opt){
+                            $(this).css('background-color', key);
+                            var target = opt.$trigger.attr("targetchange");
+                            target = '#' + target;
+                            $(target).val(key);
+                            return false;
+                        },
+                items: {
+                    "#ff0000": {name: 'Đỏ'},
+                    "#00ff00": {name: 'Xanh lá'},
+                    "#0000ff": {name: 'Xanh dương'},
+                    "#ffff00": {name: 'Vàng'},
+                    "#fcfbe3": {name: 'Kem'},
+                    "#ffffff": {name: 'Trắng'},
+                    "#ffa500": {name: 'Cam'},
+                    "rgba(0, 0, 0, 0)": {name: 'Đã chuyển'},
+                    "sep1": "---------",
+                    "l00": {
+                        name: "Loại 1",
+                        type: "text",
+                        value: loai201,
+                        callback: function (key, opt) {
+                        },
+                        events: {
+                            keyup: function(e) {
+                                loai201 = Number(e.currentTarget.value);
+                                //window.console.log(Number(e.currentTarget.value));
+                            }
+                        }
+                    },
+                    "l10": {
+                        name: "Loại 2",
+                        type: "text",
+                        value: loai202,
+                        callback: function (key, opt) {
+                        },
+                        events: {
+                            keyup: function(e) {
+                                loai202 = Number(e.currentTarget.value);
+                            }
+                        }
+                    },
+                    "l20": {
+                        name: "Loại 3",
+                        type: "text",
+                        value: loai203,
+                        callback: function (key, opt) {
+                        },
+                        events: {
+                            keyup: function(e) {
+                                loai0203 = Number(e.currentTarget.value);
+                            }
+                        }
+                    },
+                    "ok": {
+                        name: "",
+                        callback: function (key, opt) {
+                            $("#id_loai201").val(loai201);
+                            $("#id_loai202").val(loai202);
+                            $("#id_loai203").val(loai203);
+                            count();
+                        },
+                        className: "okok"
+                    }
+                }
+            }
+        }
+    });
+
+
+
+    $.contextMenu({
+        selector: '.right-pick',
+        trigger: 'left',
+        zIndex: 100,
+        callback: function (key, opt){
+                    $(this).css('background-color', key);
+                    var target = opt.$trigger.attr("targetchange");
+                    target = '#' + target;
+                    $(target).val(key);
+                },
         items: {
-            "editch": {name: 'Sửa',
-                    callback: function (key, opt){
-                            if (opt.$trigger.attr("data-url"))
-                                $.ajax({
-                                    url: opt.$trigger.attr("data-url") + key,
-                                    type: 'get',
-                                    dataType: 'json',
-                                    beforeSend: function () {
-                                        $("#modal-chochut-setup").removeClass("modal-lg");
-                                        $("#modal-chochut").modal("show");
-                                    },
-                                    success: function (data) {
-                                        $("#modal-chochut .modal-content").html(data.html_form);
-                                    }
-                                });
-                            }},
-            "sep1": "---------",
-            "delch": {name: "Xóa",
-                    callback: function (key, opt){
-                            if (opt.$trigger.attr("data-url"))
-                                $.ajax({
-                                    url: opt.$trigger.attr("data-url") + key,
-                                    type: 'get',
-                                    dataType: 'json',
-                                    beforeSend: function () {
-                                        $("#modal-chochut-setup").removeClass("modal-lg");
-                                        $("#modal-chochut").modal("show");
-                                    },
-                                    success: function (data) {
-                                        $("#modal-chochut .modal-content").html(data.html_form);
-                                    }
-                                });
-                            },
-            className:"context_del"}
+            "#ff0000": {name: 'Đỏ'},
+            "#00ff00": {name: 'Xanh lá'},
+            "#0000ff": {name: 'Xanh dương'},
+            "#ffff00": {name: 'Vàng'},
+            "#fcfbe3": {name: 'Kem'},
+            "#ffffff": {name: 'Trắng'},
+            "#ffa500": {name: 'Cam'},
+            "rgba(0, 0, 0, 0)": {name: 'Đã chuyển'}
         }
     });
 });

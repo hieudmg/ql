@@ -2,8 +2,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from .models import ThongTin, Trung, BacSi, TruPhoi, Phoi, TinhDichDoNgayCH, KyThuatVien, ChocHut
-from .forms import FormTT, FormTR, FormP, FormTP, FormTD, FormBS, FormKTV, FormCH
+from .models import ThongTin, Trung, BacSi, TruPhoi, Phoi, TinhDichDoNgayCH, KyThuatVien, ChocHut, ChuyenPhoi
+from .forms import FormTT, FormTR, FormP, FormTP, FormTD, FormBS, FormKTV, FormCH, FormCP
 from datetime import datetime
 
 
@@ -34,6 +34,8 @@ def thongtin_add(request):
             td.save()
             ch = ChocHut(tt=tt)
             ch.save()
+            cp = ChuyenPhoi(tt=tt)
+            cp.save()
             data['form_is_valid'] = True
             thongtin = ThongTin.objects.all()
             data['html_thongtin_preview'] = render_to_string('benhnhan/includes/thongtin_preview.html', {
@@ -375,4 +377,86 @@ def chochut_del(request, pk):
     else:
         context = {'chochut': chochut}
         data['html_form'] = render_to_string('benhnhan/includes/chochut_del.html', context, request=request)
+    return JsonResponse(data)
+
+
+def chuyenphoi_list(request):
+    chuyenphoi = ChuyenPhoi.objects.all()
+    return render(request, 'benhnhan/chuyenphoi_list.html', {'chuyenphoi': chuyenphoi})
+
+
+def chuyenphoi_add(request, pk):
+    data = dict()
+
+    thongtin = get_object_or_404(ThongTin, pk=pk)
+    chuyenphoi = thongtin.chuyenphoi
+    if not chuyenphoi.added:
+        chuyenphoi.ngayChuyenPhoi = datetime.now
+        chuyenphoi.ngayKiemTra = datetime.now
+
+    if request.method == 'POST':
+        formcp = FormCP(request.POST, instance=chuyenphoi)
+        form = FormTT(request.POST, instance=thongtin)
+        if formcp.is_valid():
+            formcp.save()
+            data['form_is_valid'] = True
+        else:
+            data['form_is_valid'] = False
+    else:
+        formcp = FormCP(instance=chuyenphoi)
+        form = FormTT(instance=thongtin)
+
+    context = {'formcp': formcp, 'form': form}
+    data['html_form'] = render_to_string('benhnhan/includes/chuyenphoi_add.html',
+                                         context,
+                                         request=request
+                                         )
+    return JsonResponse(data)
+
+
+def chuyenphoi_edit(request, pk):
+    data = dict()
+
+    thongtin = get_object_or_404(ThongTin, pk=pk)
+    chuyenphoi = thongtin.chuyenphoi
+    if request.method == 'POST':
+        formcp = FormCP(request.POST, instance=chuyenphoi)
+        form = FormTT(instance=thongtin)
+        if formcp.is_valid():
+            formcp.save()
+            chuyenphoi = ChuyenPhoi.objects.all()
+            data['html_chuyenphoi_preview'] = render_to_string('benhnhan/includes/chuyenphoi_preview.html', {
+                'chuyenphoi': chuyenphoi
+            })
+            data['form_is_valid'] = True
+        else:
+            data['form_is_valid'] = False
+    else:
+        formcp = FormCP(instance=chuyenphoi)
+        form = FormTT(instance=thongtin)
+
+    context = {'formcp': formcp, 'form': form}
+    data['html_form'] = render_to_string('benhnhan/includes/chuyenphoi_edit.html',
+                                         context,
+                                         request=request
+                                         )
+    return JsonResponse(data)
+
+
+def chuyenphoi_del(request, pk):
+    data = dict()
+    thongtin = get_object_or_404(ThongTin, pk=pk)
+    chuyenphoi = thongtin.chuyenphoi
+
+    if request.method == 'POST':
+        chuyenphoi.added = False
+        chuyenphoi.save()
+        data['form_is_valid'] = True
+        chuyenphoi = ChuyenPhoi.objects.all()
+        data['html_chuyenphoi_preview'] = render_to_string('benhnhan/includes/chuyenphoi_preview.html', {
+            'chuyenphoi': chuyenphoi
+        })
+    else:
+        context = {'chuyenphoi': chuyenphoi}
+        data['html_form'] = render_to_string('benhnhan/includes/chuyenphoi_del.html', context, request=request)
     return JsonResponse(data)
