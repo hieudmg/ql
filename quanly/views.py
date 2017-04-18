@@ -1,10 +1,14 @@
 # coding=utf-8
 from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
-from .models import ThongTin, Trung, BacSi, TruPhoi, Phoi, TinhDichDoNgayCH, KyThuatVien, ChocHut, ChuyenPhoi
-from .forms import FormTT, FormTR, FormP, FormTP, FormTD, FormBS, FormKTV, FormCH, FormCP
-from datetime import datetime
+from .models import ThongTin, Trung, BacSi, TruPhoi, Phoi, TinhDichDoNgayCH, KyThuatVien, ChocHut, ChuyenPhoi, DongPhoi
+from .forms import FormTT, FormTR, FormP, FormTP, FormTD, FormBS, FormKTV, FormCH, FormCP, FormDP, FormExCH
+from datetime import *
+from dateutil.relativedelta import relativedelta
+from docx import Document
+from django.core.files.storage import FileSystemStorage
+from docx.shared import *
 
 
 def thongtin_list(request):
@@ -36,6 +40,8 @@ def thongtin_add(request):
             ch.save()
             cp = ChuyenPhoi(tt=tt)
             cp.save()
+            dp = DongPhoi(tt=tt)
+            dp.save()
             data['form_is_valid'] = True
             thongtin = ThongTin.objects.all()
             data['html_thongtin_preview'] = render_to_string('benhnhan/includes/thongtin_preview.html', {
@@ -391,8 +397,8 @@ def chuyenphoi_add(request, pk):
     thongtin = get_object_or_404(ThongTin, pk=pk)
     chuyenphoi = thongtin.chuyenphoi
     if not chuyenphoi.added:
-        chuyenphoi.ngayChuyenPhoi = datetime.now
-        chuyenphoi.ngayKiemTra = datetime.now
+        chuyenphoi.ngayChuyenPhoi = date.today()
+        chuyenphoi.ngayKiemTra = date.today()
 
     if request.method == 'POST':
         formcp = FormCP(request.POST, instance=chuyenphoi)
@@ -460,3 +466,175 @@ def chuyenphoi_del(request, pk):
         context = {'chuyenphoi': chuyenphoi}
         data['html_form'] = render_to_string('benhnhan/includes/chuyenphoi_del.html', context, request=request)
     return JsonResponse(data)
+
+
+def dongphoi_list(request):
+    dongphoi = DongPhoi.objects.all()
+    return render(request, 'benhnhan/dongphoi_list.html', {'dongphoi': dongphoi})
+
+
+def dongphoi_add(request, pk):
+    data = dict()
+
+    thongtin = get_object_or_404(ThongTin, pk=pk)
+    dongphoi = thongtin.dongphoi
+    if not dongphoi.added:
+        dtn = date.today()
+        dongphoi.ngayDongPhoi = dtn
+        dongphoi.ngayNopTien = dtn + relativedelta(years=1)
+
+    if request.method == 'POST':
+        formdp = FormDP(request.POST, instance=dongphoi)
+        form = FormTT(request.POST, instance=thongtin)
+        if formdp.is_valid():
+            formdp.save()
+            data['form_is_valid'] = True
+        else:
+            data['form_is_valid'] = False
+    else:
+        formdp = FormDP(instance=dongphoi)
+        form = FormTT(instance=thongtin)
+
+    context = {'formdp': formdp, 'form': form}
+    data['html_form'] = render_to_string('benhnhan/includes/dongphoi_add.html',
+                                         context,
+                                         request=request
+                                         )
+    return JsonResponse(data)
+
+
+def dongphoi_edit(request, pk):
+    data = dict()
+
+    thongtin = get_object_or_404(ThongTin, pk=pk)
+    dongphoi = thongtin.dongphoi
+    if request.method == 'POST':
+        formdp = FormDP(request.POST, instance=dongphoi)
+        form = FormTT(instance=thongtin)
+        if formdp.is_valid():
+            formdp.save()
+            dongphoi = DongPhoi.objects.all()
+            data['html_dongphoi_preview'] = render_to_string('benhnhan/includes/dongphoi_preview.html', {
+                'dongphoi': dongphoi
+            })
+            data['form_is_valid'] = True
+        else:
+            data['form_is_valid'] = False
+    else:
+        formdp = FormDP(instance=dongphoi)
+        form = FormTT(instance=thongtin)
+
+    context = {'formdp': formdp, 'form': form}
+    data['html_form'] = render_to_string('benhnhan/includes/dongphoi_edit.html',
+                                         context,
+                                         request=request
+                                         )
+    return JsonResponse(data)
+
+
+def dongphoi_del(request, pk):
+    data = dict()
+    thongtin = get_object_or_404(ThongTin, pk=pk)
+    dongphoi = thongtin.dongphoi
+
+    if request.method == 'POST':
+        dongphoi.added = False
+        dongphoi.save()
+        data['form_is_valid'] = True
+        dongphoi = DongPhoi.objects.all()
+        data['html_dongphoi_preview'] = render_to_string('benhnhan/includes/dongphoi_preview.html', {
+            'dongphoi': dongphoi
+        })
+    else:
+        context = {'dongphoi': dongphoi}
+        data['html_form'] = render_to_string('benhnhan/includes/dongphoi_del.html', context, request=request)
+    return JsonResponse(data)
+
+
+def chochut_ex(request):
+    data = dict()
+    chochut = ChocHut.objects.filter(added=True)
+    if request.method == 'POST':
+        formch = FormExCH(request.POST)
+        if formch.is_valid():
+            print (formch.cleaned_data['chonNgay'])
+            document = Document('landscape-template.docx')
+            document._body.clear_content()
+            document.add_heading(u"Ngày chọc hút: " + formch.cleaned_data['chonNgay'].strftime("%d/%m/%Y"), level=1)
+
+            row = 0
+            chdis = []
+            for ch in chochut:
+                if ch.gioCH.date() == formch.cleaned_data['chonNgay']:
+                    print (ch.tt.tenVo)
+                    chdis.append(1)
+                    chdis[row] = ch
+                    row += 1
+
+            table = document.add_table(rows=row, cols=0, style='Table1')
+            table.add_column(width=Cm(0.83))
+            table.add_column(width=Cm(7.66))
+            table.add_column(width=Cm(3.83))
+            table.add_column(width=Cm(3.42))
+            table.add_column(width=Cm(5.75))
+            table.add_column(width=Cm(3.11))
+            table.allow_autofit = True
+            for i in range(row):
+                ci = chdis[i]
+                cell = table.cell(i, 0)
+                cell.text = str(i+1)
+                cell.paragraphs[0].style = document.styles['Text2']
+
+                cell = table.cell(i, 1)
+                tv = ci.tt.tenVo.split()[-1]
+                print (tv)
+                cell.text = tv
+                cell.paragraphs[0].style = document.styles['Text2']
+                cell.add_paragraph(ci.tt.tenVo + u' - ' + str(ci.tt.nsVo), style='Text3')
+                cell.add_paragraph(ci.tt.tenChong + u' - ' + str(ci.tt.nsChong), style='Text3')
+
+                cell = table.cell(i, 2)
+                cell.text = 'HCG: ' + ci.HCG.strftime('%H:%m')
+                cell.paragraphs[0].style = document.styles['Text4']
+                # cell.paragraphs[0].paragraph_format = document.styles['Text4'].paragraph_format
+                # cell.add_paragraph('HCG: ' + ci.HCG.strftime('%H:%m'), style='Text4')
+                cell.add_paragraph('CH: ' + ci.gioCH.strftime('%H:%m'), style='Text4')
+                cell.add_paragraph('BS: ' + ci.tt.bs.ten, style='Text4')
+                cell.add_paragraph(str(ci.soNang)+'N', style='Text2')
+
+                cell = table.cell(i, 3)
+                cell.text = '          M2'
+                cell.paragraphs[0].style = document.styles['Text3']
+                cell.add_paragraph('          M1', style='Text3')
+                cell.add_paragraph('          GV', style='Text3')
+                cell.add_paragraph('          TH', style='Text3')
+
+                cell = table.cell(i, 5)
+                cell.text = 'HS'
+                cell.paragraphs[0].style = document.styles['Text4']
+                cell.add_paragraph(ci.tt.maSo, style='Text4')
+
+            data['form_is_valid'] = True
+
+            response = HttpResponse(
+                content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+            response['Content-Disposition'] = 'attachment; filename=download.docx'
+            document.save('download.docx')
+            # data['file'] = response
+        else:
+            data['form_is_valid'] = False
+    else:
+        formch = FormExCH()
+    context = {'formch': formch}
+    data['html_form'] = render_to_string('benhnhan/includes/chochut_ex.html', context, request=request)
+    return JsonResponse(data)
+
+
+def download(request):
+    fs = FileSystemStorage()
+    filename = 'download.docx'
+    with fs.open(filename) as docx:
+        response = HttpResponse(docx,
+                                content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+        response['Content-Disposition'] = 'attachment; filename="download.docx"'
+        return response

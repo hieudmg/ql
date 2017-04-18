@@ -5,7 +5,6 @@
     <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
     <script src="{% static 'context-menu/jquery.ui.position.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
-    <script src="{% static 'quanly/js/chuyenphoi.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     <style>
@@ -17,6 +16,7 @@
     <script src="{% static 'datatable/DataTables-1.10.13/js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'datatable/DataTables-1.10.13/js/dataTables.bootstrap.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'datatable/DataTables-1.10.13/css/dataTables.bootstrap.min.css' %}">
+    <script src="{% static 'quanly/js/dongphoi.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -25,8 +25,8 @@
       <ul class="nav nav-tabs">
         <li><a href="{% url 'benhnhan_list' %}">Bệnh nhân</a></li>
         <li><a href="{% url 'chochut_list' %}">Chọc hút</a></li>
-        <li class="active"><a href="{% url 'chuyenphoi_list' %}">Chuyển phôi</a></li>
-        <li><a href="{% url 'dongphoi_list' %}">Đông phôi</a></li>
+        <li><a href="{% url 'chuyenphoi_list' %}">Chuyển phôi</a></li>
+        <li class="active"><a href="{% url 'dongphoi_list' %}">Đông phôi</a></li>
         <li><a href="#">Thống kê</a></li>
       </ul>
     </div>
@@ -42,6 +42,21 @@
     </button> -->
   </h3>
     <div>
+    <span>&nbsp;</span>
+      <form class="form-inline" style="float: right">
+        <div class="form-group">
+          <label for="min-date">Lọc theo kỳ hạn đóng tiền: Từ</label>
+          <input type="number" class="form-control input-sm" id="min-date">
+        </div>
+        <div class="form-group">
+          <label for="max-date">ngày đến</label>
+          <input type="number" class="form-control input-sm" id="max-date">
+          <label for="max-date">ngày</label>
+        </div>
+      </form>
+    </div>
+    <div>
+    <br>
         <table id="thongtin-table" class="table " cellspacing="0" width="100%">
         <thead>
           <tr>
@@ -51,19 +66,20 @@
               <th>Tên chồng</th>
               <th>N/s chồng</th>
               <th>Bác sĩ</th>
-            <th>Số phôi rã</th>
-            <th>Ngày kiểm tra</th>
-            <th>Ngày chuyển phôi</th>
+            <th>Ngày đông phôi</th>
+            <th>Ngày đóng tiền</th>
+            <th>Kỳ hạn đóng tiền</th>
+              <th style="display: none">Search</th>
           </tr>
         </thead>
         <tbody>
-            {% include 'benhnhan/includes/chuyenphoi_preview.html' %}
+            {% include 'benhnhan/includes/dongphoi_preview.html' %}
         </tbody>
       </table>
     </div>
 
-  <div class="modal fade" id="modal-chuyenphoi">
-    <div id="modal-chuyenphoi-setup" class="modal-dialog modal-lg">
+  <div class="modal fade" id="modal-dongphoi">
+    <div id="modal-dongphoi-setup" class="modal-dialog modal-lg">
       <div class="modal-content">
       </div>
     </div>

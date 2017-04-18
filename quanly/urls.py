@@ -26,4 +26,10 @@ urlpatterns = (
     url(r'^benhnhan/(?P<pk>\d+)/addcp/$', views.chuyenphoi_add, name='chuyenphoi_add'),
     url(r'^benhnhan/(?P<pk>\d+)/editcp/$', views.chuyenphoi_edit, name='chuyenphoi_edit'),
     url(r'^benhnhan/(?P<pk>\d+)/delcp/$', views.chuyenphoi_del, name='chuyenphoi_del'),
+    url(r'^dongphoi/$', views.dongphoi_list, name='dongphoi_list'),
+    url(r'^benhnhan/(?P<pk>\d+)/adddp/$', views.dongphoi_add, name='dongphoi_add'),
+    url(r'^benhnhan/(?P<pk>\d+)/editdp/$', views.dongphoi_edit, name='dongphoi_edit'),
+    url(r'^benhnhan/(?P<pk>\d+)/deldp/$', views.dongphoi_del, name='dongphoi_del'),
+    url(r'^benhnhan/exch/$', views.chochut_ex, name='chochut_ex'),
+    url(r'^download/$', views.download, name='download')
 )

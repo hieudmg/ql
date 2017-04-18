@@ -1,7 +1,7 @@
 # coding=utf-8
 from django import forms
 from django.forms import DateTimeField
-from .models import ThongTin, Trung, Phoi, TruPhoi, TinhDichDoNgayCH, BacSi, KyThuatVien, ChocHut, ChuyenPhoi
+from .models import ThongTin, Trung, Phoi, TruPhoi, TinhDichDoNgayCH, BacSi, KyThuatVien, ChocHut, ChuyenPhoi, DongPhoi
 from django.utils.translation import activate
 
 activate('vi')
@@ -137,3 +137,16 @@ class FormCP(forms.ModelForm):
                   'ngayChuyenPhoi',
                   'added'
                   )
+
+
+class FormDP(forms.ModelForm):
+    class Meta:
+        model = DongPhoi
+        fields = ('ngayDongPhoi',
+                  'ngayNopTien',
+                  'added'
+                  )
+
+
+class FormExCH(forms.Form):
+    chonNgay = forms.DateField()

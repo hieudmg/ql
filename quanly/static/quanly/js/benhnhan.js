@@ -138,6 +138,26 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
     return false;
   });
 
+  $("#modal-thongtin").on("submit", ".js-dongphoi-add-form", function(){
+    var formdp = $(this);
+    $.ajax({
+      url: formdp.attr("action"),
+      data: formdp.serialize(),
+      type: formdp.attr("method"),
+      dataType: 'json',
+      success: function (data) {
+        if (data.form_is_valid) {
+          $("#modal-thongtin").modal("hide");  // <-- Close the modal
+            toastr.success('Thêm thành công');
+        }
+        else {
+          $("#modal-thongtin .modal-content").html(data.html_form);
+        }
+      }
+    });
+    return false;
+  });
+
   $("#modal-thongtin").on("submit", ".js-thongtin-info-form", function () {
     var form = $(this);
     $.ajax({
@@ -240,8 +260,7 @@ $(function() {
                 items: {
                     "addch": { name: "Bảng chọc hút" },
                     "addcp": { name: "Bảng chuyển phôi" },
-                    "normalsub3": { name: "Bảng đông phôi",
-                    callback: function (key, opt){alert('Đang phát triển')}}
+                    "adddp": { name: "Bảng đông phôi" }
                 }
             },
             "sep1": "---------",

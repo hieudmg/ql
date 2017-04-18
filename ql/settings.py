@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'quanly',
     'widget_tweaks',
+    'dateutil.relativedelta',
 )
 
 MIDDLEWARE_CLASSES = (

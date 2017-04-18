@@ -26,20 +26,20 @@
         <li><a href="{% url 'benhnhan_list' %}">Bệnh nhân</a></li>
         <li class="active"><a href="{% url 'chochut_list' %}">Chọc hút</a></li>
         <li><a href="{% url 'chuyenphoi_list' %}">Chuyển phôi</a></li>
-        <li><a href="#">Đông phôi</a></li>
+        <li><a href="{% url 'dongphoi_list' %}">Đông phôi</a></li>
         <li><a href="#">Thống kê</a></li>
       </ul>
     </div>
   <h3 class="page-header">
   <button class="btn btn-default" title="Làm mới" onclick="history.go(0)"><span class="fa fa-refresh"></span></button>
       Chọc hút
-  <!--  <button type="button"
+  <button type="button"
             style="float: right"
-            class="btn btn-primary js-thongtin-add"
-            data-url="">
+            class="btn btn-primary js-chochut-ex"
+            data-url="{% url 'chochut_ex' %}">
       <span class="glyphicon glyphicon-plus"></span>
-      Thêm
-    </button> -->
+      Xuất báo cáo
+    </button>
   </h3>
     <div>
         <table id="thongtin-table" class="table " cellspacing="0" width="100%">

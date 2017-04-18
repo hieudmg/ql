@@ -1,0 +1,49 @@
+{% load widget_tweaks %}
+{% load static %}
+
+<script src="{% static 'datatable/DataTables-1.10.13/js/moment-with-locales.min.js' %}"></script>
+<script src="{% static 'datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'datetimepicker/css/bootstrap-datetimepicker.min.css' %}">
+
+
+<form method="post" action="{% url 'chochut_ex' %}" class="js-chochut-ex-form">
+  {% csrf_token %}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Xuất báo cáo</h4>
+  </div>
+  <div class="modal-body">
+    <div>
+        <div class="form-group">
+            <label for="{{ formch.chonNgay.id_for_label }}">Chọn ngày</label>
+            <div class='input-group date picktime'>
+                {% render_field formch.chonNgay class="form-control input-sm" type="text" %}
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">
+        <span class="fa fa-times"></span>
+        Đóng</button>
+    <button type="submit" class="btn btn-primary">
+            <span class="fa fa-plus"></span>
+            Xuất</button>
+  </div>
+</form>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('.picktime').datetimepicker({
+            showTodayButton: true,
+            format: 'DD/MM/Y',
+            locale: 'vi'
+        });
+    });
+</script>

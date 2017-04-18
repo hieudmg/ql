@@ -1,5 +1,7 @@
+var table;
+
 function loadData(){
-    $('#thongtin-table').DataTable({
+    table = $('#thongtin-table').DataTable({
     "oLanguage": {
           "oPaginate": {
             "sFirst": "Đầu",
@@ -45,23 +47,23 @@ $(document).ready(function() {
 });
 
 
-    $("#modal-chochut").on("submit", ".js-chochut-edit-form", function(){
-    var formch = $(this);
+    $("#modal-dongphoi").on("submit", ".js-dongphoi-edit-form", function(){
+    var formdp = $(this);
     $.ajax({
-      url: formch.attr("action"),
-      data: formch.serialize(),
-      type: formch.attr("method"),
+      url: formdp.attr("action"),
+      data: formdp.serialize(),
+      type: formdp.attr("method"),
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
             $('#thongtin-table').DataTable().destroy();
-            $("#thongtin-table tbody").html(data.html_chochut_preview);  // <-- Replace the table body
-            $("#modal-chochut").modal("hide");
+            $("#thongtin-table tbody").html(data.html_dongphoi_preview);  // <-- Replace the table body
+            $("#modal-dongphoi").modal("hide");
             loadData();
             toastr.success('Sửa thành công');
         }
         else {
-          $("#modal-chochut .modal-content").html(data.html_form);
+          $("#modal-dongphoi .modal-content").html(data.html_form);
         }
       }
     });
@@ -69,7 +71,7 @@ $(document).ready(function() {
   });
 
 
-    $("#modal-chochut").on("submit", ".js-chochut-del-form", function () {
+    $("#modal-dongphoi").on("submit", ".js-dongphoi-del-form", function () {
       var form = $(this);
       $.ajax({
         url: form.attr("action"),
@@ -79,13 +81,13 @@ $(document).ready(function() {
         success: function (data) {
           if (data.form_is_valid) {
             $('#thongtin-table').DataTable().destroy();
-            $("#thongtin-table tbody").html(data.html_chochut_preview);  // <-- Replace the table body
-            $("#modal-chochut").modal("hide");
+            $("#thongtin-table tbody").html(data.html_dongphoi_preview);  // <-- Replace the table body
+            $("#modal-dongphoi").modal("hide");
             loadData();
             toastr.success('Đã xóa');
           }
           else {
-            $("#modal-chochut .modal-content").html(data.html_form);
+            $("#modal-dongphoi .modal-content").html(data.html_form);
           }
         }
       });
@@ -94,11 +96,11 @@ $(document).ready(function() {
 
 
     $.contextMenu({
-        selector: '.context-chochut',
+        selector: '.context-dongphoi',
         trigger: 'left',
         zIndex: 100,
         items: {
-            "editch": {name: 'Sửa',
+            "editdp": {name: 'Sửa',
                     callback: function (key, opt){
                             if (opt.$trigger.attr("data-url"))
                                 $.ajax({
@@ -106,16 +108,16 @@ $(document).ready(function() {
                                     type: 'get',
                                     dataType: 'json',
                                     beforeSend: function () {
-                                        $("#modal-chochut-setup").removeClass("modal-lg");
-                                        $("#modal-chochut").modal("show");
+                                        $("#modal-dongphoi-setup").removeClass("modal-lg");
+                                        $("#modal-dongphoi").modal("show");
                                     },
                                     success: function (data) {
-                                        $("#modal-chochut .modal-content").html(data.html_form);
+                                        $("#modal-dongphoi .modal-content").html(data.html_form);
                                     }
                                 });
                             }},
             "sep1": "---------",
-            "delch": {name: "Xóa",
+            "deldp": {name: "Xóa",
                     callback: function (key, opt){
                             if (opt.$trigger.attr("data-url"))
                                 $.ajax({
@@ -123,11 +125,11 @@ $(document).ready(function() {
                                     type: 'get',
                                     dataType: 'json',
                                     beforeSend: function () {
-                                        $("#modal-chochut-setup").removeClass("modal-lg");
-                                        $("#modal-chochut").modal("show");
+                                        $("#modal-dongphoi-setup").removeClass("modal-lg");
+                                        $("#modal-dongphoi").modal("show");
                                     },
                                     success: function (data) {
-                                        $("#modal-chochut .modal-content").html(data.html_form);
+                                        $("#modal-dongphoi .modal-content").html(data.html_form);
                                     }
                                 });
                             },
@@ -135,44 +137,27 @@ $(document).ready(function() {
         }
     });
 
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        var min = parseInt( $('#min-date').val(), 10 );
+        var max = parseInt( $('#max-date').val(), 10 );
+        var age = parseFloat( data[9] ) || 0; // use data for the age column
 
+        return ( isNaN(min) && isNaN(max) ) ||
+            ( isNaN(min) && age <= max ) ||
+            ( min <= age && isNaN(max) ) ||
+            ( min <= age && age <= max );
 
-$(function () {
-  $(".js-chochut-ex").click(function () {
-    var btn = $(this);
-    $.ajax({
-      url: btn.attr("data-url"),
-      type: 'get',
-      dataType: 'json',
-      beforeSend: function () {
-        $("#modal-chochut-setup").removeClass("modal-lg");
-        $("#modal-chochut").modal("show");
-      },
-      success: function (data) {
-        $("#modal-chochut .modal-content").html(data.html_form);
-      }
-    });
-  });
-});
+    }
+);
 
+$(document).ready(function() {
 
-$("#modal-chochut").on("submit", ".js-chochut-ex-form", function(){
-    var formch = $(this);
-        $.ajax({
-            url: formch.attr("action"),
-            data: formch.serialize(),
-            type: formch.attr("method"),
-            dataType: 'json',
-            success: function (data) {
-                if (data.form_is_valid) {
-                    $("#modal-chochut").modal("hide");
-                    toastr.success('Xuất thành công');
-                    location.href = "/quanly/download/";
-                }
-                else {
-                  $("#modal-chochut .modal-content").html(data.html_form);
-                }
-            }
-        });
-    return false;
-});
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#min-date, #max-date').keyup( function() {
+        table.draw();
+        var min = $('#min-date').val();
+        var max = $('#max-date').val();
+
+    } );
+} );

@@ -119,3 +119,10 @@ class ChuyenPhoi(models.Model):
     ngayKiemTra = models.DateField(default=datetime.now, blank=True)
     ngayChuyenPhoi = models.DateField(default=datetime.now, blank=True)
     added = models.BooleanField(default=False)
+
+
+class DongPhoi(models.Model):
+    tt = models.OneToOneField(ThongTin, on_delete=models.CASCADE)
+    ngayDongPhoi = models.DateField(default=datetime.now, blank=True)
+    ngayNopTien = models.DateField(default=datetime.now, blank=True)
+    added = models.BooleanField(default=False)

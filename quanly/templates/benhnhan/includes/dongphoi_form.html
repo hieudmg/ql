@@ -1,0 +1,46 @@
+{% load widget_tweaks %}
+{% load static %}
+
+<script src="{% static 'datatable/DataTables-1.10.13/js/moment-with-locales.min.js' %}"></script>
+<script src="{% static 'datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'datetimepicker/css/bootstrap-datetimepicker.min.css' %}">
+
+
+<div>
+    <div class="form-group">
+        <label for="{{ formdp.ngayDongPhoi.id_for_label }}">Ngày đông phôi</label>
+        <div class='input-group date picktime'>
+            {% render_field formdp.ngayDongPhoi class="form-control input-sm" type="text" %}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="form-group">
+        <label for="{{ formdp.ngayNopTien.id_for_label }}">Ngày nộp tiền</label>
+        <div class='input-group date picktime'>
+            {% render_field formdp.ngayNopTien class="form-control input-sm" type="text" %}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="form-group row" style="display: none">
+        {% render_field formdp.added checked="" %}
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('.picktime').datetimepicker({
+            showTodayButton: true,
+            format: 'DD/MM/Y',
+            locale: 'vi'
+        });
+    });
+</script>
