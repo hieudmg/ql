@@ -2,9 +2,6 @@
 {% load static %}
 
 {% block javascript %}
-    <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
-    <script src="{% static 'context-menu/jquery.ui.position.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     <style>
@@ -16,7 +13,14 @@
     <script src="{% static 'datatable/DataTables-1.10.13/js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'datatable/DataTables-1.10.13/js/dataTables.bootstrap.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'datatable/DataTables-1.10.13/css/dataTables.bootstrap.min.css' %}">
-    <script src="{% static 'quanly/js/dongphoi.js' %}"></script>
+    {% if user.is_authenticated %}
+        <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
+        <script src="{% static 'context-menu/jquery.ui.position.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
+        <script src="{% static 'quanly/js/dongphoi.js' %}"></script>
+    {% else %}
+        <script src="{% static 'quanly/js/noauth.js' %}"></script>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -32,7 +36,7 @@
     </div>
   <h3 class="page-header">
   <button class="btn btn-default" title="Làm mới" onclick="history.go(0)"><span class="fa fa-refresh"></span></button>
-      Chọc hút
+      Đông phôi
   <!--  <button type="button"
             style="float: right"
             class="btn btn-primary js-thongtin-add"
@@ -62,9 +66,8 @@
           <tr>
             <th>Mã hồ sơ</th>
             <th>Tên vợ</th>
-              <th>N/s vợ</th>
               <th>Tên chồng</th>
-              <th>N/s chồng</th>
+            <th>Liên hệ</th>
               <th>Bác sĩ</th>
             <th>Ngày đông phôi</th>
             <th>Ngày đóng tiền</th>

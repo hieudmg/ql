@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns = (
+    url(r'^password/$', views.change_password, name='change_password'),
     url(r'^benhnhan/$', views.thongtin_list, name='benhnhan_list'),
     url(r'^benhnhan/add/$', views.thongtin_add, name='thongtin_add'),
     url(r'^benhnhan/(?P<pk>\d+)/edit/$', views.thongtin_edit, name='thongtin_edit'),
@@ -31,5 +32,11 @@ urlpatterns = (
     url(r'^benhnhan/(?P<pk>\d+)/editdp/$', views.dongphoi_edit, name='dongphoi_edit'),
     url(r'^benhnhan/(?P<pk>\d+)/deldp/$', views.dongphoi_del, name='dongphoi_del'),
     url(r'^benhnhan/exch/$', views.chochut_ex, name='chochut_ex'),
+    url(r'^benhnhan/excp/$', views.chuyenphoi_ex, name='chuyenphoi_ex'),
+    url(r'^benhnhan/(?P<pk>\d+)/trudongphoi/$', views.trudongphoi, name='trudongphoi'),
+    url(r'^benhnhan/(?P<pk>\d+)/ketquaphoi/$', views.ketquaphoi, name='ketquaphoi'),
+    url(r'^benhnhan/(?P<pk>\d+)/theodoiphoi/$', views.theodoiphoi, name='theodoiphoi'),
+    url(r'^benhnhan/(?P<pk>\d+)/truraphoi/$', views.truraphoi, name='truraphoi'),
+    url(r'^benhnhan/(?P<pk>\d+)/IVF/$', views.IVF, name='IVF'),
     url(r'^download/$', views.download, name='download')
 )

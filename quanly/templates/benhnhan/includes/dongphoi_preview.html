@@ -4,9 +4,8 @@
     <tr class="thongtin-row" data-url="{% url 'benhnhan_list' %}{{ dp.tt.id }}/">
             <td>{{ dp.tt.maSo }}</td>
             <td>{{ dp.tt.tenVo }}</td>
-              <td>{{ dp.tt.nsVo }}</td>
               <td>{{ dp.tt.tenChong }}</td>
-              <td>{{ dp.tt.nsChong }}</td>
+              <td>{{ dp.tt.lienHe }}</td>
             <td>{{ dp.tt.bs }}</td>
             <td>
                 <span style="display: none">{{ dp.ngayDongPhoi|date:"Y+m+d" }}</span> {{ dp.ngayDongPhoi|date:"d/m/Y" }}
@@ -17,10 +16,12 @@
             <td>
                 <span style="display: none">{{ dp.ngayNopTien|date:"Y+m+d" }}</span>
                 <span style="color: {{ dp.ngayNopTien|tocolor }};">{{ dp.ngayNopTien|todate }}</span>
+                {% if user.is_authenticated %}
                 <button class="btn btn-sm btn-default context-dongphoi" style="float: right;"
                     data-url="{% url 'benhnhan_list' %}{{ dp.tt.id }}/">
                     <span class="glyphicon glyphicon-wrench"></span>
                 </button>
+                {% endif %}
             </td>
             <td style="display: none">{{ dp.ngayNopTien|tonum }}</td>
     </tr>

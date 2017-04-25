@@ -134,3 +134,46 @@ $(document).ready(function() {
             className:"context_del"}
         }
     });
+
+
+
+
+$(function () {
+  $(".js-chuyenphoi-ex").click(function () {
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+        $("#modal-chuyenphoi-setup").removeClass("modal-lg");
+        $("#modal-chuyenphoi").modal("show");
+      },
+      success: function (data) {
+        $("#modal-chuyenphoi .modal-content").html(data.html_form);
+      }
+    });
+  });
+});
+
+
+$("#modal-chuyenphoi").on("submit", ".js-chuyenphoi-ex-form", function(){
+    var formch = $(this);
+        $.ajax({
+            url: formch.attr("action"),
+            data: formch.serialize(),
+            type: formch.attr("method"),
+            dataType: 'json',
+            success: function (data) {
+                if (data.form_is_valid) {
+                    $("#modal-chuyenphoi").modal("hide");
+                    toastr.success('Xuất thành công');
+                    location.href = "/quanly/download/";
+                }
+                else {
+                  $("#modal-chuyenphoi .modal-content").html(data.html_form);
+                }
+            }
+        });
+    return false;
+});

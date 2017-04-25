@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block javascript %}
-    <script src="{% static 'datatable/DataTables-1.10.13/js/moment-with-locales.min.js' %}"></script>
-    <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
-    <script src="{% static 'context-menu/jquery.ui.position.min.js' %}"></script>
-    <script src="{% static 'quanly/js/kythuatvien.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
+    {% if user.is_authenticated %}
+        <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
+        <script src="{% static 'context-menu/jquery.ui.position.min.js' %}"></script>
+        <script src="{% static 'quanly/js/kythuatvien.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
+    {% endif %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     <style>
@@ -15,9 +16,6 @@
         }
     </style>
 
-    <script src="{% static 'datatable/DataTables-1.10.13/js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'datatable/DataTables-1.10.13/js/dataTables.bootstrap.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'datatable/DataTables-1.10.13/css/dataTables.bootstrap.min.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -25,12 +23,14 @@
   <button class="btn btn-default" title="Làm mới" onclick="history.go(0)"><span class="fa fa-refresh"></span></button>
       Thông tin kỹ thuật viên
       <span style="float: right">
+    {% if user.is_authenticated %}
         <button type="button"
                 class="btn btn-primary js-kythuatvien-add"
                 data-url="{% url 'kythuatvien_add' %}">
           <span class="glyphicon glyphicon-plus"></span>
           Thêm
         </button>
+    {% endif %}
     </span>
   </h3>
 

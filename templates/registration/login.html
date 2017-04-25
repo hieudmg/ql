@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <script>
+            window.location.href = "/"
+        </script>
+        <h2 class="page-header text-center">Đã đăng nhập với tên {{ user.username }}</h2>
+    {% else %}
+      <h2 class="page-header text-center">Đăng nhập hệ thống quản lý bệnh viện</h2>
+        <div id="content-container" class="container p-none">
+            <div class="col-md-3"></div>
+            <div class="lgn-container col-md-6">
+                <form id="login-form" method="post" action="{% url 'login' %}" class="form-horizontal">
+                    {% csrf_token %}
+                    <div class="form-group">
+                            <label for="id_username" class="control-label col-xs-4">Tên người dùng</label>
+                            <div class="col-xs-8"><input id="id_username" name="username" type="text" class="form-control" autocomplete="off"></div>
+                    </div>
+                    <div class="form-group">
+                            <label for="id_password" class="control-label col-xs-4">Mật khẩu</label>
+                            <div class="col-xs-8"><input id="id_password" name="password" type="password" class="form-control" autocomplete="off"></div>
+                    </div>
+                    {% if form.errors %}
+                        <p class=" label label-danger">
+                            Tên đăng nhập hoặc mật khẩu không đúng
+                        </p>
+                    {% endif %}
+
+                    <button type="submit"
+                            class="btn btn-primary pull-right" ><span class="fa fa-sign-in"></span> Đăng nhập </button>
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+

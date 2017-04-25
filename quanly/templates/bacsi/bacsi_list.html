@@ -2,9 +2,11 @@
 {% load static %}
 
 {% block javascript %}
-    <script src="{% static 'quanly/js/bacsi.js' %}"></script>
-    <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
+    {% if user.is_authenticated %}
+        <script src="{% static 'quanly/js/bacsi.js' %}"></script>
+        <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
+    {% endif %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 {% endblock %}
 
@@ -13,12 +15,14 @@
   <button class="btn btn-default" title="Làm mới" onclick="history.go(0)"><span class="fa fa-refresh"></span></button>
       Thông tin bác sĩ
       <span style="float: right">
+            {% if user.is_authenticated %}
         <button type="button"
                 class="btn btn-primary js-bacsi-add"
                 data-url="{% url 'bacsi_add' %}">
           <span class="glyphicon glyphicon-plus"></span>
           Thêm
         </button>
+          {% endif %}
     </span>
   </h3>
 

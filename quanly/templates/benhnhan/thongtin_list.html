@@ -2,10 +2,15 @@
 {% load static %}
 
 {% block javascript %}
-    <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
-    <script src="{% static 'context-menu/jquery.ui.position.min.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
-    <script src="{% static 'quanly/js/benhnhan.js' %}"></script>
+    {% if user.is_authenticated %}
+        <script src="{% static 'context-menu/jquery.contextMenu.min.js' %}"></script>
+        <script src="{% static 'context-menu/jquery.ui.position.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
+        <script src="{% static 'quanly/js/benhnhan.js' %}"></script>
+    {% else %}
+        <script src="{% static 'quanly/js/noauth.js' %}"></script>
+    {% endif %}
+
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     <style>
@@ -33,6 +38,8 @@
   <h3 class="page-header">
   <button class="btn btn-default" title="Làm mới" onclick="history.go(0)"><span class="fa fa-refresh"></span></button>
       Thông tin bệnh nhân
+
+            {% if user.is_authenticated %}
     <button type="button"
             style="float: right"
             class="btn btn-primary js-thongtin-add"
@@ -40,6 +47,7 @@
       <span class="glyphicon glyphicon-plus"></span>
       Thêm
     </button>
+  {% endif %}
   </h3>
     <div>
         <table id="thongtin-table" class="table " cellspacing="0" width="100%">

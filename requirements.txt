@@ -1,0 +1,4 @@
+Django==1.10.3
+django-widget-tweaks==1.4.1
+python_dateutil==2.6.0
+python-docx==0.8.6

@@ -2,10 +2,13 @@
     <tr>
         <td class="stt"></td>
         <td>{{ bs.ten }}</td>
-        <td>{{ bs.nghiHuu }}<button class="btn btn-default context-button"
+        <td>{{ bs.nghiHuu }}
+            {% if user.is_authenticated %}
+            <button class="btn btn-default context-button"
                     style="float: right;"
                     data-url="{% url 'bacsi_list' %}{{ bs.id }}/">
                     <span class="glyphicon glyphicon-wrench"></span></button>
+            {% endif %}
         </td>
     </tr>
   {% empty %}

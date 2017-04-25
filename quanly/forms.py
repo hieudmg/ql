@@ -76,15 +76,37 @@ class FormTP(forms.ModelForm):
                   'label21',
                   'label22',
                   'label23',
-                  'loai001',
-                  'loai002',
-                  'loai003',
-                  'loai101',
-                  'loai102',
-                  'loai103',
-                  'loai201',
-                  'loai202',
-                  'loai203',
+                  # --------------------
+                  'loai011',
+                  'loai012',
+                  'loai013',
+                  'loai111',
+                  'loai112',
+                  'loai113',
+                  'loai211',
+                  'loai212',
+                  'loai213',
+
+                  'loai021',
+                  'loai022',
+                  'loai023',
+                  'loai121',
+                  'loai122',
+                  'loai123',
+                  'loai221',
+                  'loai222',
+                  'loai223',
+
+                  'loai031',
+                  'loai032',
+                  'loai033',
+                  'loai131',
+                  'loai132',
+                  'loai133',
+                  'loai231',
+                  'loai232',
+                  'loai233',
+                  # ----------------------
                   'PESAMESA',
                   'PICSI',
                   'TESE',
@@ -125,7 +147,8 @@ class FormCH(forms.ModelForm):
         fields = ('HCG',
                   'gioCH',
                   'soNang',
-                  'added'
+                  'added',
+                  'stt'
                   )
 
 
@@ -135,6 +158,7 @@ class FormCP(forms.ModelForm):
         fields = ('soPhoiRa',
                   'ngayKiemTra',
                   'ngayChuyenPhoi',
+                  'ngayRaPhoi',
                   'added'
                   )
 

@@ -3,9 +3,7 @@
     <tr class="thongtin-row" data-url="{% url 'benhnhan_list' %}{{ cp.tt.id }}/">
             <td>{{ cp.tt.maSo }}</td>
             <td>{{ cp.tt.tenVo }}</td>
-              <td>{{ cp.tt.nsVo }}</td>
               <td>{{ cp.tt.tenChong }}</td>
-              <td>{{ cp.tt.nsChong }}</td>
             <td>{{ cp.tt.bs }}</td>
             <td>{{ cp.soPhoiRa }}</td>
             <td>
@@ -13,10 +11,15 @@
             </td>
             <td>
                 <span style="display: none">{{ cp.ngayChuyenPhoi|date:"Y+m+d" }}</span> {{ cp.ngayChuyenPhoi|date:"d/m/Y" }}
+            </td>
+            <td>
+                <span style="display: none">{{ cp.ngayRaPhoi|date:"Y+m+d" }}</span> {{ cp.ngayRaPhoi|date:"d/m/Y" }}
+                {% if user.is_authenticated %}
                 <button class="btn btn-sm btn-default context-chuyenphoi" style="float: right;"
                     data-url="{% url 'benhnhan_list' %}{{ cp.tt.id }}/">
                     <span class="glyphicon glyphicon-wrench"></span>
                 </button>
+                {% endif %}
             </td>
     </tr>
     {% endif %}

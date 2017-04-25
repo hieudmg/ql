@@ -1,6 +1,7 @@
 {% for ch in chochut %}
     {% if ch.added %}
     <tr class="thongtin-row" data-url="{% url 'benhnhan_list' %}{{ ch.tt.id }}/">
+            <td>{{ ch.stt }}</td>
             <td>{{ ch.tt.maSo }}</td>
             <td>{{ ch.tt.tenVo }}</td>
               <td>{{ ch.tt.nsVo }}</td>
@@ -14,9 +15,12 @@
             <td title="{{ ch.gioCH|date:"H:i d/m/Y" }}">
                 <span style="display: none">{{ ch.gioCH|date:"m/d/Y" }}</span> {{ ch.gioCH|date:"H:i" }}
             </td>
-            <td>{{ ch.soNang }}<button class="btn btn-sm btn-default context-chochut" style="float: right;"
+            <td>{{ ch.soNang }}
+            {% if user.is_authenticated %}
+                <button class="btn btn-sm btn-default context-chochut" style="float: right;"
                     data-url="{% url 'benhnhan_list' %}{{ ch.tt.id }}/">
                 <span class="glyphicon glyphicon-wrench"></span>
+                {% endif %}
             </button></td>
     </tr>
     {% endif %}

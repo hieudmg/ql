@@ -37,6 +37,18 @@
     </div>
 </div>
 
+<div>
+    <div class="form-group">
+        <label for="{{ formcp.ngayRaPhoi.id_for_label }}">Ngày rã phôi</label>
+        <div class='input-group date picktime'>
+            {% render_field formcp.ngayRaPhoi class="form-control input-sm" type="text" %}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
 <div class="form-group row" style="display: none">
         {% render_field formcp.added checked="" %}
 </div>

@@ -57,8 +57,22 @@
     <button type="button" class="btn btn-default" data-dismiss="modal">
         <span class="fa fa-times"></span>
         Đóng</button>
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary" id="smbtn">
         <span class="fa fa-pencil-square-o"></span>
         Sửa</button>
   </div>
 </form>
+
+<script>
+    $(function() {
+        $("input").keypress(function (e) {
+            if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+                $('#smbtn').trigger('submit');
+                return false;
+            } else {
+                return true;
+            }
+        });
+        window.console.log('gogo');
+    });
+</script>
