@@ -2,6 +2,10 @@ var table;
 
 function loadData(){
     table = $('#thongtin-table').DataTable({
+    "order": [8, 'asc'],
+        columnDefs: [
+            { orderable: false, targets: [0, 1, 2, 3, 4, 5, 6] }
+        ],
     "oLanguage": {
           "oPaginate": {
             "sFirst": "Đầu",
@@ -141,7 +145,7 @@ $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         var min = parseInt( $('#min-date').val(), 10 );
         var max = parseInt( $('#max-date').val(), 10 );
-        var age = parseFloat( data[9] ) || 0; // use data for the age column
+        var age = parseFloat( data[8] ) || 0; // use data for the age column
 
         return ( isNaN(min) && isNaN(max) ) ||
             ( isNaN(min) && age <= max ) ||

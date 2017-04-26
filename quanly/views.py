@@ -307,7 +307,7 @@ def kythuatvien_del(request, pk):
 
 
 def chochut_list(request):
-    chochut = ChocHut.objects.all()
+    chochut = ChocHut.objects.all().order_by('stt')
     return render(request, 'benhnhan/chochut_list.html', {'chochut': chochut})
 
 
@@ -351,7 +351,7 @@ def chochut_edit(request, pk):
         form = FormTT(instance=thongtin)
         if formch.is_valid():
             formch.save()
-            chochut = ChocHut.objects.all()
+            chochut = ChocHut.objects.all().order_by('stt')
             data['html_chochut_preview'] = render_to_string('benhnhan/includes/chochut_preview.html', {
                 'chochut': chochut, 'user': request.user
             })
@@ -385,7 +385,7 @@ def chochut_del(request, pk):
             ch.stt = _i
             ch.save()
             _i += 1
-        chochut = ChocHut.objects.all()
+        chochut = ChocHut.objects.all().order_by('stt')
         data['html_chochut_preview'] = render_to_string('benhnhan/includes/chochut_preview.html', {
             'chochut': chochut, 'user': request.user
         })
@@ -691,6 +691,7 @@ def trudongphoi(request, pk):
             data['form_is_valid'] = True
             global last_file_name
             last_file_name = 'attachment; filename="Phieu-nhan-tru-dong-phoi-' \
+                             + thongtin.maSo \
                              + formch.cleaned_data['chonNgay'].strftime("%d-%m-%Y") \
                              + '.docx"'
         else:
@@ -775,7 +776,7 @@ def ketquaphoi(request, pk):
             table.cell(2, 6).paragraphs[0].add_run(str(thongtin.nsVo), 't2')
             table.cell(3, 6).paragraphs[0].add_run(str(thongtin.nsChong), 't2')
             cell = table.cell(4, 0)
-            cell.paragraphs[0].add_run('?', 't2')
+            cell.paragraphs[0].add_run(str(thongtin.trung.tongSoTrung), 't2')
             cell.paragraphs[1].add_run(str(thongtin.trung.tongSoTrungICSI), 't2')
             cell.paragraphs[2].add_run(str(thongtin.trung.tongSoTrungTT), 't2')
             cell.paragraphs[4].add_run(str(thongtin.trung.tongSoTrungTT), 't2')
@@ -795,6 +796,7 @@ def ketquaphoi(request, pk):
             data['form_is_valid'] = True
             global last_file_name
             last_file_name = 'attachment; filename="Phieu-thong-bao-ve-ket-qua-phoi-' \
+                             + thongtin.maSo \
                              + formch.cleaned_data['chonNgay'].strftime("%d-%m-%Y") \
                              + '.docx"'
         else:

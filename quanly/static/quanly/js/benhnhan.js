@@ -1,5 +1,8 @@
 function loadData(){
     $('#thongtin-table').DataTable({
+        columnDefs: [
+            { orderable: false, targets: [1, 2, 3, 4, 5, 6, 7] }
+        ],
     "oLanguage": {
           "oPaginate": {
             "sFirst": "Đầu",
