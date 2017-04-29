@@ -24,6 +24,7 @@ class ThongTin(models.Model):
     lienHe = models.CharField(max_length=30, blank=True)
     hienTinhTrung = models.BooleanField(default=False)
     hienNoan = models.CharField(max_length=30, blank=True)
+    ngayNhap = models.DateField(default=datetime.now, blank=True)
 
 
 class Trung(models.Model):

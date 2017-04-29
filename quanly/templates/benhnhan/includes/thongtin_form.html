@@ -1,9 +1,26 @@
 {% load widget_tweaks %}
 {% load static %}
+
 <link rel="stylesheet" href="{% static 'css/base.css' %}">
+<script src="{% static 'datatable/DataTables-1.10.13/js/moment-with-locales.min.js' %}"></script>
+<script src="{% static 'datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'datetimepicker/css/bootstrap-datetimepicker.min.css' %}">
 
 <div class="form-group row">
-    <div class="col-sm-12">
+
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="{{ form.ngayNhap.id_for_label }}">Ngày thêm</label>
+            <div class='input-group date picktime'>
+                {% render_field form.ngayNhap class="form-control input-sm" type="text" %}
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
         <label for="{{ form.maSo.id_for_label }}">Mã số</label>
         {% render_field form.maSo class="form-control input-sm" %}
     </div>
@@ -61,3 +78,14 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('.picktime').datetimepicker({
+            showTodayButton: true,
+            format: 'DD/MM/Y',
+            locale: 'vi'
+        });
+    });
+</script>
