@@ -267,15 +267,6 @@ $(function() {
                     "adddp": {name: "Bảng đông phôi"}
                 }
             },
-            "ex": {
-                name: 'Phiếu thông báo kết quả',
-                items: {
-                    "trudongphoi": {name: "Phiếu nhận trữ đông phôi"},
-                    "theodoiphoi": {name: "Phiếu theo dõi phôi"},
-                    "truraphoi": {name: "Phiếu theo dõi trữ - rã phôi"},
-                    "IVF": {name: "Quy trình thực hiện IVF"}
-                }
-            },
             "sep1": "---------",
             "del": {name: "Xóa", className: "context_del"}
         }

@@ -98,32 +98,28 @@ $(document).ready(function() {
 
 
 
-$("#modal-chochut").on("submit", ".js-ketquaphoi-ex-form", function(){
-    var formch = $(this);
-        $.ajax({
-            url: formch.attr("action"),
-            data: formch.serialize(),
-            type: formch.attr("method"),
-            dataType: 'json',
-            success: function (data) {
-                if (data.form_is_valid) {
-                    $("#modal-chochut").modal("hide");
-                    toastr.success('Xuất thành công');
-                    location.href = "/quanly/download/";
-                }
-                else {
-                  $("#modal-chochut .modal-content").html(data.html_form);
-                }
-            }
-        });
-    return false;
-});
-
-
     $.contextMenu({
         selector: '.context-chochut',
         trigger: 'left',
         zIndex: 100,
+        callback: function (key, opt) {
+            if (opt.$trigger.attr("data-url"))
+                $.ajax({
+                    url: opt.$trigger.attr("data-url") + key,
+                    type: 'get',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        if (!(key.localeCompare('edit')))
+                            $("#modal-chochut-setup").addClass("modal-lg");
+                        else
+                            $("#modal-chochut-setup").removeClass("modal-lg");
+                        $("#modal-chochut").modal("show");
+                    },
+                    success: function (data) {
+                        $("#modal-chochut .modal-content").html(data.html_form);
+                    }
+                });
+        },
         items: {
             "editch": {name: 'Sửa',
                     callback: function (key, opt){
@@ -141,21 +137,14 @@ $("#modal-chochut").on("submit", ".js-ketquaphoi-ex-form", function(){
                                     }
                                 });
                             }},
-            "ketquaphoi": {name: "Phiếu thông báo kết quả phôi",
-                callback: function (key, opt) {
-                    if (opt.$trigger.attr("data-url"))
-                        $.ajax({
-                            url: opt.$trigger.attr("data-url") + key,
-                            type: 'get',
-                            dataType: 'json',
-                            beforeSend: function () {
-                                $("#modal-chochut-setup").removeClass("modal-lg");
-                                $("#modal-chochut").modal("show");
-                            },
-                            success: function (data) {
-                                $("#modal-chochut .modal-content").html(data.html_form);
-                            }
-                        });
+            "ex": {
+                name: 'Phiếu thông báo kết quả',
+                items: {
+                    "trudongphoi": {name: "Phiếu nhận trữ đông phôi"},
+                    "ketquaphoi": {name: "Phiếu thông báo kết quả phôi"},
+                    "theodoiphoi": {name: "Phiếu theo dõi phôi"},
+                    "truraphoi": {name: "Phiếu theo dõi trữ - rã phôi"},
+                    "IVF": {name: "Quy trình thực hiện IVF"}
                 }
             },
             "sep1": "---------",
@@ -201,6 +190,114 @@ $(function () {
 
 
 $("#modal-chochut").on("submit", ".js-chochut-ex-form", function(){
+    var formch = $(this);
+        $.ajax({
+            url: formch.attr("action"),
+            data: formch.serialize(),
+            type: formch.attr("method"),
+            dataType: 'json',
+            success: function (data) {
+                if (data.form_is_valid) {
+                    $("#modal-chochut").modal("hide");
+                    toastr.success('Xuất thành công');
+                    location.href = "/quanly/download/";
+                }
+                else {
+                  $("#modal-chochut .modal-content").html(data.html_form);
+                }
+            }
+        });
+    return false;
+});
+
+
+
+
+$("#modal-chochut").on("submit", ".js-trudongphoi-ex-form", function(){
+    var formch = $(this);
+        $.ajax({
+            url: formch.attr("action"),
+            data: formch.serialize(),
+            type: formch.attr("method"),
+            dataType: 'json',
+            success: function (data) {
+                if (data.form_is_valid) {
+                    $("#modal-chochut").modal("hide");
+                    toastr.success('Xuất thành công');
+                    location.href = "/quanly/download/";
+                }
+                else {
+                  $("#modal-chochut .modal-content").html(data.html_form);
+                }
+            }
+        });
+    return false;
+});
+
+$("#modal-chochut").on("submit", ".js-ketquaphoi-ex-form", function(){
+    var formch = $(this);
+        $.ajax({
+            url: formch.attr("action"),
+            data: formch.serialize(),
+            type: formch.attr("method"),
+            dataType: 'json',
+            success: function (data) {
+                if (data.form_is_valid) {
+                    $("#modal-chochut").modal("hide");
+                    toastr.success('Xuất thành công');
+                    location.href = "/quanly/download/";
+                }
+                else {
+                  $("#modal-chochut .modal-content").html(data.html_form);
+                }
+            }
+        });
+    return false;
+});
+
+$("#modal-chochut").on("submit", ".js-theodoiphoi-ex-form", function(){
+    var formch = $(this);
+        $.ajax({
+            url: formch.attr("action"),
+            data: formch.serialize(),
+            type: formch.attr("method"),
+            dataType: 'json',
+            success: function (data) {
+                if (data.form_is_valid) {
+                    $("#modal-chochut").modal("hide");
+                    toastr.success('Xuất thành công');
+                    location.href = "/quanly/download/";
+                }
+                else {
+                  $("#modal-chochut .modal-content").html(data.html_form);
+                }
+            }
+        });
+    return false;
+});
+
+$("#modal-chochut").on("submit", ".js-truraphoi-ex-form", function(){
+    var formch = $(this);
+        $.ajax({
+            url: formch.attr("action"),
+            data: formch.serialize(),
+            type: formch.attr("method"),
+            dataType: 'json',
+            success: function (data) {
+                if (data.form_is_valid) {
+                    $("#modal-chochut").modal("hide");
+                    toastr.success('Xuất thành công');
+                    location.href = "/quanly/download/";
+                }
+                else {
+                  $("#modal-chochut .modal-content").html(data.html_form);
+                }
+            }
+        });
+    return false;
+});
+
+$("#modal-chochut").on("submit", ".js-IVF-ex-form", function(){
     var formch = $(this);
         $.ajax({
             url: formch.attr("action"),
