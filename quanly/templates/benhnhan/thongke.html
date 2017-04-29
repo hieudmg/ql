@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block javascript %}
+    <script src="{% static 'jqplot/jquery.jqplot.min.js' %}"></script>
+    <script src="{% static 'jqplot/jqplot.pieRenderer.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'jqplot/jquery.jqplot.min.css' %}">
+
+    <script>
+    $(document).ready(function(){
+
+    var l1 = Number(document.getElementById("loai1").innerHTML);
+    var l2 = Number(document.getElementById("loai2").innerHTML);
+    var l3 = Number(document.getElementById("loai3").innerHTML);
+
+    var plot1 = $.jqplot('thongkephoi', [[['&nbsp;Loại 1',l1],['&nbsp;Loại 2',l2],['&nbsp;Loại 3',l3]]], {
+        gridPadding: {top:10, bottom:0, left:0, right:0},
+        seriesDefaults:{
+            renderer:$.jqplot.PieRenderer,
+            rendererOptions: {
+                padding: 8,
+                showDataLabels: true,
+                shadowAlpha: 0,
+                seriesColors :['#e74c3c','#2ecc71','#3498db'],
+                startAngle: -90
+            },
+            formatString: "%#.2f"
+        },
+        grid: {
+            drawGridLines: false,        // wether to draw lines across the grid or not.
+            gridLineColor: 'red',   // CSS color spec of the grid lines.
+            background: '#ffffff',      // CSS color spec for background color of grid.
+            borderWidth: 0,           // pixel width of border around grid.
+            shadow: false               // draw a shadow for grid.
+        },
+        legend:{
+            show:true,
+            placement: 'outside',
+            rendererOptions: {
+                numberColumn: 1
+            },
+            location:'e',
+            rowSpacing: '1em',
+            fontSize: 14,
+            marginLeft: '3em',
+            fontFamily: 'Arial',
+            showSwatches: false
+        }
+    });
+});
+    </script>
+    <style>
+        div.jqplot-table-legend-swatch {
+            border-width: 8px 30px
+        }
+        div.jqplot-table-legend-swatch-outline {
+            border: none
+        }
+        .jqplot-target {
+            color: #FFFFFF;
+        }
+        td a {
+            color: black;
+        }
+        td a:hover, td a:active {
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+      <ul class="nav nav-tabs">
+        <li><a href="{% url 'benhnhan_list' %}">Bệnh nhân</a></li>
+        <li><a href="{% url 'chochut_list' %}">Chọc hút</a></li>
+        <li><a href="{% url 'chuyenphoi_list' %}">Chuyển phôi</a></li>
+        <li><a href="{% url 'dongphoi_list' %}">Đông phôi</a></li>
+        <li class="active"><a href="{% url 'thongke' %}">Thống kê</a></li>
+      </ul>
+    </div>
+    <div style="display: none">
+        <div id="loai1">{{ l1 }}</div>
+        <div id="loai2">{{ l2 }}</div>
+        <div id="loai3">{{ l3 }}</div>
+    </div>  <h3 class="page-header">
+  <button class="btn btn-default" title="Làm mới" onclick="history.go(0)"><span class="fa fa-refresh"></span></button>
+      Thống kê
+  </h3>
+    <h3>Tỷ lệ thụ tinh: {{ ptst }}%</h3>
+    <hr>
+    <h3>Tỷ lệ phôi</h3>
+    <div id="thongkephoi" class="center-block" style="width:300px;"></div>
+
+{% endblock %}

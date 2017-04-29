@@ -598,8 +598,8 @@ def chochut_ex(request):
                 tv = ci.tt.tenVo.split()[-1]
                 cell.text = tv
                 cell.paragraphs[0].style = document.styles['Text2']
-                cell.add_paragraph(ci.tt.tenVo + u' - ' + str(ci.tt.nsVo), style='Text3')
-                cell.add_paragraph(ci.tt.tenChong + u' - ' + str(ci.tt.nsChong), style='Text3')
+                cell.add_paragraph(ci.tt.tenVo + u' - ', style='Text4').add_run(str(ci.tt.nsVo), 't3').bold = False
+                cell.add_paragraph(ci.tt.tenChong + u' - ', style='Text4').add_run(str(ci.tt.nsChong), 't3').bold = False
 
                 cell = table.cell(i, 2)
                 cell.text = 'HCG: ' + ci.HCG.strftime('%H:%M')
@@ -666,10 +666,11 @@ def trudongphoi(request, pk):
         if formch.is_valid():
             document = Document('docx/trudongphoi.docx')
             table = document.tables[0]
-            table.cell(0, 0).paragraphs[3].add_run(thongtin.maSo, 't1')
-            table.cell(0, 1).paragraphs[0].add_run(u'Hà Nội, ngày ' + formch.cleaned_data['chonNgay'].strftime('%d') +
-                                                   u' tháng ' + formch.cleaned_data['chonNgay'].strftime('%m') +
-                                                   u' năm ' + formch.cleaned_data['chonNgay'].strftime('%Y'), 't2')
+            ng = formch.cleaned_data['chonNgay']
+            table.cell(0, 0).paragraphs[2].add_run(thongtin.maSo, 't1')
+            table.cell(0, 1).paragraphs[0].add_run(u'Hà Nội, ngày ' + ng.strftime('%d') +
+                                                   u' tháng ' + ng.strftime('%m') +
+                                                   u' năm ' + ng.strftime('%Y'), 't2')
             table.cell(3, 0).paragraphs[0].add_run(thongtin.tenVo, 't3')
             table.cell(3, 0).paragraphs[1].add_run(thongtin.tenChong, 't3')
             table.cell(3, 0).paragraphs[2].add_run(thongtin.lienHe, 't3')
@@ -779,18 +780,18 @@ def ketquaphoi(request, pk):
             cell.paragraphs[0].add_run(str(thongtin.trung.tongSoTrung), 't2')
             cell.paragraphs[1].add_run(str(thongtin.trung.tongSoTrungICSI), 't2')
             cell.paragraphs[2].add_run(str(thongtin.trung.tongSoTrungTT), 't2')
-            cell.paragraphs[4].add_run(str(thongtin.trung.tongSoTrungTT), 't2')
-            cell.paragraphs[6].add_run(str(thongtin.phoi.loai1), 't2')
-            cell.paragraphs[7].add_run(str(thongtin.phoi.loai2), 't2')
-            cell.paragraphs[8].add_run(str(thongtin.phoi.loai3), 't2')
-            cell.paragraphs[11].add_run(str(thongtin.phoi.tongSoPhoiChuyen), 't2')
-            cell.paragraphs[12].add_run(str(thongtin.phoi.tongSoPhoiTiepTucTheoDoi), 't2')
-            cell.paragraphs[13].add_run(str(thongtin.phoi.tongSoPhoiLuuTruLanh), 't2')
-            cell.paragraphs[14].add_run(str(thongtin.phoi.tongSoPhoiHuy), 't2')
+            cell.paragraphs[5].add_run(str(thongtin.phoi.loai1), 't2')
+            cell.paragraphs[6].add_run(str(thongtin.phoi.loai2), 't2')
+            cell.paragraphs[7].add_run(str(thongtin.phoi.loai3), 't2')
+            cell.paragraphs[10].add_run(str(thongtin.phoi.tongSoPhoiChuyen), 't2')
+            cell.paragraphs[11].add_run(str(thongtin.phoi.tongSoPhoiTiepTucTheoDoi), 't2')
+            cell.paragraphs[12].add_run(str(thongtin.phoi.tongSoPhoiLuuTruLanh), 't2')
+            cell.paragraphs[13].add_run(str(thongtin.phoi.tongSoPhoiHuy), 't2')
+            ng = formch.cleaned_data['chonNgay']
             table.cell(6, 4).paragraphs[0].insert_paragraph_before(
-                u'Ngày ' + formch.cleaned_data['chonNgay'].strftime('%d') +
-                u' tháng ' + formch.cleaned_data['chonNgay'].strftime('%m') +
-                u' năm ' + formch.cleaned_data['chonNgay'].strftime('%Y'), 't3')
+                u'Ngày ' + ng.strftime('%d') +
+                u' tháng ' + ng.strftime('%m') +
+                u' năm ' + ng.strftime('%Y'), 't3')
 
             document.save('docx/download.docx')
             data['form_is_valid'] = True
@@ -932,3 +933,33 @@ def change_password(request):
     return render(request, 'registration/change_password.html', {
         'form': form, 'data': data
     })
+
+
+def thongke(request):
+    thongtin = ThongTin.objects.all()
+    loai1 = 0
+    loai2 = 0
+    loai3 = 0
+    tst = 0
+    for tt in thongtin:
+        loai1 += tt.phoi.loai1
+        loai2 += tt.phoi.loai2
+        loai3 += tt.phoi.loai3
+        tst += tt.trung.truongThanh
+    if loai1 + loai2 + loai3 != 0:
+        l1 = float(loai1)/(loai1 + loai2 + loai3)
+        l2 = float(loai2)/(loai1 + loai2 + loai3)
+        l3 = float(loai3)/(loai1 + loai2 + loai3)
+    else:
+        l1 = l2 = l3 = 1
+    if tst == 0:
+        ptst = 0
+    else:
+        ptst = float(loai1 + loai2 + loai3)/tst
+    ptst = float(int(ptst * 10000))/100
+    return render(request, 'benhnhan/thongke.html', {'thongtin': thongtin,
+                                                     'ptst': ptst,
+                                                     'l1': l1,
+                                                     'l2': l2,
+                                                     'l3': l3,
+                                                     })

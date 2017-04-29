@@ -271,7 +271,6 @@ $(function() {
                 name: 'Phiếu thông báo kết quả',
                 items: {
                     "trudongphoi": {name: "Phiếu nhận trữ đông phôi"},
-                    "ketquaphoi": {name: "Phiếu thông báo kết quả phôi"},
                     "theodoiphoi": {name: "Phiếu theo dõi phôi"},
                     "truraphoi": {name: "Phiếu theo dõi trữ - rã phôi"},
                     "IVF": {name: "Quy trình thực hiện IVF"}
