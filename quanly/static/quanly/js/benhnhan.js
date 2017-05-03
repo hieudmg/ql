@@ -1,7 +1,8 @@
 function loadData(){
     $('#thongtin-table').DataTable({
+        "order": [[ 0, "desc" ]],
         columnDefs: [
-            { orderable: false, targets: [1, 2, 3, 4, 5, 6, 7] }
+            { orderable: false, targets: [1, 2, 3, 4, 5, 6, 7, 8] }
         ],
     "oLanguage": {
           "oPaginate": {
@@ -38,7 +39,7 @@ $(document).ready(function() {
       "onclick": null,
       "showDuration": "300",
       "hideDuration": "300",
-      "timeOut": "2400",
+      "timeOut": "4400",
       "extendedTimeOut": "300",
       "showEasing": "swing",
       "hideEasing": "linear",
@@ -71,10 +72,6 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
       url: form.attr("action"),
       data: form.serialize(),
       type: form.attr("method"),
-      dataType: 'json',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader ("Authorization", "Basic " + btoa('dmhpsi' + ":" + 'duw0wngh133u5'));
-        },
       success: function (data) {
         if (data.form_is_valid) {
             $('#thongtin-table').DataTable().destroy();
@@ -249,10 +246,15 @@ $(function() {
                             $("#modal-thongtin-setup").addClass("modal-lg");
                         else
                             $("#modal-thongtin-setup").removeClass("modal-lg");
-                        $("#modal-thongtin").modal("show");
                     },
                     success: function (data) {
-                        $("#modal-thongtin .modal-content").html(data.html_form);
+                        if (data.added) {
+                            // $("#modal-thongtin").modal("hide");
+                            toastr.error('Thông tin đã được thêm trước đó')
+                        }
+                        else
+                            $("#modal-thongtin").modal("show");
+                            $("#modal-thongtin .modal-content").html(data.html_form);
                     }
                 });
         },
@@ -287,7 +289,7 @@ $(function() {
             "#00ff00": {name: 'Xanh lá'},
             "#0000ff": {name: 'Xanh dương'},
             "#ffff00": {name: 'Vàng'},
-            "#fcfbe3": {name: 'Kem'},
+            "#fcf0b0": {name: 'Kem'},
             "#ffffff": {name: 'Trắng'},
             "#ffa500": {name: 'Cam'},
             "rgba(0, 0, 0, 0)": {name: 'Đã chuyển'}
@@ -334,7 +336,7 @@ for (var i = 0; i < 3; i++)
                             "#00ff00": {name: 'Xanh lá'},
                             "#0000ff": {name: 'Xanh dương'},
                             "#ffff00": {name: 'Vàng'},
-                            "#fcfbe3": {name: 'Kem'},
+                            "#fcf0b0": {name: 'Kem'},
                             "#ffffff": {name: 'Trắng'},
                             "#ffa500": {name: 'Cam'},
                             "rgba(0, 0, 0, 0)": {name: 'Đã chuyển'},

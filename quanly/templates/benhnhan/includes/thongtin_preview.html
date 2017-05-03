@@ -1,13 +1,14 @@
 {% for tt in thongtin %}
     <tr class="thongtin-row" data-url="{% url 'benhnhan_list' %}{{ tt.id }}/">
         <td style="display: none">{{ tt.id }}</td>
-      <td class="nosort">{{ tt.maSo }}</td>
-        <td class="nosort">{{ tt.tenVo }}</td>
-        <td class="nosort">{{ tt.nsVo }}</td>
-        <td class="nosort">{{ tt.tenChong }}</td>
-        <td class="nosort">{{ tt.nsChong }}</td>
-        <td class="nosort">{{ tt.bs }}</td>
-        <td class="nosort">{{ tt.lienHe }}
+        <td style="display: none">{{ tt.ngayNhap|date:"Y_m_d" }}</td>
+      <td>{{ tt.maSo }}</td>
+        <td>{{ tt.tenVo }}</td>
+        <td>{{ tt.nsVo }}</td>
+        <td>{{ tt.tenChong }}</td>
+        <td>{{ tt.nsChong }}</td>
+        <td>{{ tt.bs }}</td>
+        <td>{{ tt.lienHe }}
             {% if user.is_authenticated %}
             <button class="btn btn-sm btn-default context-button" style="float: right;"
                     data-url="{% url 'benhnhan_list' %}{{ tt.id }}/">

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block javascript %}
     <script src="{% static 'jqplot/jquery.jqplot.min.js' %}"></script>
@@ -48,6 +49,13 @@
         }
     });
 });
+
+    function tk() {
+        var thang = $('#id_thang').val();
+        var nam = $('#id_nam').val();
+        window.location.replace('/quanly/thongke/' + thang + '/' + nam + '/')
+    }
+
     </script>
     <style>
         div.jqplot-table-legend-swatch {
@@ -64,6 +72,10 @@
         }
         td a:hover, td a:active {
             color: black;
+            text-decoration: none;
+        }
+        label {
+            font-size: 70%;
             text-decoration: none;
         }
     </style>
@@ -85,13 +97,37 @@
         <div id="loai1">{{ l1 }}</div>
         <div id="loai2">{{ l2 }}</div>
         <div id="loai3">{{ l3 }}</div>
-    </div>  <h3 class="page-header">
-  <button class="btn btn-default" title="Làm mới" onclick="history.go(0)"><span class="fa fa-refresh"></span></button>
-      Thống kê
-  </h3>
-    <h3>Tỷ lệ thụ tinh: {{ ptst }}%</h3>
-    <hr>
-    <h3>Tỷ lệ phôi</h3>
-    <div id="thongkephoi" class="center-block" style="width:300px;"></div>
+    </div>
+    <div class="page-header">
+        <h3> <button class="btn btn-default" title="Làm mới" onclick="history.go(0)">
+                <span class="fa fa-refresh"></span>
+        </button> Thống kê
+        <span class="form-group form-inline" style="float: right">
+            <label for="id_thang">Tháng</label>
+            <select id="id_thang" class="form-control input-sm">
+                {% for month in months %}
+                    <option value="{{ month }}" {% if month == thang %} selected="selected"{% endif %}>{{ month }}</option>
+                {% endfor %}
+            </select>
+            <label for="id_nam"> năm</label>
+            <select id="id_nam" class="form-control input-sm">
+                {% for year in years %}
+                    <option value="{{ year }}" {% if year == nam %} selected="selected"{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary" onclick="tk()">
+              <span class="glyphicon glyphicon-list-alt"></span>
+            Thống kê</button>
+        </span>
+        </h3>
+  </div>
+    {% if valid %}
+        <h3>Tỷ lệ thụ tinh: {{ ptst }}%</h3>
+        <hr>
+        <h3>Tỷ lệ phôi</h3>
+        <div id="thongkephoi" class="center-block" style="width:300px;"></div>
+    {% else %}
+        <h3 class="alert alert-warning">Tháng đã chọn không có dữ liệu</h3>
+    {% endif %}
 
 {% endblock %}

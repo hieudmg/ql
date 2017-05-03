@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
 from .models import ThongTin, Trung, BacSi, TruPhoi, Phoi, TinhDichDoNgayCH, KyThuatVien, ChocHut, ChuyenPhoi, DongPhoi
@@ -316,10 +316,12 @@ def chochut_add(request, pk):
 
     thongtin = get_object_or_404(ThongTin, pk=pk)
     chochut = thongtin.chochut
+    data['added'] = True
     if not chochut.added:
         chochut.HCG = datetime.now
         chochut.gioCH = datetime.now
         chochut.stt = len(ChocHut.objects.filter(added=True)) + 1
+        data['added'] = False
 
     if request.method == 'POST':
         formch = FormCH(request.POST, instance=chochut)
@@ -405,9 +407,11 @@ def chuyenphoi_add(request, pk):
 
     thongtin = get_object_or_404(ThongTin, pk=pk)
     chuyenphoi = thongtin.chuyenphoi
+    data['added'] = True
     if not chuyenphoi.added:
         chuyenphoi.ngayChuyenPhoi = date.today()
         chuyenphoi.ngayKiemTra = date.today()
+        data['added'] = False
 
     if request.method == 'POST':
         formcp = FormCP(request.POST, instance=chuyenphoi)
@@ -487,10 +491,12 @@ def dongphoi_add(request, pk):
 
     thongtin = get_object_or_404(ThongTin, pk=pk)
     dongphoi = thongtin.dongphoi
+    data['added'] = True
     if not dongphoi.added:
         dtn = date.today()
         dongphoi.ngayDongPhoi = dtn
         dongphoi.ngayNopTien = dtn + relativedelta(years=1)
+        data['added'] = False
 
     if request.method == 'POST':
         formdp = FormDP(request.POST, instance=dongphoi)
@@ -935,12 +941,15 @@ def change_password(request):
     })
 
 
-def thongke(request):
-    thongtin = ThongTin.objects.all()
+def thongkethang(request, thang, nam):
+    thongtin = ThongTin.objects.filter(ngayNhap__year=nam).filter(ngayNhap__month=thang)
+    years = range(2017, int(nam) + 1, 1)
+    months = range(1, 13, 1)
     loai1 = 0
     loai2 = 0
     loai3 = 0
     tst = 0
+    valid = True
     for tt in thongtin:
         loai1 += tt.phoi.loai1
         loai2 += tt.phoi.loai2
@@ -952,8 +961,10 @@ def thongke(request):
         l3 = float(loai3)/(loai1 + loai2 + loai3)
     else:
         l1 = l2 = l3 = 1
+        valid = False
     if tst == 0:
         ptst = 0
+        valid = False
     else:
         ptst = float(loai1 + loai2 + loai3)/tst
     ptst = float(int(ptst * 10000))/100
@@ -962,4 +973,15 @@ def thongke(request):
                                                      'l1': l1,
                                                      'l2': l2,
                                                      'l3': l3,
+                                                     'nam': int(nam),
+                                                     'thang': int(thang),
+                                                     'years': years,
+                                                     'months': months,
+                                                     'valid': valid
                                                      })
+
+
+def thongke(request):
+    nam = datetime.now().year
+    thang = datetime.now().month
+    return redirect(str(thang) + '/' + str(nam) + '/')

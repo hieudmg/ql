@@ -49,7 +49,7 @@ $(document).ready(function() {
       "onclick": null,
       "showDuration": "300",
       "hideDuration": "300",
-      "timeOut": "2400",
+      "timeOut": "4400",
       "extendedTimeOut": "300",
       "showEasing": "swing",
       "hideEasing": "linear",

@@ -38,6 +38,7 @@ urlpatterns = (
     url(r'^benhnhan/(?P<pk>\d+)/theodoiphoi/$', views.theodoiphoi, name='theodoiphoi'),
     url(r'^benhnhan/(?P<pk>\d+)/truraphoi/$', views.truraphoi, name='truraphoi'),
     url(r'^benhnhan/(?P<pk>\d+)/IVF/$', views.IVF, name='IVF'),
+    url(r'^download/$', views.download, name='download'),
     url(r'^thongke/$', views.thongke, name='thongke'),
-    url(r'^download/$', views.download, name='download')
+    url(r'^thongke/(?P<thang>\d+)/(?P<nam>\d+)/$', views.thongkethang, name='thongkethang'),
 )
