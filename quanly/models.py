@@ -142,6 +142,7 @@ class ChuyenPhoi(models.Model):
     ngayChuyenPhoi = models.DateField(default=datetime.now, blank=True)
     ngayRaPhoi = models.DateField(default=datetime.now, blank=True)
     added = models.BooleanField(default=False)
+    timeAdd = models.DateTimeField(default=datetime.now, blank=True)
 
 
 class DongPhoi(models.Model):

@@ -317,6 +317,7 @@ def chochut_add(request, pk):
     thongtin = get_object_or_404(ThongTin, pk=pk)
     chochut = thongtin.chochut
     data['added'] = True
+    data['maso'] = thongtin.maSo
     if not chochut.added:
         chochut.HCG = datetime.now
         chochut.gioCH = datetime.now
@@ -408,6 +409,7 @@ def chuyenphoi_add(request, pk):
     thongtin = get_object_or_404(ThongTin, pk=pk)
     chuyenphoi = thongtin.chuyenphoi
     data['added'] = True
+    data['maso'] = thongtin.maSo
     if not chuyenphoi.added:
         chuyenphoi.ngayChuyenPhoi = date.today()
         chuyenphoi.ngayKiemTra = date.today()
@@ -418,6 +420,8 @@ def chuyenphoi_add(request, pk):
         form = FormTT(request.POST, instance=thongtin)
         if formcp.is_valid():
             formcp.save()
+            chuyenphoi.timeAdd = datetime.now()
+            chuyenphoi.save()
             data['form_is_valid'] = True
         else:
             data['form_is_valid'] = False
@@ -492,6 +496,7 @@ def dongphoi_add(request, pk):
     thongtin = get_object_or_404(ThongTin, pk=pk)
     dongphoi = thongtin.dongphoi
     data['added'] = True
+    data['maso'] = thongtin.maSo
     if not dongphoi.added:
         dtn = date.today()
         dongphoi.ngayDongPhoi = dtn
@@ -605,7 +610,8 @@ def chochut_ex(request):
                 cell.text = tv
                 cell.paragraphs[0].style = document.styles['Text2']
                 cell.add_paragraph(ci.tt.tenVo + u' - ', style='Text4').add_run(str(ci.tt.nsVo), 't3').bold = False
-                cell.add_paragraph(ci.tt.tenChong + u' - ', style='Text4').add_run(str(ci.tt.nsChong), 't3').bold = False
+                cell.add_paragraph(ci.tt.tenChong + u' - ', style='Text4').add_run(str(ci.tt.nsChong),
+                                                                                   't3').bold = False
 
                 cell = table.cell(i, 2)
                 cell.text = 'HCG: ' + ci.HCG.strftime('%H:%M')
@@ -956,9 +962,9 @@ def thongkethang(request, thang, nam):
         loai3 += tt.phoi.loai3
         tst += tt.trung.truongThanh
     if loai1 + loai2 + loai3 != 0:
-        l1 = float(loai1)/(loai1 + loai2 + loai3)
-        l2 = float(loai2)/(loai1 + loai2 + loai3)
-        l3 = float(loai3)/(loai1 + loai2 + loai3)
+        l1 = float(loai1) / (loai1 + loai2 + loai3)
+        l2 = float(loai2) / (loai1 + loai2 + loai3)
+        l3 = float(loai3) / (loai1 + loai2 + loai3)
     else:
         l1 = l2 = l3 = 1
         valid = False
@@ -966,8 +972,8 @@ def thongkethang(request, thang, nam):
         ptst = 0
         valid = False
     else:
-        ptst = float(loai1 + loai2 + loai3)/tst
-    ptst = float(int(ptst * 10000))/100
+        ptst = float(loai1 + loai2 + loai3) / tst
+    ptst = float(int(ptst * 10000)) / 100
     return render(request, 'benhnhan/thongke.html', {'thongtin': thongtin,
                                                      'ptst': ptst,
                                                      'l1': l1,
@@ -979,6 +985,46 @@ def thongkethang(request, thang, nam):
                                                      'months': months,
                                                      'valid': valid
                                                      })
+
+
+def thongkenam(request, nam):
+    thongtin = ThongTin.objects.filter(ngayNhap__year=nam)
+    years = range(2017, int(nam) + 1, 1)
+    months = range(1, 13, 1)
+    loai1 = [.0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0]
+    loai2 = [.0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0]
+    loai3 = [.0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0]
+    tst = [.0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0]
+    l1 = 0
+    l2 = 0
+    l3 = 0
+    valid = True
+    for tt in thongtin:
+        loai1[tt.ngayNhap.month - 1] += tt.phoi.loai1
+        loai2[tt.ngayNhap.month - 1] += tt.phoi.loai2
+        loai3[tt.ngayNhap.month - 1] += tt.phoi.loai3
+        tst[tt.ngayNhap.month - 1] += tt.trung.truongThanh
+    for i in range(0, 12, 1):
+        tl = loai1[i] + loai2[i] + loai3[i]
+        if tl != 0:
+            loai1[i] = float(loai1[i])*100/tl
+            loai2[i] = float(loai2[i])*100/tl
+            loai3[i] = float(loai3[i])*100/tl
+            if tst[i] != 0:
+                tst[i] = float(tl/tst[i])*100
+    return render(request, 'benhnhan/thongkenam.html', {'thongtin': thongtin,
+                                                        'tst': tst,
+                                                        'l1': l1,
+                                                        'l2': l2,
+                                                        'l3': l3,
+                                                        'loai1': loai1,
+                                                        'loai2': loai2,
+                                                        'loai3': loai3,
+                                                        'nam': int(nam),
+                                                        'years': years,
+                                                        'months': months,
+                                                        'valid': valid
+                                                        })
 
 
 def thongke(request):

@@ -20,9 +20,10 @@
         </div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-6 {% if form.maSo.errors %} has-error{% endif %}">
         <label for="{{ form.maSo.id_for_label }}">Mã số</label>
         {% render_field form.maSo class="form-control input-sm" %}
+        {% if form.maSo.errors %} <p style="color: #ac2925; font-size: 70%" class="help-block">Mã số bệnh nhân đã tồn tại</p> {% endif %}
     </div>
 </div>
 

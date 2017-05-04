@@ -1,6 +1,6 @@
 function loadData(){
     $('#thongtin-table').DataTable({
-    "order": [],
+    "order": [8, 'desc'],
         columnDefs: [
             { orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7] }
         ],

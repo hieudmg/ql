@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block javascript %}
+    <script src="{% static 'jqplot/jquery.jqplot.min.js' %}"></script>
+    <script src="{% static 'jqplot/jqplot.pieRenderer.js' %}"></script>
+    <script src="{% static 'jqplot/jqplot.barRenderer.js' %}"></script>
+    <script src="{% static 'jqplot/jqplot.pointLabels.js' %}"></script>
+    <script src="{% static 'jqplot/jqplot.categoryAxisRenderer.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'jqplot/jquery.jqplot.min.css' %}">
+
+    <script>
+
+    $(document).ready(function(){
+        var s1 = {{ loai1 }};
+        var s2 = {{ loai2 }};
+        var s3 = {{ loai3 }};
+        var s4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        var ticks = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+
+        $.jqplot('thongkephoi', [s4, s1, s2, s3], {
+            animate: true,
+            stackSeries: true,
+            series:[
+                {label:' '},
+                {label:'Loại 1'},
+                {label:'Loại 2'},
+                {label:'Loại 3'}
+            ],
+            seriesColors :['rgba(0, 0, 0, 0)', '#e74c3c','#2ecc71','#3498db'],
+            seriesDefaults:{
+                renderer:$.jqplot.BarRenderer,
+                rendererOptions: {
+                    highlightMouseDown: true,
+                    barMargin: 1,
+                    shadowAlpha: 0
+                },
+                pointLabels: {show: true}
+            },
+            axes: {
+                xaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer,
+                    ticks: ticks
+                },
+                yaxis: {
+                    min: 0,
+                    max: 100
+                }
+            },
+            grid: {
+                drawGridLines: false,        // wether to draw lines across the grid or not.
+                gridLineColor: 'rgba(0, 0, 0, 0)',   // CSS color spec of the grid lines.
+                background: '#ffffff',      // CSS color spec for background color of grid.
+                borderWidth: 1,           // pixel width of border around grid.
+                shadow: false               // draw a shadow for grid.
+            },
+            legend: {
+                show: false
+            }
+        });
+
+        $.jqplot ('thutinh', [{{ tst }}],{
+            animate: true,
+            seriesDefaults: {
+                pointLabels: {show: true},
+                rendererOptions: {
+                    shadowOffset: 0
+                }
+            },
+            grid: {
+                drawGridLines: false,        // wether to draw lines across the grid or not.
+                gridLineColor: 'rgba(0, 0, 0, 0)',   // CSS color spec of the grid lines.
+                background: '#ffffff',      // CSS color spec for background color of grid.
+                borderWidth: 0,           // pixel width of border around grid.
+                shadow: false               // draw a shadow for grid.
+            },
+            series:[{
+                lineWidth: 2,
+                markerOptions: {
+                    style:'filledCircle',
+                    size: 5,
+                    shadow: false
+                },
+                color: '#3498db'
+            }],
+            axes: {
+                xaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer,
+                    ticks: ticks,
+                    rendererOptions: {
+                        drawBaseline: true
+                    }
+                },
+                yaxis: {
+                    min: -10,
+                    tickOptions: {
+                        show: false
+                    },
+                    rendererOptions: {
+                        drawBaseline: true
+                    }
+                }
+            }
+        });
+    });
+
+    function tk() {
+        var thang = $('#id_thang').val();
+        var nam = $('#id_nam').val();
+        window.location.replace('/quanly/thongke/' + thang + '/' + nam + '/')
+    }
+
+    </script>
+    <style>
+        div.jqplot-table-legend-swatch {
+            border-width: 8px 30px
+        }
+        div.jqplot-table-legend-swatch-outline {
+            border: none
+        }
+        .jqplot-target {
+            color: #FFFFFF;
+        }
+        .jqplot-series-0 {
+            display: none;
+        }
+        .jqplot-table-legend-label {
+            color: black;
+            font-size: 120%;
+        }
+        label {
+            font-size: 70%;
+            text-decoration: none;
+        }
+        .jqplot-xaxis-tick {
+            color: black;
+            font-size: 120%;
+        }
+        .jqplot-yaxis-tick {
+            color: black;
+            font-size: 120%;
+        }
+        .jqplot-point-label {
+            font-size: 80%;
+         }
+        #thutinh > div.jqplot-point-label {
+            color: black;
+            display: inherit;
+        }
+    </style>
+
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+      <ul class="nav nav-tabs">
+        <li><a href="{% url 'benhnhan_list' %}">Bệnh nhân</a></li>
+        <li><a href="{% url 'chochut_list' %}">Chọc hút</a></li>
+        <li><a href="{% url 'chuyenphoi_list' %}">Chuyển phôi</a></li>
+        <li><a href="{% url 'dongphoi_list' %}">Đông phôi</a></li>
+        <li class="active"><a href="{% url 'thongke' %}">Thống kê</a></li>
+      </ul>
+    </div>
+    <div style="display: none">
+        <div id="loai1">{{ l1 }}</div>
+        <div id="loai2">{{ l2 }}</div>
+        <div id="loai3">{{ l3 }}</div>
+    </div>
+    <div class="page-header">
+        <h3> <button class="btn btn-default" title="Làm mới" onclick="history.go(0)">
+                <span class="fa fa-refresh"></span>
+        </button> Thống kê
+        <span class="form-group form-inline" style="float: right">
+            <label for="id_thang">Tháng</label>
+            <select id="id_thang" class="form-control input-sm">
+                <option value="0" selected="selected">--</option>
+                {% for month in months %}
+                    <option value="{{ month }}">{{ month }}</option>
+                {% endfor %}
+            </select>
+            <label for="id_nam"> năm</label>
+            <select id="id_nam" class="form-control input-sm">
+                {% for year in years %}
+                    <option value="{{ year }}" {% if year == nam %} selected="selected"{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary" onclick="tk()">
+              <span class="glyphicon glyphicon-list-alt"></span>
+            Thống kê</button>
+        </span>
+        </h3>
+  </div>
+    {% if valid %}
+        <h3>Tỷ lệ thụ tinh (%):</h3>
+        <div id="thutinh" class="center-block"></div>
+        <hr>
+        <h3>Tỷ lệ phôi (%):</h3>
+        <div id="thongkephoi" class="center-block"></div>
+        <br>
+        <div>
+            <table style="margin-left:auto;margin-right:auto;">
+                <tr>
+                    <td class="jqplot-table-legend jqplot-table-legend-swatch">
+                        <div class="jqplot-table-legend-swatch-outline">
+                            <div class="jqplot-table-legend-swatch" style="background-color: rgb(231, 76, 60); border-color: rgb(231, 76, 60);"></div>
+                        </div>
+                    </td>
+                    <td class="jqplot-table-legend jqplot-table-legend-label"> &nbsp;Loại 1&nbsp; </td>
+
+                    <td class="jqplot-table-legend jqplot-table-legend-swatch">
+                        <div class="jqplot-table-legend-swatch-outline">
+                            <div class="jqplot-table-legend-swatch" style="background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);"></div>
+                        </div>
+                    </td>
+                    <td class="jqplot-table-legend jqplot-table-legend-label"> &nbsp;Loại 2&nbsp; </td>
+
+                    <td class="jqplot-table-legend jqplot-table-legend-swatch">
+                        <div class="jqplot-table-legend-swatch-outline">
+                            <div class="jqplot-table-legend-swatch" style="background-color: rgb(52, 152, 219); border-color: rgb(52, 152, 219);"></div>
+                        </div>
+                    </td>
+                    <td class="jqplot-table-legend jqplot-table-legend-label"> &nbsp;Loại 3&nbsp; </td>
+                </tr>
+            </table>
+        </div>
+    {% else %}
+        <h3 class="alert alert-warning">Tháng đã chọn không có dữ liệu</h3>
+    {% endif %}
+        <br>
+        <br>
+
+{% endblock %}

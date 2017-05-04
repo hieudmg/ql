@@ -109,7 +109,7 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
       success: function (data) {
         if (data.form_is_valid) {
           $("#modal-thongtin").modal("hide");  // <-- Close the modal
-            toastr.success('Thêm thành công');
+            toastr.success('Mã số: ' + data.maso + ' thêm thành công vào bảng chọc hút');
         }
         else {
           $("#modal-thongtin .modal-content").html(data.html_form);
@@ -129,7 +129,7 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
       success: function (data) {
         if (data.form_is_valid) {
           $("#modal-thongtin").modal("hide");  // <-- Close the modal
-            toastr.success('Thêm thành công');
+            toastr.success('Mã số: ' + data.maso + ' thêm thành công vào bảng chuyển phôi');
         }
         else {
           $("#modal-thongtin .modal-content").html(data.html_form);
@@ -149,7 +149,7 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
       success: function (data) {
         if (data.form_is_valid) {
           $("#modal-thongtin").modal("hide");  // <-- Close the modal
-            toastr.success('Thêm thành công');
+            toastr.success('Mã số: ' + data.maso + ' thêm thành công vào bảng đông phôi');
         }
         else {
           $("#modal-thongtin .modal-content").html(data.html_form);
@@ -250,7 +250,7 @@ $(function() {
                     success: function (data) {
                         if (data.added) {
                             // $("#modal-thongtin").modal("hide");
-                            toastr.error('Thông tin đã được thêm trước đó')
+                            toastr.error('Mã số: ' + data.maso + ' đã được thêm trước đó')
                         }
                         else
                             $("#modal-thongtin").modal("show");

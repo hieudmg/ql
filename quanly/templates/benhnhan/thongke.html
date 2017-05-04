@@ -15,6 +15,7 @@
     var l3 = Number(document.getElementById("loai3").innerHTML);
 
     var plot1 = $.jqplot('thongkephoi', [[['&nbsp;Loại 1',l1],['&nbsp;Loại 2',l2],['&nbsp;Loại 3',l3]]], {
+        animate: true,
         gridPadding: {top:10, bottom:0, left:0, right:0},
         seriesDefaults:{
             renderer:$.jqplot.PieRenderer,
@@ -49,6 +50,8 @@
         }
     });
 });
+
+    $.jqplot ('chart1', [[3,7,9,1,5,3,8,2,5]]);
 
     function tk() {
         var thang = $('#id_thang').val();
@@ -105,6 +108,7 @@
         <span class="form-group form-inline" style="float: right">
             <label for="id_thang">Tháng</label>
             <select id="id_thang" class="form-control input-sm">
+                <option value="0">--</option>
                 {% for month in months %}
                     <option value="{{ month }}" {% if month == thang %} selected="selected"{% endif %}>{{ month }}</option>
                 {% endfor %}
