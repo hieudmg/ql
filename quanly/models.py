@@ -150,3 +150,10 @@ class DongPhoi(models.Model):
     ngayDongPhoi = models.DateField(default=datetime.now, blank=True)
     ngayNopTien = models.DateField(default=datetime.now, blank=True)
     added = models.BooleanField(default=False)
+
+
+class ThongKe(models.Model):
+    thang = models.IntegerField(validators=[MinValueValidator(1)], default=1)
+    nam = models.IntegerField(validators=[MinValueValidator(2017)], default=datetime.now().year)
+    tongSoTreSinh = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    tongSoTuiThai = models.IntegerField(validators=[MinValueValidator(0)], default=0)

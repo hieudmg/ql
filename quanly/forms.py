@@ -3,6 +3,7 @@ from django import forms
 from django.forms import DateTimeField
 from .models import ThongTin, Trung, Phoi, TruPhoi, TinhDichDoNgayCH, BacSi, KyThuatVien, ChocHut, ChuyenPhoi, DongPhoi
 from django.utils.translation import activate
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 activate('vi')
 
@@ -175,3 +176,37 @@ class FormDP(forms.ModelForm):
 
 class FormExCH(forms.Form):
     chonNgay = forms.DateField()
+
+
+class FormTK(forms.Form):
+    thang = forms.IntegerField(validators=[MinValueValidator(1)])
+    nam = forms.IntegerField(validators=[MinValueValidator(2017)])
+    tongSoTreSinh = forms.IntegerField(validators=[MinValueValidator(0)])
+    tongSoTuiThai = forms.IntegerField(validators=[MinValueValidator(0)])
+
+
+class FormX(forms.Form):
+    t1t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t1t2 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t2t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t2t2 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t3t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t3t2 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t4t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t4t2 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t5t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t5t2 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t6t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t6t2 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t7t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t7t2 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t8t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t8t2 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t9t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t9t2 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t10t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t10t2 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t11t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t11t2 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t12t1 = forms.IntegerField(validators=[MinValueValidator(0)])
+    t12t2 = forms.IntegerField(validators=[MinValueValidator(0)])

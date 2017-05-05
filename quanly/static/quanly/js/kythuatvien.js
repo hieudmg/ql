@@ -86,7 +86,6 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-            $('#kythuatvien-table').DataTable().destroy();
 			$("#kythuatvien-table tbody").html(data.html_kythuatvien_preview);  // <-- Replace the table body
             $("#modal-kythuatvien").modal("hide");
             loadData();
@@ -110,7 +109,6 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-            $('#kythuatvien-table').DataTable().destroy();
 			$("#kythuatvien-table tbody").html(data.html_kythuatvien_preview);  // <-- Replace the table body
             $("#modal-kythuatvien").modal("hide");
             loadData();
@@ -133,7 +131,6 @@ $(function () {
         dataType: 'json',
         success: function (data) {
           if (data.form_is_valid) {
-            $('#kythuatvien-table').DataTable().destroy();
 			$("#kythuatvien-table tbody").html(data.html_kythuatvien_preview);  // <-- Replace the table body
             $("#modal-kythuatvien").modal("hide");
             loadData();

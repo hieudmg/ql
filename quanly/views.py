@@ -3,8 +3,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
-from .models import ThongTin, Trung, BacSi, TruPhoi, Phoi, TinhDichDoNgayCH, KyThuatVien, ChocHut, ChuyenPhoi, DongPhoi
-from .forms import FormTT, FormTR, FormP, FormTP, FormTD, FormBS, FormKTV, FormCH, FormCP, FormDP, FormExCH
+from .models import *
+from .forms import *
 from datetime import *
 from dateutil.relativedelta import relativedelta
 from docx import Document
@@ -948,19 +948,30 @@ def change_password(request):
 
 
 def thongkethang(request, thang, nam):
+    thongtin = ThongTin.objects.all()
+    maxy = 2000
+    miny = 3000
+    for tt in thongtin:
+        if tt.ngayNhap.year > maxy:
+            maxy = tt.ngayNhap.year
+        if tt.ngayNhap.year < miny:
+            miny = tt.ngayNhap.year
+    years = range(miny, maxy + 1, 1)
+
     thongtin = ThongTin.objects.filter(ngayNhap__year=nam).filter(ngayNhap__month=thang)
-    years = range(2017, int(nam) + 1, 1)
     months = range(1, 13, 1)
     loai1 = 0
     loai2 = 0
     loai3 = 0
     tst = 0
+    tpc = 0
     valid = True
     for tt in thongtin:
         loai1 += tt.phoi.loai1
         loai2 += tt.phoi.loai2
         loai3 += tt.phoi.loai3
         tst += tt.trung.truongThanh
+        tpc += tt.phoi.tongSoPhoiChuyen
     if loai1 + loai2 + loai3 != 0:
         l1 = float(loai1) / (loai1 + loai2 + loai3)
         l2 = float(loai2) / (loai1 + loai2 + loai3)
@@ -973,7 +984,21 @@ def thongkethang(request, thang, nam):
         valid = False
     else:
         ptst = float(loai1 + loai2 + loai3) / tst
-    ptst = float(int(ptst * 10000)) / 100
+    ptst *= 100
+
+    try:
+        tk = ThongKe.objects.get(nam=nam, thang=thang)
+    except ThongKe.DoesNotExist:
+        tk = ThongKe(nam=nam, thang=thang)
+    if tk.tongSoTuiThai != 0:
+        tyletresinh = tk.tongSoTreSinh/float(tk.tongSoTuiThai)*100
+    else:
+        tyletresinh = 0
+    if tpc != 0:
+        tylelamto = tk.tongSoTuiThai/float(tpc)*100
+    else:
+        tylelamto = 0
+
     return render(request, 'benhnhan/thongke.html', {'thongtin': thongtin,
                                                      'ptst': ptst,
                                                      'l1': l1,
@@ -983,13 +1008,24 @@ def thongkethang(request, thang, nam):
                                                      'thang': int(thang),
                                                      'years': years,
                                                      'months': months,
-                                                     'valid': valid
+                                                     'valid': valid,
+                                                     'tyletresinh': tyletresinh,
+                                                     'tylelamto': tylelamto
                                                      })
 
 
 def thongkenam(request, nam):
+    thongtin = ThongTin.objects.all()
+    maxy = 2000
+    miny = 3000
+    for tt in thongtin:
+        if tt.ngayNhap.year > maxy:
+            maxy = tt.ngayNhap.year
+        if tt.ngayNhap.year < miny:
+            miny = tt.ngayNhap.year
+    years = range(miny, maxy + 1, 1)
+
     thongtin = ThongTin.objects.filter(ngayNhap__year=nam)
-    years = range(2017, int(nam) + 1, 1)
     months = range(1, 13, 1)
     loai1 = [.0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0]
     loai2 = [.0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0, .0]
@@ -998,12 +1034,16 @@ def thongkenam(request, nam):
     l1 = 0
     l2 = 0
     l3 = 0
+    tpc = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     valid = True
     for tt in thongtin:
-        loai1[tt.ngayNhap.month - 1] += tt.phoi.loai1
-        loai2[tt.ngayNhap.month - 1] += tt.phoi.loai2
-        loai3[tt.ngayNhap.month - 1] += tt.phoi.loai3
-        tst[tt.ngayNhap.month - 1] += tt.trung.truongThanh
+        k = tt.ngayNhap.month - 1
+        loai1[k] += tt.phoi.loai1
+        loai2[k] += tt.phoi.loai2
+        loai3[k] += tt.phoi.loai3
+        tst[k] += tt.trung.truongThanh
+        tpc[k] += tt.phoi.tongSoPhoiChuyen
+
     for i in range(0, 12, 1):
         tl = loai1[i] + loai2[i] + loai3[i]
         if tl != 0:
@@ -1012,6 +1052,24 @@ def thongkenam(request, nam):
             loai3[i] = float(loai3[i])*100/tl
             if tst[i] != 0:
                 tst[i] = float(tl/tst[i])*100
+
+    tyletresinh = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    tylelamto = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    for i in range(1, 13, 1):
+        try:
+            tk = ThongKe.objects.get(nam=nam, thang=i)
+        except ThongKe.DoesNotExist:
+            tk = ThongKe(nam=nam, thang=i)
+            tk.save()
+        if tk.tongSoTuiThai != 0:
+            tyletresinh[i - 1] = tk.tongSoTreSinh/float(tk.tongSoTuiThai)*100
+        else:
+            tyletresinh[i - 1] = 0
+        if tpc[i - 1] != 0:
+            tylelamto[i - 1] = tk.tongSoTuiThai/float(tpc[i - 1])*100
+        else:
+            tylelamto[i - 1] = 0
+
     return render(request, 'benhnhan/thongkenam.html', {'thongtin': thongtin,
                                                         'tst': tst,
                                                         'l1': l1,
@@ -1023,7 +1081,9 @@ def thongkenam(request, nam):
                                                         'nam': int(nam),
                                                         'years': years,
                                                         'months': months,
-                                                        'valid': valid
+                                                        'valid': valid,
+                                                        'tyletresinh': tyletresinh,
+                                                        'tylelamto': tylelamto
                                                         })
 
 
@@ -1031,3 +1091,140 @@ def thongke(request):
     nam = datetime.now().year
     thang = datetime.now().month
     return redirect(str(thang) + '/' + str(nam) + '/')
+
+
+def thongke_edit(request, nam):
+    data = dict()
+    thongtin = ThongTin.objects.all()
+    maxy = 2000
+    miny = 3000
+    for tt in thongtin:
+        if tt.ngayNhap.year > maxy:
+            maxy = tt.ngayNhap.year
+        if tt.ngayNhap.year < miny:
+            miny = tt.ngayNhap.year
+
+    fxo = range(0, 24, 1)
+
+    if request.method == 'POST':
+        formx = FormX(request.POST)
+
+        if formx.is_valid():
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=1)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=1)
+            tk.tongSoTreSinh = formx.cleaned_data['t1t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t1t2']
+            tk.save()
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=2)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=2)
+            tk.tongSoTreSinh = formx.cleaned_data['t2t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t2t2']
+            tk.save()
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=3)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=3)
+            tk.tongSoTreSinh = formx.cleaned_data['t3t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t3t2']
+            tk.save()
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=4)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=4)
+            tk.tongSoTreSinh = formx.cleaned_data['t4t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t4t2']
+            tk.save()
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=5)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=5)
+            tk.tongSoTreSinh = formx.cleaned_data['t5t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t5t2']
+            tk.save()
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=6)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=1)
+            tk.tongSoTreSinh = formx.cleaned_data['t6t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t6t2']
+            tk.save()
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=7)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=1)
+            tk.tongSoTreSinh = formx.cleaned_data['t7t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t7t2']
+            tk.save()
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=8)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=1)
+            tk.tongSoTreSinh = formx.cleaned_data['t8t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t8t2']
+            tk.save()
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=9)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=1)
+            tk.tongSoTreSinh = formx.cleaned_data['t9t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t9t2']
+            tk.save()
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=10)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=1)
+            tk.tongSoTreSinh = formx.cleaned_data['t10t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t10t2']
+            tk.save()
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=11)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=1)
+            tk.tongSoTreSinh = formx.cleaned_data['t11t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t11t2']
+            tk.save()
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=12)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=1)
+            tk.tongSoTreSinh = formx.cleaned_data['t12t1']
+            tk.tongSoTuiThai = formx.cleaned_data['t12t2']
+            tk.save()
+
+            data['form_is_valid'] = True
+        else:
+            data['form_is_valid'] = False
+    else:
+        for i in range(0, 12, 1):
+            try:
+                tk = ThongKe.objects.get(nam=nam, thang=i + 1)
+            except ThongKe.DoesNotExist:
+                tk = ThongKe(nam=nam, thang=i + 1)
+                tk.save()
+            fxo[i*2] = tk.tongSoTreSinh
+            fxo[i*2 + 1] = tk.tongSoTuiThai
+
+        formx = FormX(initial={'t1t1': fxo[0], 't1t2': fxo[1],
+                               't2t1': fxo[2], 't2t2': fxo[3],
+                               't3t1': fxo[4], 't3t2': fxo[5],
+                               't4t1': fxo[6], 't4t2': fxo[7],
+                               't5t1': fxo[8], 't5t2': fxo[9],
+                               't6t1': fxo[10], 't6t2': fxo[11],
+                               't7t1': fxo[12], 't7t2': fxo[13],
+                               't8t1': fxo[14], 't8t2': fxo[15],
+                               't9t1': fxo[16], 't9t2': fxo[17],
+                               't10t1': fxo[18], 't10t2': fxo[19],
+                               't11t1': fxo[20], 't11t2': fxo[21],
+                               't12t1': fxo[22], 't12t2': fxo[23]
+                               })
+
+    context = {'formx': formx, 'nam': nam}
+    data['html_form'] = render_to_string('benhnhan/includes/thongke_edit.html',
+                                         context,
+                                         request=request
+                                         )
+    return JsonResponse(data)

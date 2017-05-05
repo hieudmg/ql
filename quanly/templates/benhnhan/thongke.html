@@ -9,6 +9,27 @@
 
     <script>
     $(document).ready(function(){
+        $('.numb').each(function () {
+            var txt = $(this).text();
+            $(this).text(txt.replace('.', ','));
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-bottom-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "300",
+      "timeOut": "4400",
+      "extendedTimeOut": "300",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+        });
 
     var l1 = Number(document.getElementById("loai1").innerHTML);
     var l2 = Number(document.getElementById("loai2").innerHTML);
@@ -51,13 +72,29 @@
     });
 });
 
-    $.jqplot ('chart1', [[3,7,9,1,5,3,8,2,5]]);
-
     function tk() {
-        var thang = $('#id_thang').val();
-        var nam = $('#id_nam').val();
+        var thang = $('#_id_thang').val();
+        var nam = $('#_id_nam').val();
         window.location.replace('/quanly/thongke/' + thang + '/' + nam + '/')
     }
+
+    $('#js-thongke-edit').click(function () {
+        var btn = $(this);
+        var thang = $('#_id_thang').val();
+        var nam = $('#_id_nam').val();
+        $.ajax({
+          url: '/quanly/thongke/' + nam + '/edit/',
+          type: 'get',
+          dataType: 'json',
+          beforeSend: function () {
+            $("#modal-thongke").modal("show");
+          },
+          success: function (data) {
+            $("#modal-thongke .modal-content").html(data.html_form);
+          }
+        });
+
+    });
 
     </script>
     <style>
@@ -102,19 +139,19 @@
         <div id="loai3">{{ l3 }}</div>
     </div>
     <div class="page-header">
-        <h3> <button class="btn btn-default" title="Làm mới" onclick="history.go(0)">
+        <h3> <button class="btn btn-default" title="Làm mới" onclick="location.href = location.href">
                 <span class="fa fa-refresh"></span>
         </button> Thống kê
         <span class="form-group form-inline" style="float: right">
-            <label for="id_thang">Tháng</label>
-            <select id="id_thang" class="form-control input-sm">
+            <label for="_id_thang">Tháng</label>
+            <select id="_id_thang" class="form-control input-sm">
                 <option value="0">--</option>
                 {% for month in months %}
                     <option value="{{ month }}" {% if month == thang %} selected="selected"{% endif %}>{{ month }}</option>
                 {% endfor %}
             </select>
-            <label for="id_nam"> năm</label>
-            <select id="id_nam" class="form-control input-sm">
+            <label for="_id_nam"> năm</label>
+            <select id="_id_nam" class="form-control input-sm">
                 {% for year in years %}
                     <option value="{{ year }}" {% if year == nam %} selected="selected"{% endif %}>{{ year }}</option>
                 {% endfor %}
@@ -122,16 +159,30 @@
             <button type="submit" class="btn btn-primary" onclick="tk()">
               <span class="glyphicon glyphicon-list-alt"></span>
             Thống kê</button>
+            <button class="btn btn-primary" id="js-thongke-edit">
+            <span class="fa fa-pencil-square-o"></span> Dữ liệu</button>
         </span>
         </h3>
   </div>
     {% if valid %}
-        <h3>Tỷ lệ thụ tinh: {{ ptst }}%</h3>
+        <h3 class="numb">Tỷ lệ thụ tinh: {{ ptst|floatformat:-2 }}%</h3>
         <hr>
         <h3>Tỷ lệ phôi</h3>
         <div id="thongkephoi" class="center-block" style="width:300px;"></div>
+        <hr>
+        <h3 class="numb">Tỷ lệ trẻ sinh sống: {{ tyletresinh|floatformat:-2 }}%</h3>
+        <hr>
+        <h3 class="numb">Tỷ lệ làm tổ: {{ tylelamto|floatformat:-2 }}%</h3>
     {% else %}
         <h3 class="alert alert-warning">Tháng đã chọn không có dữ liệu</h3>
     {% endif %}
-
+<br>
+<br>
+<br>
+  <div class="modal fade" id="modal-thongke">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
 {% endblock %}

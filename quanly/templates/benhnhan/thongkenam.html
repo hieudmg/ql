@@ -13,6 +13,23 @@
     <script>
 
     $(document).ready(function(){
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-bottom-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "300",
+      "timeOut": "4400",
+      "extendedTimeOut": "300",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    };
         var s1 = {{ loai1 }};
         var s2 = {{ loai2 }};
         var s3 = {{ loai3 }};
@@ -20,7 +37,6 @@
         var ticks = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
 
         $.jqplot('thongkephoi', [s4, s1, s2, s3], {
-            animate: true,
             stackSeries: true,
             series:[
                 {label:' '},
@@ -61,7 +77,92 @@
         });
 
         $.jqplot ('thutinh', [{{ tst }}],{
-            animate: true,
+            seriesDefaults: {
+                pointLabels: {show: true},
+                rendererOptions: {
+                    shadowOffset: 0
+                }
+            },
+            grid: {
+                drawGridLines: false,        // wether to draw lines across the grid or not.
+                gridLineColor: 'rgba(0, 0, 0, 0)',   // CSS color spec of the grid lines.
+                background: '#ffffff',      // CSS color spec for background color of grid.
+                borderWidth: 0,           // pixel width of border around grid.
+                shadow: false               // draw a shadow for grid.
+            },
+            series:[{
+                lineWidth: 2,
+                markerOptions: {
+                    style:'filledCircle',
+                    size: 5,
+                    shadow: false
+                },
+                color: '#3498db'
+            }],
+            axes: {
+                xaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer,
+                    ticks: ticks,
+                    rendererOptions: {
+                        drawBaseline: true
+                    }
+                },
+                yaxis: {
+                    min: -10,
+                    tickOptions: {
+                        show: false
+                    },
+                    rendererOptions: {
+                        drawBaseline: true
+                    }
+                }
+            }
+        });
+
+        $.jqplot ('tyletresinh', [{{ tyletresinh }}],{
+            seriesDefaults: {
+                pointLabels: {show: true},
+                rendererOptions: {
+                    shadowOffset: 0
+                }
+            },
+            grid: {
+                drawGridLines: false,        // wether to draw lines across the grid or not.
+                gridLineColor: 'rgba(0, 0, 0, 0)',   // CSS color spec of the grid lines.
+                background: '#ffffff',      // CSS color spec for background color of grid.
+                borderWidth: 0,           // pixel width of border around grid.
+                shadow: false               // draw a shadow for grid.
+            },
+            series:[{
+                lineWidth: 2,
+                markerOptions: {
+                    style:'filledCircle',
+                    size: 5,
+                    shadow: false
+                },
+                color: '#3498db'
+            }],
+            axes: {
+                xaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer,
+                    ticks: ticks,
+                    rendererOptions: {
+                        drawBaseline: true
+                    }
+                },
+                yaxis: {
+                    min: -10,
+                    tickOptions: {
+                        show: false
+                    },
+                    rendererOptions: {
+                        drawBaseline: true
+                    }
+                }
+            }
+        });
+
+        $.jqplot ('tylelamto', [{{ tylelamto }}],{
             seriesDefaults: {
                 pointLabels: {show: true},
                 rendererOptions: {
@@ -106,10 +207,28 @@
     });
 
     function tk() {
-        var thang = $('#id_thang').val();
-        var nam = $('#id_nam').val();
+        var thang = $('#_id_thang').val();
+        var nam = $('#_id_nam').val();
         window.location.replace('/quanly/thongke/' + thang + '/' + nam + '/')
     }
+
+    $('#js-thongke-edit').click(function () {
+        var btn = $(this);
+        var thang = $('#_id_thang').val();
+        var nam = $('#_id_nam').val();
+        $.ajax({
+          url: '/quanly/thongke/' + nam + '/edit/',
+          type: 'get',
+          dataType: 'json',
+          beforeSend: function () {
+            $("#modal-thongke").modal("show");
+          },
+          success: function (data) {
+            $("#modal-thongke .modal-content").html(data.html_form);
+          }
+        });
+
+    });
 
     </script>
     <style>
@@ -148,6 +267,14 @@
             color: black;
             display: inherit;
         }
+        #tyletresinh > div.jqplot-point-label {
+            color: black;
+            display: inherit;
+        }
+        #tylelamto > div.jqplot-point-label {
+            color: black;
+            display: inherit;
+        }
     </style>
 
 
@@ -170,19 +297,19 @@
         <div id="loai3">{{ l3 }}</div>
     </div>
     <div class="page-header">
-        <h3> <button class="btn btn-default" title="Làm mới" onclick="history.go(0)">
+        <h3> <button class="btn btn-default" title="Làm mới" onclick="location.href = location.href">
                 <span class="fa fa-refresh"></span>
         </button> Thống kê
         <span class="form-group form-inline" style="float: right">
-            <label for="id_thang">Tháng</label>
-            <select id="id_thang" class="form-control input-sm">
+            <label for="_id_thang">Tháng</label>
+            <select id="_id_thang" class="form-control input-sm">
                 <option value="0" selected="selected">--</option>
                 {% for month in months %}
                     <option value="{{ month }}">{{ month }}</option>
                 {% endfor %}
             </select>
-            <label for="id_nam"> năm</label>
-            <select id="id_nam" class="form-control input-sm">
+            <label for="_id_nam"> năm</label>
+            <select id="_id_nam" class="form-control input-sm">
                 {% for year in years %}
                     <option value="{{ year }}" {% if year == nam %} selected="selected"{% endif %}>{{ year }}</option>
                 {% endfor %}
@@ -190,6 +317,8 @@
             <button type="submit" class="btn btn-primary" onclick="tk()">
               <span class="glyphicon glyphicon-list-alt"></span>
             Thống kê</button>
+            <button class="btn btn-primary" id="js-thongke-edit">
+            <span class="fa fa-pencil-square-o"></span> Dữ liệu</button>
         </span>
         </h3>
   </div>
@@ -226,10 +355,23 @@
                 </tr>
             </table>
         </div>
+        <hr>
+        <h3>Tỷ lệ trẻ sinh sống (%):</h3>
+        <div id="tyletresinh" class="center-block"></div>
+        <hr>
+        <h3>Tỷ lệ làm tổ (%):</h3>
+        <div id="tylelamto" class="center-block"></div>
     {% else %}
         <h3 class="alert alert-warning">Tháng đã chọn không có dữ liệu</h3>
     {% endif %}
         <br>
         <br>
+        <br>
+  <div class="modal fade" id="modal-thongke">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

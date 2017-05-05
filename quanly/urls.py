@@ -40,6 +40,7 @@ urlpatterns = (
     url(r'^benhnhan/(?P<pk>\d+)/IVF/$', views.IVF, name='IVF'),
     url(r'^download/$', views.download, name='download'),
     url(r'^thongke/$', views.thongke, name='thongke'),
+    url(r'^thongke/(?P<nam>\d+)/edit/$', views.thongke_edit, name='thongke_edit'),
     url(r'^thongke/0/(?P<nam>\d+)/$', views.thongkenam, name='thongkenam'),
     url(r'^thongke/(?P<thang>\d+)/(?P<nam>\d+)/$', views.thongkethang, name='thongkethang'),
 )
