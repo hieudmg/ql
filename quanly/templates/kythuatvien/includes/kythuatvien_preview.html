@@ -4,7 +4,7 @@
     <tr>
         <td class="stt"></td>
         <td>{{ ktv.ten }}</td>
-        <td>{{ ktv.nghiHuu }}
+        <td>{{ ktv.nghiHuu|yesno:"☑,☐, " }}
     {% if user.is_authenticated %}
             <button class="btn btn-default context-button"
                     style="float: right;"

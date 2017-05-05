@@ -4,7 +4,7 @@
             <td>{{ cp.tt.maSo }}</td>
             <td>{{ cp.tt.tenVo }}</td>
               <td>{{ cp.tt.tenChong }}</td>
-            <td>{{ cp.tt.bs }}</td>
+            <td>{{ cp.tt.bs|default_if_none:"--------" }}</td>
             <td>{{ cp.soPhoiRa }}</td>
             <td>
                 <span style="display: none">{{ cp.ngayKiemTra|date:"Y+m+d" }}</span> {{ cp.ngayKiemTra|date:"d/m/Y" }}

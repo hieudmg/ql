@@ -7,7 +7,7 @@
         <td>{{ tt.nsVo }}</td>
         <td>{{ tt.tenChong }}</td>
         <td>{{ tt.nsChong }}</td>
-        <td>{{ tt.bs }}</td>
+        <td>{{ tt.bs|default_if_none:"--------" }}</td>
         <td>{{ tt.lienHe }}
             {% if user.is_authenticated %}
             <button class="btn btn-sm btn-default context-button" style="float: right;"

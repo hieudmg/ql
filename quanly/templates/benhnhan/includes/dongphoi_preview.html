@@ -6,7 +6,7 @@
             <td>{{ dp.tt.tenVo }}</td>
               <td>{{ dp.tt.tenChong }}</td>
               <td>{{ dp.tt.lienHe }}</td>
-            <td>{{ dp.tt.bs }}</td>
+            <td>{{ dp.tt.bs|default_if_none:"--------" }}</td>
             <td>
                 <span style="display: none">{{ dp.ngayDongPhoi|date:"Y+m+d" }}</span> {{ dp.ngayDongPhoi|date:"d/m/Y" }}
             </td>

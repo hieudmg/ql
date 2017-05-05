@@ -26,13 +26,13 @@
             {% if user.is_authenticated %}
                 <li><a href="#" data-toggle="dropdown" class="dropdown-toggle"><b class="text-primary"><span class="fa fa-user"></span> {{ user.username }} <strong class="caret"></strong> </b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{% url 'change_password' %}"><span class="fa fa-pencil"></span> Đổi mật khẩu</a></li>
-                        <li><a href="{% url 'logout' %}"><span class="fa fa-sign-out"></span> Đăng xuất</a></li>
+                        <li><a href="{% url 'change_password' %}?next={{request.path}}"><span class="fa fa-pencil"></span> Đổi mật khẩu</a></li>
+                        <li><a href="{% url 'logout' %}?next={{request.path}}"><span class="fa fa-sign-out"></span> Đăng xuất</a></li>
                     </ul>
 
                 </li>
             {% else %}
-                <li {% if request.path == '/login/' %} class="active"{% endif %}><a href="{% url 'login' %}">
+                <li {% if request.path == '/login/' %} class="active"{% endif %}><a href="{% url 'login' %}?next={{request.path}}">
                     <span class="fa fa-sign-in"></span>
                     Đăng nhập</a> </li>
             {% endif %}

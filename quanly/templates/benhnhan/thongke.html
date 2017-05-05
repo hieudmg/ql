@@ -159,8 +159,10 @@
             <button type="submit" class="btn btn-primary" onclick="tk()">
               <span class="glyphicon glyphicon-list-alt"></span>
             Thống kê</button>
-            <button class="btn btn-primary" id="js-thongke-edit">
-            <span class="fa fa-pencil-square-o"></span> Dữ liệu</button>
+            {% if user.is_authenticated %}
+                <button class="btn btn-primary" id="js-thongke-edit">
+                <span class="fa fa-pencil-square-o"></span> Dữ liệu</button>
+            {% endif %}
         </span>
         </h3>
   </div>
