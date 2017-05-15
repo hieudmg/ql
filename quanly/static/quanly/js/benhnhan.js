@@ -2,7 +2,7 @@ function loadData(){
     $('#thongtin-table').DataTable({
         "order": [[ 0, "desc" ]],
         columnDefs: [
-            { orderable: false, targets: [1, 2, 3, 4, 5, 6, 7, 8] }
+            { orderable: false, targets: [1, 2, 3, 4, 5, 6, 7, 8, 9] }
         ],
     "oLanguage": {
           "oPaginate": {
@@ -24,7 +24,7 @@ function loadData(){
         '</select>'
     }
    });
-
+    $('#thongtin-table').bootstrapTable({});
 }
 
 $(document).ready(function() {
@@ -77,19 +77,9 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
             $('#thongtin-table').DataTable().destroy();
             $("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
             $("#modal-thongtin").modal("hide");
-            loadData();
+            //loadData();
+            location.href = location.href;
             toastr.success('Thêm thành công');
-                /*$.ajax({
-                    url: "add/trung",
-                    type: 'get',
-                    dataType: 'json',
-                    beforeSend: function () {
-                        $("#modal-trung").modal("show");
-                    },
-                    success: function (data) {
-                        $("#modal-trung .modal-content").html(data.html_formtr);
-                    }
-                });*/
         }
         else {
           $("#modal-thongtin .modal-content").html(data.html_form);
@@ -171,7 +161,8 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
             $('#thongtin-table').DataTable().destroy();
             $("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
           $("#modal-thongtin").modal("hide");
-            loadData();
+            //loadData();
+            location.href = location.href;
             toastr.success('Sửa thành công');
         }
         else {
@@ -218,7 +209,8 @@ $("#modal-thongtin").on("submit", ".js-thongtin-add-form", function () {
             $('#thongtin-table').DataTable().destroy();
             $("#thongtin-table tbody").html(data.html_thongtin_preview);  // <-- Replace the table body
             $("#modal-thongtin").modal("hide");
-            loadData();
+            // loadData();
+            location.href = location.href;
             toastr.success('Đã xóa');
           }
           else {

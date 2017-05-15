@@ -7,6 +7,9 @@
         <script src="{% static 'context-menu/jquery.ui.position.min.js' %}"></script>
         <link rel="stylesheet" href="{% static 'context-menu/jquery.contextMenu.min.css' %}">
     {% endif %}
+    <script src="{% static 'datatable/DataTables-1.10.13/js/moment-with-locales.min.js' %}"></script>
+    <script src="{% static 'datetimepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'datetimepicker/css/bootstrap-datetimepicker.min.css' %}">
     <script src="{% static 'quanly/js/chochut.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
@@ -15,6 +18,16 @@
             z-index: 50;
         }
     </style>
+    <script type="text/javascript">
+        $(function () {
+            $('.picktime').datetimepicker({
+                sideBySide: true,
+                showTodayButton: true,
+                format: 'DD/MM/Y',
+                locale: 'vi'
+            });
+        });
+    </script>
 
     <script src="{% static 'datatable/DataTables-1.10.13/js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'datatable/DataTables-1.10.13/js/dataTables.bootstrap.min.js' %}"></script>
@@ -36,6 +49,7 @@
   <button class="btn btn-default" title="Làm mới" onclick="location.href = location.href"><span class="fa fa-refresh"></span></button>
       Chọc hút
             {% if user.is_authenticated %}
+              {% if data.chonngay %}
   <button type="button"
             style="float: right"
             class="btn btn-primary js-chochut-ex"
@@ -43,13 +57,31 @@
       <span class="glyphicon glyphicon-paste"></span>
       Xuất báo cáo
     </button>
+                  {% endif %}
   {% endif %}
   </h3>
+
+<div class="row">
+    <div class="col-xs-8"></div>
+    <div class="form-group col-xs-4">
+        <div class='input-group date picktime'>
+            <input id="chon-ngay" type="text" class="form-control input-sm" value="{% now "%d/%m/%Y" %}">
+                <span class="input-group-addon">
+                    <small><span class="glyphicon glyphicon-calendar"></span></small>
+                </span>
+    <span>
+        <button style="float: right" class="btn btn-primary btn-sm" onclick="location.href = location.pathname + '?d=' + $('#chon-ngay').val()">
+            Chọn ngày</button>
+    </span>
+        </div>
+    </div>
+</div>
     <div>
         <table id="thongtin-table" class="table " cellspacing="0" width="100%">
         <thead>
           <tr>
-            <th>STT</th>
+
+            <th {% if not data.chonngay %} style="display: none" {% endif %}>STT</th>
             <th>Mã hồ sơ</th>
             <th>Tên vợ</th>
               <th>N/s vợ</th>
@@ -67,6 +99,10 @@
         </tbody>
       </table>
     </div>
+
+<div style="display: none">
+    <input id="chonngay" value="{% if data.chonngay %} 7 {% else %} 6 {% endif %}">
+</div>
 
   <div class="modal fade" id="modal-chochut">
     <div id="modal-chochut-setup" class="modal-dialog modal-lg">

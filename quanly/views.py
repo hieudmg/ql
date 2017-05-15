@@ -306,9 +306,28 @@ def kythuatvien_del(request, pk):
     return JsonResponse(data)
 
 
+def chochut_stt():
+    chochut = list(ChocHut.objects.filter(added=True).order_by('gioCH'))
+    chochut[0].stt = 1
+    chochut[0].save()
+    for i in range(0, chochut.__len__() - 1, 1):
+        if chochut[i].gioCH.date() == chochut[i + 1].gioCH.date():
+            chochut[i + 1].stt = chochut[i].stt + 1
+        else:
+            chochut[i + 1].stt = 1
+        chochut[i + 1].save()
+
+
 def chochut_list(request):
-    chochut = ChocHut.objects.all().order_by('stt')
-    return render(request, 'benhnhan/chochut_list.html', {'chochut': chochut})
+    data = dict()
+    try:
+        datetime.strptime(str(request.GET.get('d')), '%d/%m/%Y')
+        data['chonngay'] = True
+    except ValueError:
+        data['chonngay'] = False
+    chochut_stt()
+    chochut = ChocHut.objects.all()
+    return render(request, 'benhnhan/chochut_list.html', {'chochut': chochut, 'data': data})
 
 
 def chochut_add(request, pk):
@@ -321,7 +340,6 @@ def chochut_add(request, pk):
     if not chochut.added:
         chochut.HCG = datetime.now
         chochut.gioCH = datetime.now
-        chochut.stt = len(ChocHut.objects.filter(added=True)) + 1
         data['added'] = False
 
     if request.method == 'POST':
@@ -329,6 +347,7 @@ def chochut_add(request, pk):
         form = FormTT(request.POST, instance=thongtin)
         if formch.is_valid():
             formch.save()
+            chochut_stt()
             data['form_is_valid'] = True
         else:
             data['form_is_valid'] = False
@@ -346,15 +365,21 @@ def chochut_add(request, pk):
 
 def chochut_edit(request, pk):
     data = dict()
+    try:
+        datetime.strptime(str(request.GET.get('d')), '%d/%m/%Y')
+        data['chonngay'] = True
+    except ValueError:
+        data['chonngay'] = False
 
     thongtin = get_object_or_404(ThongTin, pk=pk)
     chochut = thongtin.chochut
     if request.method == 'POST':
         formch = FormCH(request.POST, instance=chochut)
         form = FormTT(instance=thongtin)
+        chochut_stt()
         if formch.is_valid():
             formch.save()
-            chochut = ChocHut.objects.all().order_by('stt')
+            chochut = ChocHut.objects.all()
             data['html_chochut_preview'] = render_to_string('benhnhan/includes/chochut_preview.html', {
                 'chochut': chochut, 'user': request.user
             })
@@ -377,17 +402,17 @@ def chochut_del(request, pk):
     data = dict()
     thongtin = get_object_or_404(ThongTin, pk=pk)
     chochut = thongtin.chochut
+    try:
+        datetime.strptime(str(request.GET.get('d')), '%d/%m/%Y')
+        data['chonngay'] = True
+    except ValueError:
+        data['chonngay'] = False
 
     if request.method == 'POST':
+        chochut_stt()
         chochut.added = False
         chochut.save()
         data['form_is_valid'] = True
-        chochut = ChocHut.objects.filter(added=True).order_by('stt')
-        _i = 1
-        for ch in chochut:
-            ch.stt = _i
-            ch.save()
-            _i += 1
         chochut = ChocHut.objects.all().order_by('stt')
         data['html_chochut_preview'] = render_to_string('benhnhan/includes/chochut_preview.html', {
             'chochut': chochut, 'user': request.user
@@ -500,7 +525,7 @@ def dongphoi_add(request, pk):
     if not dongphoi.added:
         dtn = date.today()
         dongphoi.ngayDongPhoi = dtn
-        dongphoi.ngayNopTien = dtn + relativedelta(years=1)
+        dongphoi.ngayNopTien = dtn + relativedelta(months=6)
         data['added'] = False
 
     if request.method == 'POST':
@@ -584,13 +609,9 @@ def chochut_ex(request):
             document._body.clear_content()
             document.add_heading(u"Ngày chọc hút: " + formch.cleaned_data['chonNgay'].strftime("%d/%m/%Y"), level=1)
 
-            row = 0
-            chdis = []
-            for ch in chochut:
-                if ch.gioCH.date() == formch.cleaned_data['chonNgay']:
-                    chdis.append(1)
-                    chdis[row] = ch
-                    row += 1
+            chonNgay = formch.cleaned_data['chonNgay']
+            chdis = ChocHut.objects.filter(gioCH__date=chonNgay)
+            row = chdis.__len__()
 
             table = document.add_table(rows=row, cols=0, style='Table1')
             table.add_column(width=Cm(0.83))
@@ -614,12 +635,14 @@ def chochut_ex(request):
                                                                                    't3').bold = False
 
                 cell = table.cell(i, 2)
-                cell.text = 'HCG: ' + ci.HCG.strftime('%H:%M')
+                cell.text = 'HCG: ' + (ci.HCG + relativedelta(hours=7)).strftime('%H:%M')
                 cell.paragraphs[0].style = document.styles['Text4']
-                # cell.paragraphs[0].paragraph_format = document.styles['Text4'].paragraph_format
-                # cell.add_paragraph('HCG: ' + ci.HCG.strftime('%H:%m'), style='Text4')
-                cell.add_paragraph('CH: ' + ci.gioCH.strftime('%H:%M'), style='Text4')
-                cell.add_paragraph('BS: ' + ci.tt.bs.ten, style='Text4')
+                cell.add_paragraph('CH: ' + (ci.gioCH + relativedelta(hours=7)).strftime('%H:%M'), style='Text4')
+                if ci.tt.bs is not None:
+                    ten = ci.tt.bs.ten
+                else:
+                    ten = ''
+                cell.add_paragraph('BS: ' + ten, style='Text4')
                 cell.add_paragraph(str(ci.soNang) + 'N', style='Text2')
 
                 cell = table.cell(i, 3)
@@ -745,7 +768,11 @@ def chuyenphoi_ex(request):
                     cell.add_paragraph(cp.tt.tenChong + u' - ' + str(cp.tt.nsChong), style='t3')
                     cell.add_paragraph(' ', style='t3')
                     cell.add_paragraph(' ', style='t3')
-                    cell.add_paragraph(u'BS ' + cp.tt.bs.ten, style='t4')
+                    if cp.tt.bs is not None:
+                        ten = cp.tt.bs.ten
+                    else:
+                        ten = ''
+                    cell.add_paragraph('BS ' + ten, style='t4')
 
                     cell = row.cells[2]
                     cell.text = 'HS: ' + cp.tt.maSo
@@ -836,9 +863,12 @@ def theodoiphoi(request, pk):
             table.cell(2, 2).paragraphs[0].add_run(str(thongtin.nsVo), 't1')
             table.cell(2, 2).paragraphs[1].add_run(str(thongtin.nsChong), 't1')
             table.cell(2, 3).paragraphs[0].add_run(thongtin.chochut.gioCH.strftime('%d/%m/%Y'), 't1')
-            table.cell(2, 3).paragraphs[1].add_run(thongtin.bs.ten, 't1')
-            table.cell(2, 3).paragraphs[2].add_run(thongtin.chochut.HCG.strftime('%H:%M'), 't1')
-            table.cell(2, 3).paragraphs[3].add_run(thongtin.chochut.gioCH.strftime('%H:%M'), 't1')
+            if thongtin.bs is not None:
+                table.cell(2, 3).paragraphs[1].add_run(thongtin.bs.ten, 't1')
+            table.cell(2, 3).paragraphs[2]\
+                .add_run((thongtin.chochut.HCG + relativedelta(hours=7)).strftime('%H:%M'), 't1')
+            table.cell(2, 3).paragraphs[3]\
+                .add_run((thongtin.chochut.gioCH + relativedelta(hours=7)).strftime('%H:%M'), 't1')
 
             document.save('docx/download.docx')
             data['form_is_valid'] = True
@@ -901,7 +931,9 @@ def IVF(request, pk):
             table.cell(2, 7).paragraphs[0].add_run(str(thongtin.nsVo), 't1')
             table.cell(2, 7).paragraphs[1].add_run(str(thongtin.nsChong), 't1')
             table.cell(3, 0).paragraphs[0].add_run(thongtin.chochut.gioCH.strftime('%d/%m/%Y'), 't1')
-            table.cell(3, 0).paragraphs[1].add_run(thongtin.bs.ten, 't1')
+            table.cell(3, 7).paragraphs[0].add_run(thongtin.maSo, 't1')
+            if thongtin.bs is not None:
+                table.cell(3, 0).paragraphs[1].add_run(thongtin.bs.ten, 't1')
 
             document.save('docx/download.docx')
             data['form_is_valid'] = True

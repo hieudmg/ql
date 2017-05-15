@@ -20,7 +20,8 @@ class FormTT(forms.ModelForm):
                   'bs',
                   'hienTinhTrung',
                   'hienNoan',
-                  'ngayNhap'
+                  'ngayNhap',
+                  'diaChi'
                   )
 
 

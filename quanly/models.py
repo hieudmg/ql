@@ -22,6 +22,7 @@ class ThongTin(models.Model):
     nsVo = models.IntegerField(validators=[MaxValueValidator(2000), MinValueValidator(1950)])
     nsChong = models.IntegerField(validators=[MaxValueValidator(2000), MinValueValidator(1950)])
     lienHe = models.CharField(max_length=30, blank=True)
+    diaChi = models.CharField(max_length=30, blank=True)
     hienTinhTrung = models.BooleanField(default=False)
     hienNoan = models.CharField(max_length=30, blank=True)
     ngayNhap = models.DateField(default=datetime.now, blank=True)

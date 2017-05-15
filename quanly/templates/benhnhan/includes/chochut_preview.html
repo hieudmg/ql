@@ -1,19 +1,19 @@
 {% for ch in chochut %}
     {% if ch.added %}
     <tr class="thongtin-row" data-url="{% url 'benhnhan_list' %}{{ ch.tt.id }}/">
-            <td>{{ ch.stt }}</td>
+            <td {% if not data.chonngay %} style="display: none" {% endif %}>{{ ch.stt }}</td>
             <td>{{ ch.tt.maSo }}</td>
             <td>{{ ch.tt.tenVo }}</td>
               <td>{{ ch.tt.nsVo }}</td>
               <td>{{ ch.tt.tenChong }}</td>
               <td>{{ ch.tt.nsChong }}</td>
             <td>{{ ch.tt.bs|default_if_none:"--------" }}</td>
-            <td style="display: none">{{ ch.gioCH|date:"H:i d/m/Y" }}{{ ch.HCG|date:"H:i d/m/Y" }}</td>
+            <td style="display: none">{{ ch.gioCH|date:"Y_m_d_H_i" }}{{ ch.gioCH|date:"H:i d/m/Y" }}{{ ch.HCG|date:"H:i d/m/Y" }}</td>
             <td title="{{ ch.HCG|date:"H:i d/m/Y" }}">
-                <span style="display: none">{{ ch.HCG|date:"Y/d/m" }}</span> {{ ch.HCG|date:"H:i" }}
+                <span style="display: none">{{ ch.HCG|date:"Y/m/d" }}</span> {{ ch.HCG|date:"H:i" }}
             </td>
             <td title="{{ ch.gioCH|date:"H:i d/m/Y" }}">
-                <span style="display: none">{{ ch.gioCH|date:"m/d/Y" }}</span> {{ ch.gioCH|date:"H:i" }}
+                {{ ch.gioCH|date:"H:i" }}
             </td>
             <td>{{ ch.soNang }}
             {% if user.is_authenticated %}

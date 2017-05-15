@@ -1,8 +1,8 @@
 function loadData(){
     $('#thongtin-table').DataTable({
-    "order": [],
+    "order": [7],
         columnDefs: [
-            { orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 9, 10] }
+            { orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 8, 9, 10] }
         ],
     "oLanguage": {
           "oPaginate": {
@@ -45,14 +45,22 @@ $(document).ready(function() {
       "hideEasing": "linear",
       "showMethod": "fadeIn",
       "hideMethod": "fadeOut"
-    }
+    };
 });
+
+function parse() {
+    var idx = location.href.indexOf('?d=');
+    if (idx != -1)
+        return location.href.slice(idx);
+    else
+        return '';
+}
 
 
     $("#modal-chochut").on("submit", ".js-chochut-edit-form", function(){
     var formch = $(this);
     $.ajax({
-      url: formch.attr("action"),
+      url: formch.attr("action") + parse(),
       data: formch.serialize(),
       type: formch.attr("method"),
       dataType: 'json',
@@ -76,7 +84,7 @@ $(document).ready(function() {
     $("#modal-chochut").on("submit", ".js-chochut-del-form", function () {
       var form = $(this);
       $.ajax({
-        url: form.attr("action"),
+        url: form.attr("action") + parse(),
         data: form.serialize(),
         type: form.attr("method"),
         dataType: 'json',
@@ -125,7 +133,7 @@ $(document).ready(function() {
                     callback: function (key, opt){
                             if (opt.$trigger.attr("data-url"))
                                 $.ajax({
-                                    url: opt.$trigger.attr("data-url") + key,
+                                    url: opt.$trigger.attr("data-url") + key + parse(),
                                     type: 'get',
                                     dataType: 'json',
                                     beforeSend: function () {
@@ -152,7 +160,7 @@ $(document).ready(function() {
                     callback: function (key, opt){
                             if (opt.$trigger.attr("data-url"))
                                 $.ajax({
-                                    url: opt.$trigger.attr("data-url") + key,
+                                    url: opt.$trigger.attr("data-url") + key + parse(),
                                     type: 'get',
                                     dataType: 'json',
                                     beforeSend: function () {
@@ -174,7 +182,7 @@ $(function () {
   $(".js-chochut-ex").click(function () {
     var btn = $(this);
     $.ajax({
-      url: btn.attr("data-url"),
+      url: btn.attr("data-url") + parse(),
       type: 'get',
       dataType: 'json',
       beforeSend: function () {
