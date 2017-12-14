@@ -47,7 +47,7 @@
     </div>
   <h3 class="page-header">
   <button class="btn btn-default" title="Làm mới" onclick="location.href = location.href"><span class="fa fa-refresh"></span></button>
-      Chọc hút
+      Chọc hút {% if data.chonngay %} ngày {{ request.GET.d }} {% endif %}
             {% if user.is_authenticated %}
               {% if data.chonngay %}
   <button type="button"
@@ -60,12 +60,12 @@
                   {% endif %}
   {% endif %}
   </h3>
-
 <div class="row">
     <div class="col-xs-8"></div>
     <div class="form-group col-xs-4">
         <div class='input-group date picktime'>
-            <input id="chon-ngay" type="text" class="form-control input-sm" value="{% now "%d/%m/%Y" %}">
+            <input id="chon-ngay" type="text" class="form-control input-sm"
+                    value="{% if data.chonngay %} {{ request.GET.d }} {% else %} {% now "%d/%m/%Y" %} {% endif %}">
                 <span class="input-group-addon">
                     <small><span class="glyphicon glyphicon-calendar"></span></small>
                 </span>

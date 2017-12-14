@@ -319,14 +319,15 @@ def chochut_stt():
 
 
 def chochut_list(request):
+    chochut_stt()
     data = dict()
     try:
-        datetime.strptime(str(request.GET.get('d')), '%d/%m/%Y')
+        ngay = datetime.strptime(str(request.GET.get('d')), '%d/%m/%Y')
         data['chonngay'] = True
+        chochut = ChocHut.objects.filter(added=True).filter(gioCH__date=ngay)
     except ValueError:
         data['chonngay'] = False
-    chochut_stt()
-    chochut = ChocHut.objects.all()
+        chochut = ChocHut.objects.filter(added=True)
     return render(request, 'benhnhan/chochut_list.html', {'chochut': chochut, 'data': data})
 
 
@@ -365,8 +366,9 @@ def chochut_add(request, pk):
 
 def chochut_edit(request, pk):
     data = dict()
+    ngay = ''
     try:
-        datetime.strptime(str(request.GET.get('d')), '%d/%m/%Y')
+        ngay = datetime.strptime(str(request.GET.get('d')), '%d/%m/%Y')
         data['chonngay'] = True
     except ValueError:
         data['chonngay'] = False
@@ -379,9 +381,12 @@ def chochut_edit(request, pk):
         chochut_stt()
         if formch.is_valid():
             formch.save()
-            chochut = ChocHut.objects.all()
+            if data['chonngay']:
+                chochut = ChocHut.objects.filter(added=True).filter(gioCH__date=ngay)
+            else:
+                chochut = ChocHut.objects.filter(added=True)
             data['html_chochut_preview'] = render_to_string('benhnhan/includes/chochut_preview.html', {
-                'chochut': chochut, 'user': request.user
+                'chochut': chochut, 'user': request.user, 'data': data
             })
             data['form_is_valid'] = True
         else:
@@ -402,8 +407,9 @@ def chochut_del(request, pk):
     data = dict()
     thongtin = get_object_or_404(ThongTin, pk=pk)
     chochut = thongtin.chochut
+    ngay = ''
     try:
-        datetime.strptime(str(request.GET.get('d')), '%d/%m/%Y')
+        ngay = datetime.strptime(str(request.GET.get('d')), '%d/%m/%Y')
         data['chonngay'] = True
     except ValueError:
         data['chonngay'] = False
@@ -413,9 +419,12 @@ def chochut_del(request, pk):
         chochut.added = False
         chochut.save()
         data['form_is_valid'] = True
-        chochut = ChocHut.objects.all().order_by('stt')
+        if data['chonngay']:
+            chochut = ChocHut.objects.filter(added=True).filter(gioCH__date=ngay)
+        else:
+            chochut = ChocHut.objects.filter(added=True)
         data['html_chochut_preview'] = render_to_string('benhnhan/includes/chochut_preview.html', {
-            'chochut': chochut, 'user': request.user
+            'chochut': chochut, 'user': request.user, 'data': data
         })
     else:
         context = {'chochut': chochut}
@@ -601,16 +610,21 @@ last_file_name = ''
 
 def chochut_ex(request):
     data = dict()
-    chochut = ChocHut.objects.filter(added=True)
+    ngay = ''
+    try:
+        ngay = datetime.strptime(str(request.GET.get('d')), '%d/%m/%Y')
+        data['chonngay'] = True
+    except ValueError:
+        data['chonngay'] = False
+
     if request.method == 'POST':
         formch = FormExCH(request.POST)
         if formch.is_valid():
             document = Document('docx/landscape-template.docx')
             document._body.clear_content()
-            document.add_heading(u"Ngày chọc hút: " + formch.cleaned_data['chonNgay'].strftime("%d/%m/%Y"), level=1)
+            document.add_heading(u"Ngày chọc hút: " + ngay.strftime("%d/%m/%Y"), level=1)
 
-            chonNgay = formch.cleaned_data['chonNgay']
-            chdis = ChocHut.objects.filter(gioCH__date=chonNgay)
+            chdis = ChocHut.objects.filter(gioCH__date=ngay)
             row = chdis.__len__()
 
             table = document.add_table(rows=row, cols=0, style='Table1')
@@ -662,7 +676,7 @@ def chochut_ex(request):
             document.save('docx/download.docx')
             global last_file_name
             last_file_name = 'attachment; filename="Choc-hut-' \
-                             + formch.cleaned_data['chonNgay'].strftime("%d-%m-%Y") \
+                             + ngay.strftime("%d-%m-%Y") \
                              + '.docx"'
         else:
             data['form_is_valid'] = False

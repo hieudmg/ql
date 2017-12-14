@@ -15,16 +15,8 @@
     <h4 class="modal-title">Xuất báo cáo</h4>
   </div>
   <div class="modal-body">
-    <div>
-        <div class="form-group">
-            <label for="{{ formch.chonNgay.id_for_label }}">Chọn ngày</label>
-            <div class='input-group date picktime'>
-                {% render_field formch.chonNgay class="form-control input-sm" type="text" %}
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        </div>
+    <div style="display: none">
+                {% render_field formch.chonNgay class="form-control input-sm" type="text" value="01/01/2017" %}
 </div>
   </div>
   <div class="modal-footer">
@@ -37,13 +29,3 @@
   </div>
 </form>
 
-
-<script type="text/javascript">
-    $(function () {
-        $('.picktime').datetimepicker({
-            showTodayButton: true,
-            format: 'DD/MM/Y',
-            locale: 'vi'
-        });
-    });
-</script>

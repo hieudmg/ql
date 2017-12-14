@@ -1,6 +1,6 @@
 function loadData(){
     $('#thongtin-table').DataTable({
-    "order": [7],
+    "order": [7, 'asc'],
         columnDefs: [
             { orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 8, 9, 10] }
         ],
@@ -200,7 +200,7 @@ $(function () {
 $("#modal-chochut").on("submit", ".js-chochut-ex-form", function(){
     var formch = $(this);
         $.ajax({
-            url: formch.attr("action"),
+            url: formch.attr("action") + parse(),
             data: formch.serialize(),
             type: formch.attr("method"),
             dataType: 'json',
